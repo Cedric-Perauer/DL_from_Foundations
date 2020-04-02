@@ -1,4 +1,12 @@
-# Fastai_DL_from_the_foundations
+---
+toc: true
+layout: post
+description: A minimal example of using markdown with fastpages.
+categories: [markdown]
+title: Fastai DL from the Foundations Part1
+---
+
+# Fastai DL from the Foundations Part1
 The idea of this Repo is to manage and document the Code for the fastai Deep Learning from the foundations course and include Papers and Summaries of them when it is helpful to do so. The course focuses on building large components of the fastai library and Pytorch from scratch to allow deep understanding of the fastai and Pytorch frameworks, which enables the creation of own algorithms and makes debugging easier. 
 
 ![](https://github.com/Cedric-Perauer/Fastai_DL_from_the_foundations/blob/master/images/1_RwzUcBlGybc9YFBMyYCTWw.png)
