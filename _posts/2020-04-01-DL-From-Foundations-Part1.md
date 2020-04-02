@@ -14,7 +14,7 @@ The idea of this Repo is to manage and document the Code for the fastai Deep Lea
 ##### The Code is based on the code in the fastai course (v3), check out [their repo](https://github.com/fastai/course-v3) which also includes part 1 which is realy focused on the practical side of things. Thank you to Jeremy, Rachel and the fastai Team for this great course. 
 
 In order to understand the material of part 2, you should be familiar with the following concepts, depending on each category : 
-## Fundamentals
+##  Fundamentals
 + [Affine functions & non-linearities](https://course.fast.ai/)
 + [Parameters & activations](https://course.fast.ai/)
 + [Random weight initalization and transfer learning](https://course.fast.ai/)
@@ -36,7 +36,7 @@ In order to understand the material of part 2, you should be familiar with the f
 
 
 
- ## Lesson 1 
+ ##  Lesson 1 
  
  As we already know DL is mainly based on Linear Algebra, so let's implement some simple Matrix Multiplication !
  We already know that ``np.matmul`` can be used for this, bur let's do it ourselves. 
