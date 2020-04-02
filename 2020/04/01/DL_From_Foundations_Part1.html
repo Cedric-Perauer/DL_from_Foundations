@@ -1,0 +1,339 @@
+<h1 id="fastai_dl_from_the_foundations">Fastai_DL_from_the_foundations</h1>
+<p>The idea of this Repo is to manage and document the Code for the fastai Deep Learning from the foundations course and include Papers and Summaries of them when it is helpful to do so. The course focuses on building large components of the fastai library and Pytorch from scratch to allow deep understanding of the fastai and Pytorch frameworks, which enables the creation of own algorithms and makes debugging easier.</p>
+
+<p><img src="https://github.com/Cedric-Perauer/Fastai_DL_from_the_foundations/blob/master/images/1_RwzUcBlGybc9YFBMyYCTWw.png" alt="" /></p>
+
+<h5 id="the-code-is-based-on-the-code-in-the-fastai-course-v3-check-out-their-repo-which-also-includes-part-1-which-is-realy-focused-on-the-practical-side-of-things-thank-you-to-jeremy-rachel-and-the-fastai-team-for-this-great-course">The Code is based on the code in the fastai course (v3), check out <a href="https://github.com/fastai/course-v3">their repo</a> which also includes part 1 which is realy focused on the practical side of things. Thank you to Jeremy, Rachel and the fastai Team for this great course.</h5>
+
+<p>In order to understand the material of part 2, you should be familiar with the following concepts, depending on each category :</p>
+<h2 id="0-fundamentals">0. Fundamentals</h2>
+<ul>
+  <li><a href="https://course.fast.ai/">Affine functions &amp; non-linearities</a></li>
+  <li><a href="https://course.fast.ai/">Parameters &amp; activations</a></li>
+  <li><a href="https://course.fast.ai/">Random weight initalization and transfer learning</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=5">Stochastic gradient descent, Momentum and ADAM (a combination of RMSprop and Momentum)</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=5">Regularization techniques, specifically batch norm, dropout, weight decay and data augmentation</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=4">Embeddings</a>
+    <h3 id="vision">Vision</h3>
+  </li>
+  <li><a href="https://course.fast.ai/videos/?lesson=1">Image classification and Regression Lesson 1</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=2">Image classification and Regression Lesson 2</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=6">Conv Nets</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=7">Residual and dense blocks</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=3">Segmentation : U-Net</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=7">GANs</a>
+    <h3 id="nlp">NLP</h3>
+  </li>
+  <li><a href="https://course.fast.ai/videos/?lesson=4">Language models &amp; NLP</a>
+    <h3 id="tabular-data">Tabular Data</h3>
+  </li>
+  <li><a href="https://course.fast.ai/videos/?lesson=4">Continious &amp; categorical variables</a></li>
+  <li><a href="https://course.fast.ai/videos/?lesson=4">Collaborative filtering</a></li>
+</ul>
+
+<p>## 1. Lesson 1</p>
+
+<p>As we already know DL is mainly based on Linear Algebra, so let’s implement some simple Matrix Multiplication !
+ We already know that <code class="highlighter-rouge">np.matmul</code> can be used for this, bur let’s do it ourselves.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> def matmul(a,b):
+    ar,ac = a.shape # n_rows * n_cols 
+    br,bc = b.shape
+    assert ac==br #check for right dimensions =&gt; output dim is ar,bc
+    c = torch.zeros(ar, bc) 
+    for i in range(ar):
+        for j in range(bc):
+            for k in range(ac): # or br
+                c[i,j] += a[i,k] * b[k,j]
+    return c
+ 
+</code></pre></div></div>
+<p>This is a very simple and inefficient implementation, which runs in 572 ms on my CPU with matrix dimensions 5x784 multiplied by 784x10. As expected the output array has 5 rows, if we used MNIST (50k) rows onw forward pass would take more than an hour which is unacceptable.</p>
+
+<p>To improve this we can pass the Code down to a lower level language (Pytorch uses <a href="https://pytorch.org/cppdocs/">ATen</a> a Tensor library for this). This can be done with elementwise multiplication (also works on Tensors with rank &gt; 1) :</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def matmul(a,b):
+    ar,ac = a.shape
+    br,bc = b.shape
+    assert ac==br
+    c = torch.zeros(ar, bc)
+    for i in range(ar):
+        for j in range(bc):
+            c[i,j] = (a[i,:] * b[:,j]).sum() #row by column 
+    return c
+</code></pre></div></div>
+
+<p><img src="images/frobenius.png" alt="" /></p>
+
+<p>This is essentially using the above formula and executing it in C code, with a runtime of : 802 µs ± 60.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each). Which is about 714 times faster than the first implementation ! Wooho we are done !</p>
+
+<h3 id="broadcasting">Broadcasting</h3>
+
+<p>Hold on not so fast ! We can still do better by removing the inner loop with Broadcasting. Broadcasting “broadcasts” the smaller array across the larger one, so they have compatible shapes, operations are vecorized so that loops are executed in C without any overhead. You can see the broadcasted version of a vector by calling :</p>
+<pre><code class="language-&lt;smaller_array&gt;.expand_as(&lt;larger_array&gt;)```">afetr expansion you can call :     
+```&lt;smaller_array&gt;.storage()```    
+and you will see that no additional memory is needed. With this our matmul looks like this : 
+
+
+</code></pre>
+<p>def matmul(a,b):
+    ar,ac = a.shape
+    br,bc = b.shape
+    assert ac==br
+    c = torch.zeros(ar, bc)
+    for i in range(ar):
+        c[i]   = (a[i ].unsqueeze(-1) * b).sum(dim=0) #unsqueeze is used to unsqueeze a to rank 2
+    return c</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>This code executes in 172 µs ± 14.3 µs per loop (mean ± std. dev. of 7 runs, 10 loops each). Which means we are 3325.81 faster than in the beginning, nice. 
+
+### Einstein Summation 
+
+A compact representation to combine products and sums in a general way. 
+
+</code></pre></div></div>
+<p>def matmul(a,b): return torch.einsum(‘ik,kj-&gt;ij’, a, b)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+This speeds up the code a little more (factor 3575 compared to the start), but more improvements can be made. 
+
+
+It uses this string "mini language" (sort of like regex) to specify the multiply, it is a little bit annoying and languages like Swift will hopefully allow us to get rid of this. 
+
+
+### Pytorch Op 
+
+Pushes the code to BLAS, Hardware optimized code. We can not specify this with Pytorch, with Swift this could be optimized by the programmer more easily. A classic operation is the @ operator, it can do more than matmul (such as Batch wise, Tensor Reductions,...). 
+
+
+### Matmul Summary 
+| Algorithm                                   | Runtime on CPU  | Factor improvement |   |   |
+|---------------------------------------------|-----------------|--------------------|---|---|
+| Naive Loops                                 | 572 ms          | 1                  |   |   |
+| Loops + elementwise row/column multiply     | 802 µs          | 714                |   |   |
+| Brodacasting                                | 172 µs          | 3326               |   |   |
+| Einstein Summation                          | 160 µs          | 3575               |   |   |
+| Pytorch's function (uses HW specific BLAS)  | 86 µs           | 6651               |   |   |
+
+## Now let's use it to init our weights and code RELU
+
+### Init
+
+We create a 2layer Net, with a hidden layer of size 50. 
+
+m is the 2nd dimension size of our input. 
+</code></pre></div></div>
+<p>nh = 50
+w1 = torch.randn(m,nh)/math.sqrt(m)
+b1 = torch.zeros(nh)
+w2 = torch.randn(nh,1)/math.sqrt(nh)
+b2 = torch.zeros(1)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Randn gives us weights with mean 0 and std of 1. Just using random numbers the mean and std of our output vector will be way off. In order to avoid this we divide by sqrt(m), which will keep our output mean and std in bounds. 
+
+Another common initalization method is Xavier Initalization. Check out [Andrej Karpathy's lecture](https://www.youtube.com/watch?v=mzkOF4tULj8) (starting at about 45:00) for a good explanation 
+Even more advanced methods like [Fixup initalization](https://arxiv.org/abs/1901.09321) can be used. The authors of the paper are able to learn deep nets (up to 10k layers) as stable without normalization when using Fixup. 
+
+Problem : if the variance halves each layer, the activation will vanish after some time, leading to dead neurons. 
+
+Due to this the [2015 ImageNet ResNet winners](https://arxiv.org/abs/1502.01852) suggested this method : 
+![](images/resnet_init.png)
+essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step. 
+
+#### Kaiming init in code : 
+```# kaiming init / he init for relu
+w1 = torch.randn(m,nh)*math.sqrt(2/m)
+</code></pre></div></div>
+
+<h4 id="relu-can-be-implemented-easily-it-clamps-values-below-0-and-is-linear-otherwise-">ReLu can be implemented easily, it clamps values below 0 and is linear otherwise :</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def relu(x): return x.clamp_min(0.)
+</code></pre></div></div>
+
+<p>Leaky ReLu avoids 0-ing the gradient by using a small negative slope below 0 (0.01 usually).</p>
+
+<h4 id="therfore-kaiming-init-with-relu-can-be-implemented-like-this-">Therfore Kaiming init with ReLU can be implemented like this :</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>w1 = torch.randn(m,nh)*math.sqrt(2./m )
+t1 = relu(lin(x_valid, w1, b1))
+t1.mean(),t1.std()
+</code></pre></div></div>
+
+<h3 id="warning-">Warning !!</h3>
+<p>The Pytorch source code for <code class="highlighter-rouge">torch.nn.Conv2d</code>
+uses a kaiming init with :</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>init.kaiming_uniform_(self.weight, a=math.sqrt(5))
+</code></pre></div></div>
+<p>.sqrt(5) is mysterious and does not seem to be a good idea</p>
+
+<h3 id="loss-function-mse">Loss Function MSE</h3>
+<p>Now that we have done almost one forward pass,we still need to implement an error function. MSE Error, popular for regression tasks, can be implemented like this :</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def mse(output, targ): return (output.squeeze(-1) - targ).pow(2).mean()
+</code></pre></div></div>
+
+<p>.squeeze() is used to get rid of a trainiling (,1) in this case.</p>
+
+<h2 id="gradient-and-backward-pass">Gradient and Backward Pass</h2>
+<p>Mathematically the Backward Pass uses the chain rule to compute all of the gradients. 
+<img src="images/gradient.png" alt="" /></p>
+
+<p>In order to Backprop effectively, we need to calc the gradients of all of our components. In our case these are our loss, activation functions (only ReLu, which is easy) and our linear layers.</p>
+
+<p>I suggest <a href="https://www.youtube.com/watch?v=i94OvYb6noo&amp;t=1472s">CS 231n by Andrej Karpathy</a> for mathematical explanation of Backprop.</p>
+
+<h4 id="lets-start-with-mse-">Let’s start with MSE :</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def mse_grad(inp, targ): 
+    # grad of loss with respect to output of previous layer
+    inp.g = 2. * (inp.squeeze() - targ).unsqueeze(-1) / inp.shape[0]
+</code></pre></div></div>
+
+<h3 id="relu-">Relu :</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def relu_grad(inp, out):
+    # grad of relu with respect to input activations
+    inp.g = (inp&gt;0).float() * out.g
+</code></pre></div></div>
+<p>Very simple, the gradient is either 0 or 1. In the Leaky Relu Case it’s either -0.01 or 1.</p>
+
+<h3 id="linear-layers">Linear Layers</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def lin_grad(inp, out, w, b):
+    # grad of matmul with respect to input
+    inp.g = out.g @ w.t() #matrix prod with the transpose 
+    w.g = (inp.unsqueeze(-1) * out.g.unsqueeze(1)).sum(0)
+    b.g = out.g.sum(0)
+</code></pre></div></div>
+
+<h3 id="forward-and-backward-pass">Forward and Backward Pass</h3>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def forward_and_backward(inp, targ):
+    # forward pass:
+    l1 = inp @ w1 + b1
+    l2 = relu(l1)
+    out = l2 @ w2 + b2
+    # we don't actually need the loss in backward!
+    loss = mse(out, targ)
+    
+    # backward pass, just reverse order:
+    mse_grad(out, targ)
+    lin_grad(l2, out, w2, b2)
+    relu_grad(l1, l2)
+    lin_grad(inp, l1, w1, b1)
+</code></pre></div></div>
+
+<h3 id="in-order-to-check-our-results-we-can-use-pytorch--">In order to check our results, we can use Pytorch  :</h3>
+
+<p>We can control our results with Pytorch auto_grad() function</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xt2 = x_train.clone().requires_grad_(True)
+w12 = w1.clone().requires_grad_(True)
+w22 = w2.clone().requires_grad_(True)
+b12 = b1.clone().requires_grad_(True)
+b22 = b2.clone().requires_grad_(True)
+</code></pre></div></div>
+
+<p>.requires_grad(True) turns a tensor in to an autograd so it can keep track of each step</p>
+
+<h3 id="refactor">Refactor</h3>
+
+<p>It’s always good to refactor our code. This can be done by creating classes and using our functions. One for forward and one for backward pass.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Relu():
+    def __call__(self, inp):
+        self.inp = inp
+        self.out = inp.clamp_min(0.)-0.5
+        return self.out
+    
+    def backward(self): self.inp.g = (self.inp&gt;0).float() * self.out.g
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Lin():
+    def __init__(self, w, b): self.w,self.b = w,b
+        
+    def __call__(self, inp):
+        self.inp = inp
+        self.out = inp@self.w + self.b
+        return self.out
+    
+    def backward(self):
+        self.inp.g = self.out.g @ self.w.t()
+        # Creating a giant outer product, just to sum it, is inefficient!
+        self.w.g = (self.inp.unsqueeze(-1) * self.out.g.unsqueeze(1)).sum(0)
+        self.b.g = self.out.g.sum(0)
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Mse():
+    def __call__(self, inp, targ):
+        self.inp = inp
+        self.targ = targ
+        self.out = (inp.squeeze() - targ).pow(2).mean()
+        return self.out
+    
+    def backward(self):
+        self.inp.g = 2. * (self.inp.squeeze() - self.targ).unsqueeze(-1) / self.targ.shape[0]
+</code></pre></div></div>
+
+<p>Lastly we create a model class.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Model():
+    def __init__(self, w1, b1, w2, b2):
+        self.layers = [Lin(w1,b1), Relu(), Lin(w2,b2)]
+        self.loss = Mse()
+        
+    def __call__(self, x, targ):
+        for l in self.layers: x = l(x)
+        return self.loss(x, targ)
+    
+    def backward(self):
+        self.loss.backward()
+        for l in reversed(self.layers): l.backward()
+</code></pre></div></div>
+
+<p>The execution times is to slow and we want to avoid the <strong>call</strong>() declarations so we define a module class</p>
+
+<h3 id="further-refactor">further Refactor</h3>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Module():
+    def __call__(self, *args):
+        self.args = args
+        self.out = self.forward(*args)
+        return self.out
+    
+    def forward(self): raise Exception('not implemented')
+    def backward(self): self.bwd(self.out, *self.args)
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Relu(Module):
+    def forward(self, inp): return inp.clamp_min(0.)-0.5
+    def bwd(self, out, inp): inp.g = (inp&gt;0).float() * out.g
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Lin(Module):
+    def __init__(self, w, b): self.w,self.b = w,b
+        
+    def forward(self, inp): return inp@self.w + self.b
+    
+    def bwd(self, out, inp):
+        inp.g = out.g @ self.w.t()
+        self.w.g = torch.einsum("bi,bj-&gt;ij", inp, out.g)
+        self.b.g = out.g.sum(0)
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Mse(Module):
+    def forward (self, inp, targ): return (inp.squeeze() - targ).pow(2).mean()
+    def bwd(self, out, inp, targ): inp.g = 2*(inp.squeeze()-targ).unsqueeze(-1) / targ.shape[0]
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Model():
+    def __init__(self):
+        self.layers = [Lin(w1,b1), Relu(), Lin(w2,b2)]
+        self.loss = Mse()
+        
+    def __call__(self, x, targ):
+        for l in self.layers: x = l(x)
+        return self.loss(x, targ)
+    
+    def backward(self):
+        self.loss.backward()
+        for l in reversed(self.layers): l.backward()
+</code></pre></div></div>
+
+<p>Now we can call the forward and backprop passes for our model easily.</p>
+
+<h3 id="summary">Summary</h3>
+
+<p>To summarize we implemented nn.Linear and nn.Module and will be able to write the train loop next lesson !</p>
