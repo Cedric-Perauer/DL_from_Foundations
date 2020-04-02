@@ -3,10 +3,10 @@ toc: true
 layout: post
 description: Summaries for Building Fastai Funtions from scratch 
 categories: [markdown]
-title: Fastai DL from the Foundations Part
+title: Fastai DL from the Foundations Part 1
 ---
 
-# Fastai DL from the Foundations Part1
+# Fastai DL from the Foundations Part 1 
 The idea of this Repo is to manage and document the Code for the fastai Deep Learning from the foundations course and include Papers and Summaries of them when it is helpful to do so. The course focuses on building large components of the fastai library and Pytorch from scratch to allow deep understanding of the fastai and Pytorch frameworks, which enables the creation of own algorithms and makes debugging easier. 
 
 ![](https://github.com/Cedric-Perauer/Fastai_DL_from_the_foundations/blob/master/images/1_RwzUcBlGybc9YFBMyYCTWw.png)
@@ -14,7 +14,7 @@ The idea of this Repo is to manage and document the Code for the fastai Deep Lea
 ##### The Code is based on the code in the fastai course (v3), check out [their repo](https://github.com/fastai/course-v3) which also includes part 1 which is realy focused on the practical side of things. Thank you to Jeremy, Rachel and the fastai Team for this great course. 
 
 In order to understand the material of part 2, you should be familiar with the following concepts, depending on each category : 
-## 0. Fundamentals
+## Fundamentals
 + [Affine functions & non-linearities](https://course.fast.ai/)
 + [Parameters & activations](https://course.fast.ai/)
 + [Random weight initalization and transfer learning](https://course.fast.ai/)
@@ -36,7 +36,7 @@ In order to understand the material of part 2, you should be familiar with the f
 
 
 
- ## 1. Lesson 1 
+ ## Lesson 1 
  
  As we already know DL is mainly based on Linear Algebra, so let's implement some simple Matrix Multiplication !
  We already know that ``np.matmul`` can be used for this, bur let's do it ourselves. 
@@ -83,7 +83,7 @@ afetr expansion you can call :
 and you will see that no additional memory is needed. With this our matmul looks like this : 
 
 
-```
+```python
 def matmul(a,b):
     ar,ac = a.shape
     br,bc = b.shape
@@ -99,7 +99,7 @@ This code executes in 172 µs ± 14.3 µs per loop (mean ± std. dev. of 7 runs,
 
 A compact representation to combine products and sums in a general way. 
 
-```
+```python
 def matmul(a,b): return torch.einsum('ik,kj->ij', a, b)
 ```
 
@@ -130,7 +130,7 @@ Pushes the code to BLAS, Hardware optimized code. We can not specify this with P
 We create a 2layer Net, with a hidden layer of size 50. 
 
 m is the 2nd dimension size of our input. 
-```
+```python
 nh = 50
 w1 = torch.randn(m,nh)/math.sqrt(m)
 b1 = torch.zeros(nh)
@@ -150,19 +150,19 @@ Due to this the [2015 ImageNet ResNet winners](https://arxiv.org/abs/1502.01852)
 essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step. 
 
 #### Kaiming init in code : 
-```# kaiming init / he init for relu
+```python 
 w1 = torch.randn(m,nh)*math.sqrt(2/m)
 ```
 
 #### ReLu can be implemented easily, it clamps values below 0 and is linear otherwise : 
-```
+```python
 def relu(x): return x.clamp_min(0.)
 ```
 
 Leaky ReLu avoids 0-ing the gradient by using a small negative slope below 0 (0.01 usually). 
 
 #### Therfore Kaiming init with ReLU can be implemented like this : 
-```
+```python
 w1 = torch.randn(m,nh)*math.sqrt(2./m )
 t1 = relu(lin(x_valid, w1, b1))
 t1.mean(),t1.std()
@@ -172,7 +172,7 @@ t1.mean(),t1.std()
 The Pytorch source code for ```torch.nn.Conv2d```
 uses a kaiming init with : 
 
-```
+```python
 init.kaiming_uniform_(self.weight, a=math.sqrt(5))
  ```
  .sqrt(5) is mysterious and does not seem to be a good idea 
@@ -180,7 +180,7 @@ init.kaiming_uniform_(self.weight, a=math.sqrt(5))
 
 ### Loss Function MSE
 Now that we have done almost one forward pass,we still need to implement an error function. MSE Error, popular for regression tasks, can be implemented like this : 
-```
+```python
 def mse(output, targ): return (output.squeeze(-1) - targ).pow(2).mean()
 ```
 
@@ -195,14 +195,14 @@ In order to Backprop effectively, we need to calc the gradients of all of our co
 I suggest [CS 231n by Andrej Karpathy](https://www.youtube.com/watch?v=i94OvYb6noo&t=1472s) for mathematical explanation of Backprop. 
 
 #### Let's start with MSE : 
-```
+```python
 def mse_grad(inp, targ): 
     # grad of loss with respect to output of previous layer
     inp.g = 2. * (inp.squeeze() - targ).unsqueeze(-1) / inp.shape[0]
 ```
 
 ### Relu : 
-```
+```python
 def relu_grad(inp, out):
     # grad of relu with respect to input activations
     inp.g = (inp>0).float() * out.g
@@ -210,7 +210,7 @@ def relu_grad(inp, out):
 Very simple, the gradient is either 0 or 1. In the Leaky Relu Case it's either -0.01 or 1. 
 
 ### Linear Layers
-```
+```python
 def lin_grad(inp, out, w, b):
     # grad of matmul with respect to input
     inp.g = out.g @ w.t() #matrix prod with the transpose 
@@ -219,7 +219,7 @@ def lin_grad(inp, out, w, b):
 ```
 
 ### Forward and Backward Pass
-```
+```python
 def forward_and_backward(inp, targ):
     # forward pass:
     l1 = inp @ w1 + b1
@@ -239,7 +239,7 @@ def forward_and_backward(inp, targ):
 
 We can control our results with Pytorch auto_grad() function 
 
-```
+```python
 xt2 = x_train.clone().requires_grad_(True)
 w12 = w1.clone().requires_grad_(True)
 w22 = w2.clone().requires_grad_(True)
@@ -253,7 +253,7 @@ b22 = b2.clone().requires_grad_(True)
 
 It's always good to refactor our code. This can be done by creating classes and using our functions. One for forward and one for backward pass. 
 
-```
+```python
 class Relu():
     def __call__(self, inp):
         self.inp = inp
@@ -263,7 +263,7 @@ class Relu():
     def backward(self): self.inp.g = (self.inp>0).float() * self.out.g
 ```
 
-```
+```python
 class Lin():
     def __init__(self, w, b): self.w,self.b = w,b
         
@@ -279,7 +279,7 @@ class Lin():
         self.b.g = self.out.g.sum(0)
 ```
 
-```
+```python
 class Mse():
     def __call__(self, inp, targ):
         self.inp = inp
@@ -293,7 +293,7 @@ class Mse():
 
 Lastly we create a model class. 
 
-```
+```python
 class Model():
     def __init__(self, w1, b1, w2, b2):
         self.layers = [Lin(w1,b1), Relu(), Lin(w2,b2)]
@@ -313,7 +313,7 @@ The execution times is to slow and we want to avoid the __call__() declarations 
 
 ### further Refactor
 
-```
+```python
 class Module():
     def __call__(self, *args):
         self.args = args
@@ -324,13 +324,13 @@ class Module():
     def backward(self): self.bwd(self.out, *self.args)
 ```
 
-```
+```python
 class Relu(Module):
     def forward(self, inp): return inp.clamp_min(0.)-0.5
     def bwd(self, out, inp): inp.g = (inp>0).float() * out.g
 ```
 
-```
+```python
 class Lin(Module):
     def __init__(self, w, b): self.w,self.b = w,b
         
@@ -342,13 +342,13 @@ class Lin(Module):
         self.b.g = out.g.sum(0)
 ```
 
-```
+```python
 class Mse(Module):
     def forward (self, inp, targ): return (inp.squeeze() - targ).pow(2).mean()
     def bwd(self, out, inp, targ): inp.g = 2*(inp.squeeze()-targ).unsqueeze(-1) / targ.shape[0]
 ```
 
-```
+```python
 class Model():
     def __init__(self):
         self.layers = [Lin(w1,b1), Relu(), Lin(w2,b2)]
