@@ -196,31 +196,31 @@ window.onload = wrap_img;
 <p>As we already know DL is mainly based on Linear Algebra, so let’s implement some simple Matrix Multiplication !
  We already know that <code class="highlighter-rouge">np.matmul</code> can be used for this, bur let’s do it ourselves.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> def matmul(a,b):
-    ar,ac = a.shape # n_rows * n_cols 
-    br,bc = b.shape
-    assert ac==br #check for right dimensions =&gt; output dim is ar,bc
-    c = torch.zeros(ar, bc) 
-    for i in range(ar):
-        for j in range(bc):
-            for k in range(ac): # or br
-                c[i,j] += a[i,k] * b[k,j]
-    return c
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">ar</span><span class="p">,</span><span class="n">ac</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="c1"># n_rows * n_cols 
+</span>    <span class="n">br</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">ac</span><span class="o">==</span><span class="n">br</span> <span class="c1">#check for right dimensions =&gt; output dim is ar,bc
+</span>    <span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span> 
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ar</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bc</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ac</span><span class="p">):</span> <span class="c1"># or br
+</span>                <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">k</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">c</span>
  
 </code></pre></div></div>
 <p>This is a very simple and inefficient implementation, which runs in 572 ms on my CPU with matrix dimensions 5x784 multiplied by 784x10. As expected the output array has 5 rows, if we used MNIST (50k) rows onw forward pass would take more than an hour which is unacceptable.</p>
 
 <p>To improve this we can pass the Code down to a lower level language (Pytorch uses <a href="https://pytorch.org/cppdocs/">ATen</a> a Tensor library for this). This can be done with elementwise multiplication (also works on Tensors with rank &gt; 1) :</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def matmul(a,b):
-    ar,ac = a.shape
-    br,bc = b.shape
-    assert ac==br
-    c = torch.zeros(ar, bc)
-    for i in range(ar):
-        for j in range(bc):
-            c[i,j] = (a[i,:] * b[:,j]).sum() #row by column 
-    return c
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">ar</span><span class="p">,</span><span class="n">ac</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">br</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">ac</span><span class="o">==</span><span class="n">br</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ar</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bc</span><span class="p">):</span>
+            <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[:,</span><span class="n">j</span><span class="p">])</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span> <span class="c1">#row by column 
+</span>    <span class="k">return</span> <span class="n">c</span>
 </code></pre></div></div>
 
 <p><img src="images/frobenius.png" alt=""></p>
@@ -267,13 +267,43 @@ def matmul(a,b):
 
 <h3 id="matmul-summary">
 <a class="anchor" href="#matmul-summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matmul Summary</h3>
-<p>| Algorithm                                   | Runtime on CPU  | Factor improvement | <br>
-|———————————————|—————–|——————–|
-| Naive Loops                                 | 572 ms          | 1                  | <br>
-| Loops + elementwise row/column multiply     | 802 µs          | 714                | <br>
-| Brodacasting                                | 172 µs          | 3326               | <br>
-| Einstein Summation                          | 160 µs          | 3575               | <br>
-| Pytorch’s function (uses HW specific BLAS)  | 86 µs           | 6651               |</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Algorithm</th>
+      <th>Runtime on CPU</th>
+      <th>Factor improvement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Naive Loops</td>
+      <td>572 ms</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Loops + elementwise row/column multiply</td>
+      <td>802 µs</td>
+      <td>714</td>
+    </tr>
+    <tr>
+      <td>Brodacasting</td>
+      <td>172 µs</td>
+      <td>3326</td>
+    </tr>
+    <tr>
+      <td>Einstein Summation</td>
+      <td>160 µs</td>
+      <td>3575</td>
+    </tr>
+    <tr>
+      <td>Pytorch’s function (uses HW specific BLAS)</td>
+      <td>86 µs</td>
+      <td>6651</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="now-lets-use-it-to-init-our-weights-and-code-relu">
 <a class="anchor" href="#now-lets-use-it-to-init-our-weights-and-code-relu" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now let’s use it to init our weights and code RELU</h2>

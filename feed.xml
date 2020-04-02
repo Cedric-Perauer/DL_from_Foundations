@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cedric-perauer.github.io/DL_from_Foundations/" rel="alternate" type="text/html" /><updated>2020-04-02T06:18:23-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/feed.xml</id><title type="html">fastpages</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html">Fastai DL from the Foundations Part 1</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/01/DL-From-Foundations-Part1.html" rel="alternate" type="text/html" title="Fastai DL from the Foundations Part 1" /><published>2020-04-01T00:00:00-05:00</published><updated>2020-04-01T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/01/DL-From-Foundations-Part1</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/01/DL-From-Foundations-Part1.html">&lt;h1 id=&quot;fastai-dl-from-the-foundations-part-1&quot;&gt;Fastai DL from the Foundations Part 1&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cedric-perauer.github.io/DL_from_Foundations/" rel="alternate" type="text/html" /><updated>2020-04-02T06:21:36-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/feed.xml</id><title type="html">fastpages</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html">Fastai DL from the Foundations Part 1</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/01/DL-From-Foundations-Part1.html" rel="alternate" type="text/html" title="Fastai DL from the Foundations Part 1" /><published>2020-04-01T00:00:00-05:00</published><updated>2020-04-01T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/01/DL-From-Foundations-Part1</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/01/DL-From-Foundations-Part1.html">&lt;h1 id=&quot;fastai-dl-from-the-foundations-part-1&quot;&gt;Fastai DL from the Foundations Part 1&lt;/h1&gt;
 &lt;p&gt;The idea of this Repo is to manage and document the Code for the fastai Deep Learning from the foundations course and include Papers and Summaries of them when it is helpful to do so. The course focuses on building large components of the fastai library and Pytorch from scratch to allow deep understanding of the fastai and Pytorch frameworks, which enables the creation of own algorithms and makes debugging easier.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://github.com/Cedric-Perauer/Fastai_DL_from_the_foundations/blob/master/images/1_RwzUcBlGybc9YFBMyYCTWw.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
@@ -36,31 +36,31 @@
 &lt;p&gt;As we already know DL is mainly based on Linear Algebra, so let’s implement some simple Matrix Multiplication !
  We already know that &lt;code class=&quot;highlighter-rouge&quot;&gt;np.matmul&lt;/code&gt; can be used for this, bur let’s do it ourselves.&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; def matmul(a,b):
-    ar,ac = a.shape # n_rows * n_cols 
-    br,bc = b.shape
-    assert ac==br #check for right dimensions =&amp;gt; output dim is ar,bc
-    c = torch.zeros(ar, bc) 
-    for i in range(ar):
-        for j in range(bc):
-            for k in range(ac): # or br
-                c[i,j] += a[i,k] * b[k,j]
-    return c
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;matmul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# n_rows * n_cols 
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;br&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;br&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#check for right dimensions =&amp;gt; output dim is ar,bc
+&lt;/span&gt;    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# or br
+&lt;/span&gt;                &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;
  
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;This is a very simple and inefficient implementation, which runs in 572 ms on my CPU with matrix dimensions 5x784 multiplied by 784x10. As expected the output array has 5 rows, if we used MNIST (50k) rows onw forward pass would take more than an hour which is unacceptable.&lt;/p&gt;
 
 &lt;p&gt;To improve this we can pass the Code down to a lower level language (Pytorch uses &lt;a href=&quot;https://pytorch.org/cppdocs/&quot;&gt;ATen&lt;/a&gt; a Tensor library for this). This can be done with elementwise multiplication (also works on Tensors with rank &amp;gt; 1) :&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def matmul(a,b):
-    ar,ac = a.shape
-    br,bc = b.shape
-    assert ac==br
-    c = torch.zeros(ar, bc)
-    for i in range(ar):
-        for j in range(bc):
-            c[i,j] = (a[i,:] * b[:,j]).sum() #row by column 
-    return c
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;matmul&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;br&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bc&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;assert&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ac&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;br&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zeros&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,:]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#row by column 
+&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&quot;images/frobenius.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
@@ -103,13 +103,43 @@ def matmul(a,b):
 &lt;p&gt;Pushes the code to BLAS, Hardware optimized code. We can not specify this with Pytorch, with Swift this could be optimized by the programmer more easily. A classic operation is the @ operator, it can do more than matmul (such as Batch wise, Tensor Reductions,…).&lt;/p&gt;
 
 &lt;h3 id=&quot;matmul-summary&quot;&gt;Matmul Summary&lt;/h3&gt;
-&lt;p&gt;| Algorithm                                   | Runtime on CPU  | Factor improvement | &lt;br /&gt;
-|———————————————|—————–|——————–|
-| Naive Loops                                 | 572 ms          | 1                  | &lt;br /&gt;
-| Loops + elementwise row/column multiply     | 802 µs          | 714                | &lt;br /&gt;
-| Brodacasting                                | 172 µs          | 3326               | &lt;br /&gt;
-| Einstein Summation                          | 160 µs          | 3575               | &lt;br /&gt;
-| Pytorch’s function (uses HW specific BLAS)  | 86 µs           | 6651               |&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Algorithm&lt;/th&gt;
+      &lt;th&gt;Runtime on CPU&lt;/th&gt;
+      &lt;th&gt;Factor improvement&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Naive Loops&lt;/td&gt;
+      &lt;td&gt;572 ms&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Loops + elementwise row/column multiply&lt;/td&gt;
+      &lt;td&gt;802 µs&lt;/td&gt;
+      &lt;td&gt;714&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Brodacasting&lt;/td&gt;
+      &lt;td&gt;172 µs&lt;/td&gt;
+      &lt;td&gt;3326&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Einstein Summation&lt;/td&gt;
+      &lt;td&gt;160 µs&lt;/td&gt;
+      &lt;td&gt;3575&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Pytorch’s function (uses HW specific BLAS)&lt;/td&gt;
+      &lt;td&gt;86 µs&lt;/td&gt;
+      &lt;td&gt;6651&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h2 id=&quot;now-lets-use-it-to-init-our-weights-and-code-relu&quot;&gt;Now let’s use it to init our weights and code RELU&lt;/h2&gt;
 
