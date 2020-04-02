@@ -231,21 +231,23 @@ window.onload = wrap_img;
 <a class="anchor" href="#broadcasting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Broadcasting</h3>
 
 <p>Hold on not so fast ! We can still do better by removing the inner loop with Broadcasting. Broadcasting “broadcasts” the smaller array across the larger one, so they have compatible shapes, operations are vecorized so that loops are executed in C without any overhead. You can see the broadcasted version of a vector by calling :</p>
-<pre><code class="language-&lt;smaller_array&gt;.expand_as(&lt;larger_array&gt;)```">afetr expansion you can call :     
-```&lt;smaller_array&gt;.storage()```    
-and you will see that no additional memory is needed. With this our matmul looks like this : 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">smaller_array</span><span class="o">&gt;.</span><span class="n">expand_as</span><span class="p">(</span><span class="o">&lt;</span><span class="n">larger_array</span><span class="o">&gt;</span><span class="p">)</span>
+</code></pre></div></div>
+<p>after expansion you can call :</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">smaller_array</span><span class="o">&gt;.</span><span class="n">storage</span><span class="p">()</span>
+</code></pre></div></div>
 
+<p>and you will see that no additional memory is needed. With this our matmul looks like this :</p>
 
-```python
-def matmul(a,b):
-    ar,ac = a.shape
-    br,bc = b.shape
-    assert ac==br
-    c = torch.zeros(ar, bc)
-    for i in range(ar):
-        c[i]   = (a[i ].unsqueeze(-1) * b).sum(dim=0) #unsqueeze is used to unsqueeze a to rank 2
-    return c
-</code></pre>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">matmul</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+    <span class="n">ar</span><span class="p">,</span><span class="n">ac</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">br</span><span class="p">,</span><span class="n">bc</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">ac</span><span class="o">==</span><span class="n">br</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ar</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ar</span><span class="p">):</span>
+        <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>   <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span> <span class="p">]</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1">#unsqueeze is used to unsqueeze a to rank 2
+</span>    <span class="k">return</span> <span class="n">c</span>
+</code></pre></div></div>
 <p>This code executes in 172 µs ± 14.3 µs per loop (mean ± std. dev. of 7 runs, 10 loops each). Which means we are 3325.81 faster than in the beginning, nice.</p>
 
 <h3 id="einstein-summation">
