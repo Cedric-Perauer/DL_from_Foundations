@@ -76,7 +76,7 @@ This is essentially using the above formula and executing it in C code, with a r
 
 ### Broadcasting
 
-Hold on not so fast ! We can still do better by removing the inner loop with Broadcasting. Broadcasting "broadcasts" the smaller array across the larger one, so they have compatible shapes, operations are vecorized so that loops are executed in C without any overhead. You can see the broadcasted version of a vector by calling :   
+Hold on not so fast ! We can still do better by removing the inner loop with Broadcasting. Broadcasting "broadcasts" the smaller array across the larger one, so they have compatible shapes, operations are vecorized so that loops are executed in C without any overhead. You can see the broadcasted version of a vector by calling :         
 ```python
 <smaller_array>.expand_as(<larger_array>)
 ``` 
@@ -136,6 +136,7 @@ Pushes the code to BLAS, Hardware optimized code. We can not specify this with P
 We create a 2layer Net, with a hidden layer of size 50. 
 
 m is the 2nd dimension size of our input. 
+
 ```python
 nh = 50
 w1 = torch.randn(m,nh)/math.sqrt(m)
@@ -146,16 +147,25 @@ b2 = torch.zeros(1)
 
 Randn gives us weights with mean 0 and std of 1. Just using random numbers the mean and std of our output vector will be way off. In order to avoid this we divide by sqrt(m), which will keep our output mean and std in bounds. 
 
-Another common initalization method is Xavier Initalization. Check out [Andrej Karpathy's lecture](https://www.youtube.com/watch?v=mzkOF4tULj8) (starting at about 45:00) for a good explanation 
+Another common initalization method is Xavier Initalization. Check out [Andrej Karpathy's lecture](https://www.youtube.com/watch?v=gYpoJMlgyXA&list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC&index=5) (starting at about 45:00) for a good explanation 
 Even more advanced methods like [Fixup initalization](https://arxiv.org/abs/1901.09321) can be used. The authors of the paper are able to learn deep nets (up to 10k layers) as stable without normalization when using Fixup. 
 
 Problem : if the variance halves each layer, the activation will vanish after some time, leading to dead neurons. 
 
-Due to this the [2015 ImageNet ResNet winners](https://arxiv.org/abs/1502.01852) suggested this method : 
+Due to this the [2015 ImageNet ResNet winners, see 2.2 in the paper](https://arxiv.org/abs/1502.01852) suggested this :
+ Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step. 
+ ![](images/Stanford.png)
+
+ Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less. 
+
+ The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
 ![](images/resnet_init.png)
 essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step. 
 
-#### Kaiming init in code : 
+A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
+![](images/He.png)
+
+#### Kaiming init code : 
 ```python 
 w1 = torch.randn(m,nh)*math.sqrt(2/m)
 ```
@@ -167,7 +177,7 @@ def relu(x): return x.clamp_min(0.)
 
 Leaky ReLu avoids 0-ing the gradient by using a small negative slope below 0 (0.01 usually). 
 
-#### Therfore Kaiming init with ReLU can be implemented like this : 
+#### Therfore Kaiming init with ReLU can be implemented like this :                  
 ```python
 w1 = torch.randn(m,nh)*math.sqrt(2./m )
 t1 = relu(lin(x_valid, w1, b1))
