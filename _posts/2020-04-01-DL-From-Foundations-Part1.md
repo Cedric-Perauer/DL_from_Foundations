@@ -115,13 +115,13 @@ Pushes the code to BLAS, Hardware optimized code. We can not specify this with P
 
 
 ### Matmul Summary 
-| Algorithm                                   | Runtime on CPU  | Factor improvement |   |   |
-|---------------------------------------------|-----------------|--------------------|---|---|
-| Naive Loops                                 | 572 ms          | 1                  |   |   |
-| Loops + elementwise row/column multiply     | 802 µs          | 714                |   |   |
-| Brodacasting                                | 172 µs          | 3326               |   |   |
-| Einstein Summation                          | 160 µs          | 3575               |   |   |
-| Pytorch's function (uses HW specific BLAS)  | 86 µs           | 6651               |   |   |
+| Algorithm                                   | Runtime on CPU  | Factor improvement |   
+|---------------------------------------------|-----------------|--------------------|
+| Naive Loops                                 | 572 ms          | 1                  |   
+| Loops + elementwise row/column multiply     | 802 µs          | 714                |   
+| Brodacasting                                | 172 µs          | 3326               |   
+| Einstein Summation                          | 160 µs          | 3575               |   
+| Pytorch's function (uses HW specific BLAS)  | 86 µs           | 6651               |   
 
 ## Now let's use it to init our weights and code RELU
 
