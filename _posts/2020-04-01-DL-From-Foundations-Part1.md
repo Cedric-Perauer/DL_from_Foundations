@@ -1,9 +1,9 @@
 ---
 toc: true
 layout: post
-description: A minimal example of using markdown with fastpages.
+description: Summaries for Building Fastai Funtions from scratch 
 categories: [markdown]
-title: Fastai DL from the Foundations Part1
+title: Fastai DL from the Foundations Part
 ---
 
 # Fastai DL from the Foundations Part1
