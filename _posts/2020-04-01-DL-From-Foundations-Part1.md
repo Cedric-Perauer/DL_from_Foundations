@@ -77,9 +77,14 @@ This is essentially using the above formula and executing it in C code, with a r
 ### Broadcasting
 
 Hold on not so fast ! We can still do better by removing the inner loop with Broadcasting. Broadcasting "broadcasts" the smaller array across the larger one, so they have compatible shapes, operations are vecorized so that loops are executed in C without any overhead. You can see the broadcasted version of a vector by calling :   
-```<smaller_array>.expand_as(<larger_array>)``` 
-afetr expansion you can call :     
-```<smaller_array>.storage()```    
+```python
+<smaller_array>.expand_as(<larger_array>)
+``` 
+after expansion you can call :     
+```python
+<smaller_array>.storage()
+```    
+
 and you will see that no additional memory is needed. With this our matmul looks like this : 
 
 
