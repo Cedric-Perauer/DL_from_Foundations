@@ -91,7 +91,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      10 min read
     
 </span></p>
 
@@ -126,7 +126,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#init">Init</a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#kaiming-init-in-code-">Kaiming init in code :</a></li>
+<li class="toc-entry toc-h4"><a href="#kaiming-init-code-">Kaiming init code :</a></li>
 <li class="toc-entry toc-h4"><a href="#relu-can-be-implemented-easily-it-clamps-values-below-0-and-is-linear-otherwise-">ReLu can be implemented easily, it clamps values below 0 and is linear otherwise :</a></li>
 <li class="toc-entry toc-h4"><a href="#therfore-kaiming-init-with-relu-can-be-implemented-like-this-">Therfore Kaiming init with ReLU can be implemented like this :</a></li>
 </ul>
@@ -316,6 +316,7 @@ window.onload = wrap_img;
 <p>We create a 2layer Net, with a hidden layer of size 50.</p>
 
 <p>m is the 2nd dimension size of our input.</p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">nh</span> <span class="o">=</span> <span class="mi">50</span>
 <span class="n">w1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">nh</span><span class="p">)</span><span class="o">/</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="n">b1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nh</span><span class="p">)</span>
@@ -325,17 +326,26 @@ window.onload = wrap_img;
 
 <p>Randn gives us weights with mean 0 and std of 1. Just using random numbers the mean and std of our output vector will be way off. In order to avoid this we divide by sqrt(m), which will keep our output mean and std in bounds.</p>
 
-<p>Another common initalization method is Xavier Initalization. Check out <a href="https://www.youtube.com/watch?v=mzkOF4tULj8">Andrej Karpathy’s lecture</a> (starting at about 45:00) for a good explanation 
+<p>Another common initalization method is Xavier Initalization. Check out <a href="https://www.youtube.com/watch?v=gYpoJMlgyXA&amp;list=PLkt2uSq6rBVctENoVBg1TpCC7OQi31AlC&amp;index=5">Andrej Karpathy’s lecture</a> (starting at about 45:00) for a good explanation 
 Even more advanced methods like <a href="https://arxiv.org/abs/1901.09321">Fixup initalization</a> can be used. The authors of the paper are able to learn deep nets (up to 10k layers) as stable without normalization when using Fixup.</p>
 
 <p>Problem : if the variance halves each layer, the activation will vanish after some time, leading to dead neurons.</p>
 
-<p>Due to this the <a href="https://arxiv.org/abs/1502.01852">2015 ImageNet ResNet winners</a> suggested this method : 
+<p>Due to this the <a href="https://arxiv.org/abs/1502.01852">2015 ImageNet ResNet winners, see 2.2 in the paper</a> suggested this :
+ Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step. 
+ <img src="images/Stanford.png" alt=""></p>
+
+<p>Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less.</p>
+
+<p>The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
 <img src="images/resnet_init.png" alt="">
 essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step.</p>
 
-<h4 id="kaiming-init-in-code-">
-<a class="anchor" href="#kaiming-init-in-code-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kaiming init in code :</h4>
+<p>A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
+<img src="images/He.png" alt=""></p>
+
+<h4 id="kaiming-init-code-">
+<a class="anchor" href="#kaiming-init-code-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kaiming init code :</h4>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">w1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">nh</span><span class="p">)</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
 </code></pre></div></div>
 
