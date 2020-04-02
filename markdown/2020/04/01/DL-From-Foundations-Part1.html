@@ -267,13 +267,13 @@ def matmul(a,b):
 
 <h3 id="matmul-summary">
 <a class="anchor" href="#matmul-summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Matmul Summary</h3>
-<p>| Algorithm                                   | Runtime on CPU  | Factor improvement |   |   |
-|———————————————|—————–|——————–|—|—|
-| Naive Loops                                 | 572 ms          | 1                  |   |   |
-| Loops + elementwise row/column multiply     | 802 µs          | 714                |   |   |
-| Brodacasting                                | 172 µs          | 3326               |   |   |
-| Einstein Summation                          | 160 µs          | 3575               |   |   |
-| Pytorch’s function (uses HW specific BLAS)  | 86 µs           | 6651               |   |   |</p>
+<p>| Algorithm                                   | Runtime on CPU  | Factor improvement | <br>
+|———————————————|—————–|——————–|
+| Naive Loops                                 | 572 ms          | 1                  | <br>
+| Loops + elementwise row/column multiply     | 802 µs          | 714                | <br>
+| Brodacasting                                | 172 µs          | 3326               | <br>
+| Einstein Summation                          | 160 µs          | 3575               | <br>
+| Pytorch’s function (uses HW specific BLAS)  | 86 µs           | 6651               |</p>
 
 <h2 id="now-lets-use-it-to-init-our-weights-and-code-relu">
 <a class="anchor" href="#now-lets-use-it-to-init-our-weights-and-code-relu" aria-hidden="true"><span class="octicon octicon-link"></span></a>Now let’s use it to init our weights and code RELU</h2>
