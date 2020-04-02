@@ -41,7 +41,7 @@ In order to understand the material of part 2, you should be familiar with the f
  As we already know DL is mainly based on Linear Algebra, so let's implement some simple Matrix Multiplication !
  We already know that ``np.matmul`` can be used for this, bur let's do it ourselves. 
  
- ```
+ ```python
  def matmul(a,b):
     ar,ac = a.shape # n_rows * n_cols 
     br,bc = b.shape
@@ -58,7 +58,7 @@ This is a very simple and inefficient implementation, which runs in 572 ms on my
 
 To improve this we can pass the Code down to a lower level language (Pytorch uses [ATen](https://pytorch.org/cppdocs/) a Tensor library for this). This can be done with elementwise multiplication (also works on Tensors with rank > 1) :
 
-```
+```python
 def matmul(a,b):
     ar,ac = a.shape
     br,bc = b.shape
@@ -115,6 +115,7 @@ Pushes the code to BLAS, Hardware optimized code. We can not specify this with P
 
 
 ### Matmul Summary 
+
 | Algorithm                                   | Runtime on CPU  | Factor improvement |   
 |---------------------------------------------|-----------------|--------------------|
 | Naive Loops                                 | 572 ms          | 1                  |   
