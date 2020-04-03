@@ -147,7 +147,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#therfore-kaiming-init-with-relu-can-be-implemented-like-this-">Therfore Kaiming init with ReLU can be implemented like this :</a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h3"><a href="#warning-">Warning !!</a></li>
+<li class="toc-entry toc-h3"><a href="#info">Info</a></li>
 <li class="toc-entry toc-h3"><a href="#loss-function-mse">Loss Function MSE</a></li>
 </ul>
 </li>
@@ -239,7 +239,7 @@ window.onload = wrap_img;
 </span>    <span class="k">return</span> <span class="n">c</span>
 </code></pre></div></div>
 
-<p><img src="images/frobenius.png" alt=""></p>
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/frobenius.png" alt="images"></p>
 
 <p>This is essentially using the above formula and executing it in C code, with a runtime of : 802 µs ± 60.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each). Which is about 714 times faster than the first implementation ! Wooho we are done !</p>
 
@@ -348,17 +348,19 @@ Even more advanced methods like <a href="https://arxiv.org/abs/1901.09321">Fixup
 <p>Problem : if the variance halves each layer, the activation will vanish after some time, leading to dead neurons.</p>
 
 <p>Due to this the <a href="https://arxiv.org/abs/1502.01852">2015 ImageNet ResNet winners, see 2.2 in the paper</a> suggested this :
- Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step. 
- <img src="images/Stanford.png" alt=""></p>
+ Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step.</p>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/Stanford.png" alt="images"></p>
 
 <p>Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less.</p>
 
 <p>The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
-<img src="images/resnet_init.png" alt="">
-essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step.</p>
+<img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/resnet_init.png" alt="images"></p>
+
+<p>essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step.</p>
 
 <p>A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
-<img src="images/He.png" alt=""></p>
+<img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/He.png" alt="images"></p>
 
 <h4 id="kaiming-init-code-">
 <a class="anchor" href="#kaiming-init-code-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kaiming init code :</h4>
@@ -379,14 +381,14 @@ essentially it just adds the 2 in the numerator to avoid the halfing of the vari
 <span class="n">t1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span><span class="n">t1</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
 </code></pre></div></div>
 
-<h3 id="warning-">
-<a class="anchor" href="#warning-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Warning !!</h3>
-<p>The Pytorch source code for <code class="highlighter-rouge">torch.nn.Conv2d</code>
+<h3 id="info">
+<a class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Info</h3>
+<p>The Pytorch source code in the tutorial for <code class="highlighter-rouge">torch.nn.Conv2d</code>
 uses a kaiming init with :</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">init</span><span class="o">.</span><span class="n">kaiming_uniform_</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
 </code></pre></div></div>
-<p>.sqrt(5) is mysterious and does not seem to be a good idea</p>
+<p>.sqrt(5) was an original bug from the Lua Torch and was fixed now !</p>
 
 <h3 id="loss-function-mse">
 <a class="anchor" href="#loss-function-mse" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loss Function MSE</h3>
@@ -399,7 +401,7 @@ uses a kaiming init with :</p>
 <h2 id="gradient-and-backward-pass">
 <a class="anchor" href="#gradient-and-backward-pass" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient and Backward Pass</h2>
 <p>Mathematically the Backward Pass uses the chain rule to compute all of the gradients. 
-<img src="images/gradient.png" alt=""></p>
+<img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/gradient.png" alt="images"></p>
 
 <p>In order to Backprop effectively, we need to calc the gradients of all of our components. In our case these are our loss, activation functions (only ReLu, which is easy) and our linear layers.</p>
 

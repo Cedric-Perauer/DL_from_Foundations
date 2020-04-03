@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cedric-perauer.github.io/DL_from_Foundations/" rel="alternate" type="text/html" /><updated>2020-04-03T05:34:37-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/feed.xml</id><title type="html">fastpages</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html">Fastai DL from the Foundations Lesson 2</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html" rel="alternate" type="text/html" title="Fastai DL from the Foundations Lesson 2" /><published>2020-04-02T00:00:00-05:00</published><updated>2020-04-02T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html">&lt;h1 id=&quot;lesson-2-how-to-train-your-model&quot;&gt;Lesson 2 How to train your model&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cedric-perauer.github.io/DL_from_Foundations/" rel="alternate" type="text/html" /><updated>2020-04-03T05:37:10-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/feed.xml</id><title type="html">fastpages</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html">Fastai DL from the Foundations Lesson 2</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html" rel="alternate" type="text/html" title="Fastai DL from the Foundations Lesson 2" /><published>2020-04-02T00:00:00-05:00</published><updated>2020-04-02T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html">&lt;h1 id=&quot;lesson-2-how-to-train-your-model&quot;&gt;Lesson 2 How to train your model&lt;/h1&gt;
 
 &lt;h2 id=&quot;loss&quot;&gt;Loss&lt;/h2&gt;
 
@@ -858,7 +858,7 @@ PyTorch does the same thing as well, but also adds &lt;code class=&quot;highligh
 &lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;images/frobenius.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/frobenius.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This is essentially using the above formula and executing it in C code, with a runtime of : 802 µs ± 60.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each). Which is about 714 times faster than the first implementation ! Wooho we are done !&lt;/p&gt;
 
@@ -961,17 +961,19 @@ Even more advanced methods like &lt;a href=&quot;https://arxiv.org/abs/1901.0932
 &lt;p&gt;Problem : if the variance halves each layer, the activation will vanish after some time, leading to dead neurons.&lt;/p&gt;
 
 &lt;p&gt;Due to this the &lt;a href=&quot;https://arxiv.org/abs/1502.01852&quot;&gt;2015 ImageNet ResNet winners, see 2.2 in the paper&lt;/a&gt; suggested this :
- Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step. 
- &lt;img src=&quot;images/Stanford.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+ Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/Stanford.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less.&lt;/p&gt;
 
 &lt;p&gt;The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
-&lt;img src=&quot;images/resnet_init.png&quot; alt=&quot;&quot; /&gt;
-essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step.&lt;/p&gt;
+&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/resnet_init.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step.&lt;/p&gt;
 
 &lt;p&gt;A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
-&lt;img src=&quot;images/He.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/He.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;kaiming-init-code-&quot;&gt;Kaiming init code :&lt;/h4&gt;
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;w1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;torch&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;randn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nh&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -989,13 +991,13 @@ essentially it just adds the 2 in the numerator to avoid the halfing of the vari
 &lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;t1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;warning-&quot;&gt;Warning !!&lt;/h3&gt;
-&lt;p&gt;The Pytorch source code for &lt;code class=&quot;highlighter-rouge&quot;&gt;torch.nn.Conv2d&lt;/code&gt;
+&lt;h3 id=&quot;info&quot;&gt;Info&lt;/h3&gt;
+&lt;p&gt;The Pytorch source code in the tutorial for &lt;code class=&quot;highlighter-rouge&quot;&gt;torch.nn.Conv2d&lt;/code&gt;
 uses a kaiming init with :&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kaiming_uniform_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;weight&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;.sqrt(5) is mysterious and does not seem to be a good idea&lt;/p&gt;
+&lt;p&gt;.sqrt(5) was an original bug from the Lua Torch and was fixed now !&lt;/p&gt;
 
 &lt;h3 id=&quot;loss-function-mse&quot;&gt;Loss Function MSE&lt;/h3&gt;
 &lt;p&gt;Now that we have done almost one forward pass,we still need to implement an error function. MSE Error, popular for regression tasks, can be implemented like this :&lt;/p&gt;
@@ -1006,7 +1008,7 @@ uses a kaiming init with :&lt;/p&gt;
 
 &lt;h2 id=&quot;gradient-and-backward-pass&quot;&gt;Gradient and Backward Pass&lt;/h2&gt;
 &lt;p&gt;Mathematically the Backward Pass uses the chain rule to compute all of the gradients. 
-&lt;img src=&quot;images/gradient.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/gradient.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In order to Backprop effectively, we need to calc the gradients of all of our components. In our case these are our loss, activation functions (only ReLu, which is easy) and our linear layers.&lt;/p&gt;
 
