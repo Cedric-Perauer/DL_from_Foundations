@@ -71,7 +71,7 @@ def matmul(a,b):
     return c
 ```
 
-![](images/frobenius.png)
+![images]({{ site.url }}{{ site.baseurl }}/images/frobenius.png)
 
 This is essentially using the above formula and executing it in C code, with a runtime of : 802 µs ± 60.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each). Which is about 714 times faster than the first implementation ! Wooho we are done !
 
@@ -155,16 +155,19 @@ Problem : if the variance halves each layer, the activation will vanish after so
 
 Due to this the [2015 ImageNet ResNet winners, see 2.2 in the paper](https://arxiv.org/abs/1502.01852) suggested this :
  Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step. 
- ![](images/Stanford.png)
+ 
+ 
+![images]({{ site.url }}{{ site.baseurl }}/images/Stanford.png)
 
  Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less. 
 
  The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
-![](images/resnet_init.png)
+![images]({{ site.url }}{{ site.baseurl }}/images/resnet_init.png)
+
 essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step. 
 
 A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
-![](images/He.png)
+![images]({{ site.url }}{{ site.baseurl }}/images/He.png)
 
 #### Kaiming init code : 
 ```python 
@@ -185,14 +188,14 @@ t1 = relu(lin(x_valid, w1, b1))
 t1.mean(),t1.std()
 ```
 
-### Warning !!
-The Pytorch source code for ```torch.nn.Conv2d```
+### Info
+The Pytorch source code in the tutorial for ```torch.nn.Conv2d```
 uses a kaiming init with : 
 
 ```python
 init.kaiming_uniform_(self.weight, a=math.sqrt(5))
  ```
- .sqrt(5) is mysterious and does not seem to be a good idea 
+ .sqrt(5) was an original bug from the Lua Torch and was fixed now !
 
 
 ### Loss Function MSE
@@ -205,7 +208,8 @@ def mse(output, targ): return (output.squeeze(-1) - targ).pow(2).mean()
 
 ## Gradient and Backward Pass
 Mathematically the Backward Pass uses the chain rule to compute all of the gradients. 
-![](images/gradient.png)
+![images]({{ site.url }}{{ site.baseurl }}/images/gradient.png)
+
 
 In order to Backprop effectively, we need to calc the gradients of all of our components. In our case these are our loss, activation functions (only ReLu, which is easy) and our linear layers. 
 
