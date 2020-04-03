@@ -9,7 +9,7 @@ title: Fastai DL from the Foundations Lesson 1
 # Fastai DL from the Foundations Lesson 1 
 The idea of this Repo is to manage and document the Code for the fastai Deep Learning from the foundations course and include Papers and Summaries of them when it is helpful to do so. The course focuses on building large components of the fastai library and Pytorch from scratch to allow deep understanding of the fastai and Pytorch frameworks, which enables the creation of own algorithms and makes debugging easier. 
 
-
+  
 ![images]({{ site.url }}{{ site.baseurl }}/images/1_RwzUcBlGybc9YFBMyYCTWw.png)
 
 ##### The Code is based on the code in the fastai course (v3), check out [their repo](https://github.com/fastai/course-v3) which also includes part 1 which is realy focused on the practical side of things. Thank you to Jeremy, Rachel and the fastai Team for this great course. 
@@ -69,7 +69,7 @@ def matmul(a,b):
         for j in range(bc):
             c[i,j] = (a[i,:] * b[:,j]).sum() #row by column 
     return c
-```
+```            
 
 ![images]({{ site.url }}{{ site.baseurl }}/images/frobenius.png)
 
@@ -154,19 +154,19 @@ Even more advanced methods like [Fixup initalization](https://arxiv.org/abs/1901
 Problem : if the variance halves each layer, the activation will vanish after some time, leading to dead neurons. 
 
 Due to this the [2015 ImageNet ResNet winners, see 2.2 in the paper](https://arxiv.org/abs/1502.01852) suggested this :
- Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step. 
+ Up to that point init was done with random weights from Gaussian distributions, which used fixed std deviations (for example 0.01). These methods however did not allow deeper models (more than 8 layers) to converge in most cases. Due to this, in the older days models like VGG16 had to train the first 8 layers at first, in order to then initalize the next ones. As we can imagine this takes longer to train, but also may lead to a poorer local optimum. Unfortunately the Xavier init paper does not talk about non-linarities, but should not be used with ReLu like functions, as the ReLu function will half the distribution (values smaller than zero are = 0) at every step.             
  
  
 ![images]({{ site.url }}{{ site.baseurl }}/images/Stanford.png)
 
  Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less. 
 
- The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
+ The Kaiming init paper investigates the variance at each layer and ends up suggesting the following :               
 ![images]({{ site.url }}{{ site.baseurl }}/images/resnet_init.png)
 
 essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step. 
 
-A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
+A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident.                
 ![images]({{ site.url }}{{ site.baseurl }}/images/He.png)
 
 #### Kaiming init code : 
