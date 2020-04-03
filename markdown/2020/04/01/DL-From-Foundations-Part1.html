@@ -354,12 +354,12 @@ Even more advanced methods like <a href="https://arxiv.org/abs/1901.09321">Fixup
 
 <p>Looking at the distributions in the plots, you can see that the rapid decrease of the std. deviation leads to ReLu neurons activating less and less.</p>
 
-<p>The Kaiming init paper investigates the variance at each layer and ends up suggesting the following : 
+<p>The Kaiming init paper investigates the variance at each layer and ends up suggesting the following :             <br>
 <img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/resnet_init.png" alt="images"></p>
 
 <p>essentially it just adds the 2 in the numerator to avoid the halfing of the variance due at each step.</p>
 
-<p>A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident. 
+<p>A direct comparison in the paper on a 22 layer model shows the benefit, even though Xavier converges as well, Kaiming init does so significantly faster. With a deeper 30-layer model the advantage of Kaiming is even more evident.              <br>
 <img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/He.png" alt="images"></p>
 
 <h4 id="kaiming-init-code-">
