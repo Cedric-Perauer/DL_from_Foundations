@@ -10,7 +10,7 @@ title: Fastai DL from the Foundations Lesson 1
 The idea of this Repo is to manage and document the Code for the fastai Deep Learning from the foundations course and include Papers and Summaries of them when it is helpful to do so. The course focuses on building large components of the fastai library and Pytorch from scratch to allow deep understanding of the fastai and Pytorch frameworks, which enables the creation of own algorithms and makes debugging easier. 
 
 
-![img]({{ site.url }}{{ site.baseurl }}/images/1_RwzUcBlGybc9YFBMyYCTWw.png.png)
+![img]({{ site.url }}{{ site.baseurl }}/images/1_RwzUcBlGybc9YFBMyYCTWw.png)
 
 ##### The Code is based on the code in the fastai course (v3), check out [their repo](https://github.com/fastai/course-v3) which also includes part 1 which is realy focused on the practical side of things. Thank you to Jeremy, Rachel and the fastai Team for this great course. 
 
