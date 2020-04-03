@@ -686,7 +686,7 @@ class Runner():
 ```
 
 
-In order to track our stats we will add a third Callback to see them, it will make us of a ckass that computes these.
+In order to track our stats we will add a third Callback to see them, it will make us of a class that computes these.
 
 ```python 
 class AvgStats():
@@ -728,6 +728,63 @@ class AvgStatsCallback(Callback):
         print(self.train_stats)
         print(self.valid_stats)
 ```
+
+As this Callback alread tracks all our Stats, we can easily update it to include early stopping and saving the best model, based on validaton loss, I did it like this : 
+
+```python 
+class AvgStatsCallback(Callback):
+    def __init__(self, metrics,early_stopping_iter,loss_stop):
+        self.train_stats,self.valid_stats = AvgStats(metrics,True),AvgStats(metrics,False)
+        self.lowest_val_loss = float("inf")
+        self.cur_val_loss = float("inf")
+        self.early_stopping_array = deque(maxlen=3)
+        self.early_stopping_iter = 3
+        self.loss_stop = loss_stop
+        
+    def begin_epoch(self):
+        self.train_stats.reset()
+        self.valid_stats.reset()
+        
+    def save_model(self):
+        self.cur_val_loss, self.cur_val_acc = self.valid_stats.avg_stats
+        if self.cur_val_loss < self.lowest_val_loss : 
+            self.lowest_val_loss = self.cur_val_loss
+            torch.save(learn.model.state_dict(),"best_model.pt")
+            print("Saving Model with val loss of :{:.4f}".format(self.lowest_val_loss))
+    
+    def early_stopping(self): 
+        self.early_stopping_array.append(self.cur_val_loss) 
+        if (self.early_stopping_array.maxlen == len(self.early_stopping_array)):
+            diff = 0.0
+            for i in range(0,len(self.early_stopping_array)-1): #check diff between losses
+                diff += abs(self.early_stopping_array[i]-self.early_stopping_array[i+1])
+            diff /= (len(self.early_stopping_array)-1)
+            if(diff < self.loss_stop): 
+                return "stop"
+    
+    
+    def after_loss(self):
+        stats = self.train_stats if self.in_train else self.valid_stats
+        with torch.no_grad(): stats.accumulate(self.run)
+    
+    def after_epoch(self):
+        print(self.train_stats)
+        print(self.valid_stats)
+        self.save_model()
+        
+        if self.early_stopping()=="stop": 
+            return True
+        print(self.valid_stats.avg_stats[1])
+        
+```
+The Class now also keeps track of the lowest validation loss overall and can save the best model based on validation loss. Early stopping was implemented by tracking the last n elements, with `n=early_stopping_iter` in this case. We are storing it in a deque data structures. The `early_stopping` function will return a string that will then lead to our `after_epoch` function returning True which will stop training, as we have : 
+```python 
+if self('after_epoch'): 
+        break
+```
+in our training loop. 
+
+
 
 Now we can finally call our methods and start trainig. 
 
