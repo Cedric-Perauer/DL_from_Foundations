@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      14 min read
+      15 min read
     
 </span></p>
 
@@ -800,7 +800,7 @@ PyTorch does the same thing as well, but also adds <code class="highlighter-roug
             <span class="bp">self</span><span class="o">.</span><span class="n">learn</span> <span class="o">=</span> <span class="bp">None</span>
 </code></pre></div></div>
 
-<p>In order to track our stats we will add a third Callback to see them, it will make us of a ckass that computes these.</p>
+<p>In order to track our stats we will add a third Callback to see them, it will make us of a class that computes these.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AvgStats</span><span class="p">():</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span> <span class="n">in_train</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">in_train</span> <span class="o">=</span> <span class="n">listify</span><span class="p">(</span><span class="n">metrics</span><span class="p">),</span><span class="n">in_train</span>
@@ -841,6 +841,59 @@ PyTorch does the same thing as well, but also adds <code class="highlighter-roug
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="p">)</span>
 </code></pre></div></div>
+
+<p>As this Callback alread tracks all our Stats, we can easily update it to include early stopping and saving the best model, based on validaton loss, I did it like this :</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AvgStatsCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span><span class="n">early_stopping_iter</span><span class="p">,</span><span class="n">loss_stop</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span> <span class="o">=</span> <span class="n">AvgStats</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span><span class="bp">True</span><span class="p">),</span><span class="n">AvgStats</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span><span class="bp">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lowest_val_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_iter</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss_stop</span> <span class="o">=</span> <span class="n">loss_stop</span>
+        
+    <span class="k">def</span> <span class="nf">begin_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="o">.</span><span class="n">avg_stats</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lowest_val_loss</span> <span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">lowest_val_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">(),</span><span class="s">"best_model.pt"</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Saving Model with val loss of :{:.4f}"</span><span class="o">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lowest_val_loss</span><span class="p">))</span>
+    
+    <span class="k">def</span> <span class="nf">early_stopping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span><span class="p">)</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="o">.</span><span class="n">maxlen</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="p">)):</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="mf">0.0</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span> <span class="c1">#check diff between losses
+</span>                <span class="n">diff</span> <span class="o">+=</span> <span class="nb">abs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">diff</span> <span class="o">/=</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_stop</span><span class="p">):</span> 
+                <span class="k">return</span> <span class="s">"stop"</span>
+    
+    
+    <span class="k">def</span> <span class="nf">after_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_train</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span>
+        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="n">stats</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">after_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_model</span><span class="p">()</span>
+        
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping</span><span class="p">()</span><span class="o">==</span><span class="s">"stop"</span><span class="p">:</span> 
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="o">.</span><span class="n">avg_stats</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+</code></pre></div></div>
+<p>The Class now also keeps track of the lowest validation loss overall and can save the best model based on validation loss. Early stopping was implemented by tracking the last n elements, with <code class="highlighter-rouge">n=early_stopping_iter</code> in this case. We are storing it in a deque data structures. The <code class="highlighter-rouge">early_stopping</code> function will return a string that will then lead to our <code class="highlighter-rouge">after_epoch</code> function returning True which will stop training, as we have :</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="bp">self</span><span class="p">(</span><span class="s">'after_epoch'</span><span class="p">):</span> 
+        <span class="k">break</span>
+</code></pre></div></div>
+<p>in our training loop.</p>
 
 <p>Now we can finally call our methods and start trainig.</p>
 
