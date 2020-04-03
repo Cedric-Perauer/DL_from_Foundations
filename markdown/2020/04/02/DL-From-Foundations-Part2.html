@@ -169,9 +169,8 @@ We define a simple Linear Model for our task. We will be using the Pytorch funct
         <span class="k">return</span> <span class="n">x</span>
 </code></pre></div></div>
 
-<p>Since we are using Softmax, we need to compute it’s output first :</p>
-
-<p><img src="images/Softmax.png" alt=""></p>
+<p>Since we are using Softmax, we need to compute it’s output first : 
+<img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/Softmax.png" alt="images"></p>
 
 <p>In practice we need it’s log, the code is simple :</p>
 
@@ -187,8 +186,7 @@ We define a simple Linear Model for our task. We will be using the Pytorch funct
 <p>We can simplify this log_softmax function, like so :</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">log_softmax</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">:</span> <span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">keepdim</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">()</span>
 </code></pre></div></div>
-
-<p><img src="images/CE_Loss.png" alt=""></p>
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/CE_Loss.png" alt="images"></p>
 
 <p>Using numpy <a href="https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.indexing.html#integer-array-indexing">integer array indexing</a> we can compute our negative log likelihood like so by passing our softmax output :</p>
 
@@ -197,7 +195,8 @@ We define a simple Linear Model for our task. We will be using the Pytorch funct
 </code></pre></div></div>
 
 <p>However we can compute the log of the sum of exponentials in a more stable way to avoid an overflow of big activations, with the <a href="https://en.wikipedia.org/wiki/LogSumExp">LogSumExp trick</a> : 
-<img src="images/Log_trick.png" alt=""></p>
+<img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/Log_trick.png" alt="images"></p>
+
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">logsumexp</span><span class="p">(</span><span class="n">exp</span><span class="p">):</span> 
     <span class="n">a</span><span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c1">#maximum of x(j)  
 </span>    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">a</span><span class="p">[:,</span><span class="bp">None</span><span class="p">])</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span><span class="o">.</span><span class="nb">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">log</span><span class="p">()</span>
