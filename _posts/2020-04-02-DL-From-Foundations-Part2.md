@@ -26,8 +26,8 @@ class Model(nn.Module):
 ```
 
 Since we are using Softmax, we need to compute it's output first : 
+![images]({{ site.url }}{{ site.baseurl }}/images/Softmax.png)
 
-![](images/Softmax.png)
 
 In practice we need it's log, the code is simple : 
 
@@ -47,8 +47,8 @@ We can simplify this log_softmax function, like so :
 ```python 
 def log_softmax(x) : return x - x.exp().sum(-1,keepdim=True).log()
 ```
+![images]({{ site.url }}{{ site.baseurl }}/images/CE_Loss.png)
 
-![](images/CE_Loss.png)
 
 Using numpy [integer array indexing](https://docs.scipy.org/doc/numpy-1.13.0/reference/arrays.indexing.html#integer-array-indexing) we can compute our negative log likelihood like so by passing our softmax output : 
 
@@ -58,7 +58,8 @@ def negative_log_likelihood(input,target):
 ```
 
 However we can compute the log of the sum of exponentials in a more stable way to avoid an overflow of big activations, with the [LogSumExp trick](https://en.wikipedia.org/wiki/LogSumExp) : 
-![](images/Log_trick.png)
+![images]({{ site.url }}{{ site.baseurl }}/images/Log_trick.png)
+
 ```python 
 def logsumexp(exp): 
     a= x.max(-1)[0] #maximum of x(j)  
