@@ -1,4 +1,79 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cedric-perauer.github.io/DL_from_Foundations/" rel="alternate" type="text/html" /><updated>2020-04-03T10:44:38-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/feed.xml</id><title type="html">fastpages</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html">Fastai DL from the Foundations Lesson 2</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html" rel="alternate" type="text/html" title="Fastai DL from the Foundations Lesson 2" /><published>2020-04-02T00:00:00-05:00</published><updated>2020-04-02T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html">&lt;h1 id=&quot;lesson-2-how-to-train-your-model&quot;&gt;Lesson 2 How to train your model&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" rel="self" type="application/atom+xml" /><link href="https://cedric-perauer.github.io/DL_from_Foundations/" rel="alternate" type="text/html" /><updated>2020-04-04T15:09:01-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/feed.xml</id><title type="html">fastpages</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html">Dense Net</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/Dense-Net.html" rel="alternate" type="text/html" title="Dense Net" /><published>2020-04-04T00:00:00-05:00</published><updated>2020-04-04T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/Dense-Net</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/Dense-Net.html">&lt;h2 id=&quot;dense-net-paper-summary&quot;&gt;Dense Net paper summary&lt;/h2&gt;
+
+&lt;p&gt;Short summary of the Dense Net paper, which one the CVPR best paper award in 2017.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/densenet.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;what-did-they-try-to-accomplish-&quot;&gt;What did they try to accomplish ?&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;improve CNNs : fight the vanishing gradient problem, improve regularization, remove redundancy (redundant layers/neurons) existing in current CNNs (like ResNets), which in turn recudes the number of parameters&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;key-elements&quot;&gt;Key elements&lt;/h3&gt;
+
+&lt;h4 id=&quot;concat-and-dense-conectivity&quot;&gt;Concat and Dense conectivity&lt;/h4&gt;
+&lt;p&gt;concatenating feature maps, instead of using the classic ResNet skip connection function :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/resnet_formula.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/resnet_net.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;=&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;lth&lt;/code&gt; layer is used as input to &lt;code class=&quot;highlighter-rouge&quot;&gt;(l+1)th&lt;/code&gt; layer =&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;xl = Hl(xl-1)&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dense Nets concatenate feature maps of the same size, which means it has &lt;code class=&quot;highlighter-rouge&quot;&gt;L*(L+1)/(2)&lt;/code&gt; connections instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;L&lt;/code&gt; in a normal network, where &lt;code class=&quot;highlighter-rouge&quot;&gt;L&lt;/code&gt; is the number of layers. Consequently every Dense Net layer has access to the feature maps of the preceeding layers :&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/densenet_formula.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The activation function Hl is a composite function with 3x3 convolutions, Batch Norm and ReLu activations.&lt;/p&gt;
+
+&lt;h4 id=&quot;pooling-transition-layers&quot;&gt;Pooling /Transition Layers&lt;/h4&gt;
+&lt;p&gt;When the size of feature maps changes, concatenation is not viable. The network is divided into several Dense Blocks, in between those 2x2 average pooling with 1x1 conv filters and batch norm are applied forming a “transition layer”.&lt;/p&gt;
+
+&lt;h4 id=&quot;growth-rate&quot;&gt;Growth rate&lt;/h4&gt;
+&lt;p&gt;The growth rate &lt;code class=&quot;highlighter-rouge&quot;&gt;k&lt;/code&gt; is a hyperparameter which regulates how much a layer contributes to the global state. If each composite function &lt;code class=&quot;highlighter-rouge&quot;&gt;Hl&lt;/code&gt; produces &lt;code class=&quot;highlighter-rouge&quot;&gt;k&lt;/code&gt; feature maps, the &lt;code class=&quot;highlighter-rouge&quot;&gt;lth&lt;/code&gt; layer has &lt;code class=&quot;highlighter-rouge&quot;&gt;k0 + k * (l-1)&lt;/code&gt; feature-maps, where &lt;code class=&quot;highlighter-rouge&quot;&gt;k0&lt;/code&gt; is the number of channels in the input layer. It has to be noted that DenseNets use narrow layers, with &lt;code class=&quot;highlighter-rouge&quot;&gt;k=12&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;bottleneck-layers&quot;&gt;Bottleneck layers&lt;/h4&gt;
+&lt;p&gt;To reduce the amount of input channels (for compute efficiency), bottleneck layers are used with &lt;code class=&quot;highlighter-rouge&quot;&gt;1x1 convs&lt;/code&gt; before the &lt;code class=&quot;highlighter-rouge&quot;&gt;3x3 convs&lt;/code&gt; applied.&lt;/p&gt;
+
+&lt;h4 id=&quot;compression&quot;&gt;Compression&lt;/h4&gt;
+
+&lt;p&gt;Compression is used to reduce the number of feature maps at transition layers, if a dense block contains &lt;code class=&quot;highlighter-rouge&quot;&gt;m&lt;/code&gt; feature maps, the transition layer will generate &lt;code class=&quot;highlighter-rouge&quot;&gt;a*m&lt;/code&gt; feature maps,where &lt;code class=&quot;highlighter-rouge&quot;&gt;0 &amp;lt; a &amp;lt;= 1&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;a = 0.5&lt;/code&gt; in most cases.&lt;/p&gt;
+
+&lt;h4 id=&quot;implementation-details&quot;&gt;Implementation Details&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Kaiming/He init. is used&lt;/li&gt;
+  &lt;li&gt;Zero padding is used @ each Dense block&lt;/li&gt;
+  &lt;li&gt;Global pooling after last Dense block, with Softmax activation&lt;/li&gt;
+  &lt;li&gt;3 Dense blocks are used with all datasets except for ImageNet&lt;/li&gt;
+  &lt;li&gt;Weight decay of 10e-4&lt;/li&gt;
+  &lt;li&gt;Nesterov momentum of 0.9&lt;/li&gt;
+  &lt;li&gt;ImageNet implementation uses 7x7 convs instead of 3x3&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;results-and-conclusion&quot;&gt;Results and Conclusion&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://Cedric-Perauer.github.io/DL_from_Foundations/images/Dense_results.png&quot; alt=&quot;images&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Bottleneck impact decreases with depth of the network&lt;/li&gt;
+  &lt;li&gt;not the same regularization issues as with ResNets1&lt;/li&gt;
+  &lt;li&gt;Dense Net BC with 15.3 Million params outperforms much larger Fractal Net (comparable to ResNet-1001), with DenseNet having 90% fewer parameters&lt;/li&gt;
+  &lt;li&gt;a DenseNet with as much compute complexity (FLOPS) as ResNet-50 performs on par with  ResNet-101&lt;/li&gt;
+  &lt;li&gt;DenseNet with 0.8 Million parameters performs as good as ResNet with 10.2 Millon parameters&lt;/li&gt;
+  &lt;li&gt;Deep Supervision is achieved with a single classifier. This provides easier loss functions and doesn’t need a multi classifier (like Inception).&lt;/li&gt;
+  &lt;li&gt;The intuition behind the good performance of DenseNets : architecture style is similar to a ResNet trained with stochastic depth, that means redundant layers are dropped from the beginning allowing smaller Networks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;references-that-are-interesting-to-follow&quot;&gt;References that are interesting to follow&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/liuzhuang13/DenseNet&quot;&gt;DenseNets Implentation Github&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1512.03385.pdf&quot;&gt;ResNets paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1605.07648&quot;&gt;Fractal Nets paper&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/pdf/1502.01852.pdf&quot;&gt;Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Dense Net paper summary</summary></entry><entry><title type="html">Fastai DL from the Foundations Lesson 2</title><link href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html" rel="alternate" type="text/html" title="Fastai DL from the Foundations Lesson 2" /><published>2020-04-02T00:00:00-05:00</published><updated>2020-04-02T00:00:00-05:00</updated><id>https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2</id><content type="html" xml:base="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/04/02/DL-From-Foundations-Part2.html">&lt;h1 id=&quot;lesson-2-how-to-train-your-model&quot;&gt;Lesson 2 How to train your model&lt;/h1&gt;
 
 &lt;h2 id=&quot;loss&quot;&gt;Loss&lt;/h2&gt;
 
