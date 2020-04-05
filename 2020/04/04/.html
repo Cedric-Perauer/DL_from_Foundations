@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Title | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Title" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="summary" />
+<meta property="og:description" content="summary" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-04-04T00:00:00-05:00","dateModified":"2020-04-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html","headline":"Title","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Title | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Title" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="summary" />
+<meta property="og:description" content="summary" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-04-04T00:00:00-05:00","dateModified":"2020-04-04T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/04/.html","headline":"Title","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/DL_from_Foundations/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/DL_from_Foundations/about/">About Me</a><a class="page-link" href="/DL_from_Foundations/search/">Search</a><a class="page-link" href="/DL_from_Foundations/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="page-description">summary</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-04T00:00:00-05:00" itemprop="datePublished">
+        Apr 4, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/Cedric-Perauer/DL_from_Foundations/tree/master/_notebooks/2020-04-05.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/Cedric-Perauer/DL_from_Foundations/master?filepath=_notebooks%2F2020-04-05.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/Cedric-Perauer/DL_from_Foundations/blob/master/_notebooks/2020-04-05.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-04-05.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Delving-Deep-into-Rectifiers:">Delving Deep into Rectifiers:<a class="anchor-link" href="#Delving-Deep-into-Rectifiers:"> </a></h2><p>Surpassing Human-Level Performance on ImageNet Classification a summary of the paper</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="What-did-the-authors-want-to-achieve-?">What did the authors want to achieve ?<a class="anchor-link" href="#What-did-the-authors-want-to-achieve-?"> </a></h3><ul>
+<li>Achieve above human level performance on vision (ImageNet) </li>
+<li>Train deep Networks with rectifier functions (ReLu,LReLu,PReLU) effectively </li>
+<li>Improve accuracy by enabling the training of deeper and larger networks </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Key-elements">Key elements<a class="anchor-link" href="#Key-elements"> </a></h3><ul>
+<li>The key elements are a different kind of rectifier activation function called PReLu, which is very similar to LReLu as well as a different initalization technique called Kaiming/He init which improves upon the fact that Xavier initalization does not consider the non-linearities of ReLu kind functions          </li>
+</ul>
+<h4 id="PReLU">PReLU<a class="anchor-link" href="#PReLU"> </a></h4><p><figure>
+  
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/prelu.png" alt="drawing" style="max-width: 400px" />
+    
+    
+</figure>
+</p>
+<ul>
+<li>As we can see PReLu looks a lot like LReLu, having a negative <code>slope a</code> when x &lt; 0, however this slope is not fixed in the beginning but learned by introducing a few hyperparameters </li>
+<li>Due to the number of extra hyperparams being equal to the number of channels, no additional risk of overfitting is introduced </li>
+<li>PReLu seems to keep more information in early layers and becomes more discriminative in deeper stages due to being able to model more non-linear functions </li>
+</ul>
+<h4 id="Kaiming-Initalization">Kaiming Initalization<a class="anchor-link" href="#Kaiming-Initalization"> </a></h4><ul>
+<li><p>The problem with Xavier init, is that it does not take into account the non-linearities of rectifier funcions, therefore a new init technique is derived by taking these activation functions into account, for the forward pass the following is derived :</p>
+<ul>
+<li><p>Based on the response of a conv layer, which is computed by : 
+$y_{l} =  W_{l}*x_{l}+b_{l}$ ,with $x$ being a $ n = k^{2}*c$ vector ($k*k$ co-located pixels, in $c$ channels) and $W_{l}$ being a $d$ x $n$ matrix, where $d$ is the num of filters</p>
+</li>
+<li><p>The elements in $W_{l}$ and $x_{l}$ are assumed to be independent from each other and share the same distribution, $W_{l}$ and $x_{l}$ are also independet from each other it follows : 
+$Var[y_{l}] = n_{l} *Var[w_{l}*x_{l}] $</p>
+</li>
+<li><p>We let $w_{l}$ have zero mean, the variance of the product of independent
+variables gives us :<br />
+$Var[y_{l}] = n_{l} *Var[w_{l}]*Var[x_{l}] $
+, which leads to 
+$Var[y_{l}] = n_{l} *Var[w_{l}]*E[x_{l}^{2}] $</p>
+</li>
+<li><p>$E[x_{l}^{2}]$ is the expectation of the square of $x_{l}$, we notice that $E[x_{l}^{2}]\neq Var[x_{l}]$ unless $x_{l}$ has 0 mean (Random variability) , which is not the case for ReLu : $x_{l} = max(0,y_{l-1})$</p>
+</li>
+<li><p>if $w_{l-1}$ is symmetric around 0 and $b_{l-1}=0$, it follows that $y_{l-1}$ is a symmetric distribution around zero. This means that $E[x_{l}^{2}]=0.5 * Var[y_{l-1}]$ when the activation is ReLu thus : 
+$Var[y_{l}] = 0.5 * n_{l} *Var[w_{l}]*Var[y_{l-1}] $</p>
+</li>
+<li><p>when we have L layers we have :</p>
+<p>$Var[y_{l}] = Var[y_{1}] * \prod^{L}_{l=2} (0.5 * n_{l} *Var[w_{l}])$</p>
+</li>
+<li><p>the initalization should not magnify the magnitude of the inputs signals, this is achieved by applying a proper scalar :</p>
+</li>
+</ul>
+<p>$0.5 * n_{l} *Var[w_{l}] = 1, \forall {l}$ (ReLu case)</p>
+<p>$0.5 *(1+a^{2}) * n_{l} *Var[w_{l}] = 1, \forall {l}$ (PReLu case)</p>
+</li>
+</ul>
+<p>=&gt; this distribution is a 0-mean Gaussian with a std of $\sqrt{2/n_{l}}$, which is also adopted in the first layer</p>
+<ul>
+<li><p>For the backward pass the same function applies, with $n_{l}=k_{l}^{2}*d_{l-1} = k_{l}^{2}*c_{l}$ replaced by $\tilde{n}=k_{l}^{2}*d_{l}$ :</p>
+<p>$0.5 * \tilde{n} *Var[w_{l}] = 1, \forall {l}$ (ReLu)</p>
+<p>$0.5 *(1+a^{2}) * \tilde{n} *Var[w_{l}] = 1, \forall {l}$ (PReLu case)</p>
+</li>
+</ul>
+<p>"This means that if the initialization properly scales
+the backward signal, then this is also the case for the forward signal; and vice versa. For all models in this paper,
+both forms can make them converge."</p>
+<h4 id="Implementation-Details">Implementation Details<a class="anchor-link" href="#Implementation-Details"> </a></h4><ul>
+<li>The standard hyperparms are as follows : <ul>
+<li>Weight decay is 0.0005</li>
+<li>Momentum is 0.9.</li>
+<li>Dropout (50%) is used in the first two fc layers </li>
+<li>Minibatch size is fixed as 128 </li>
+<li>The learning rates are 1e-2, 1e-3,and 1e-4, and is switched when the error plateaus</li>
+<li>Number of epochs : 80 </li>
+<li>simple variant of Krizhevsky’s method is used to run Multi-GPUs, the GPUs are synched before the first fc layer to run backprop/forward pass on one of the GPUs (3.8x
+speedup using 4 GPUs, and a 6.0x speedup using 8 GPUs)</li>
+</ul>
+</li>
+<li>The PReLU hyperparameters (slopes) are trained with Backprop, the authors proposed the following : <ul>
+<li>no weight decay is used</li>
+<li>the <code>slopes ai</code> are initialized as 0.25 </li>
+<li>the <code>slopes ai</code>are not constrained, even without regularization <code>ai</code>is rarely larger than 1</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Results-and-Conclusion">Results and Conclusion<a class="anchor-link" href="#Results-and-Conclusion"> </a></h3><p><figure>
+  
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/prelu_results.png" alt="drawing" style="max-width: 400px" />
+    
+    
+</figure>
+</p>
+<ul>
+<li>PRelu reduces top-1 error by 1.05% and top-5 error by 0.23% (@scale 384), when the large model A is used 
+<figure>
+  
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/He.png" alt="drawing" style="max-width: 400px" />
+    
+    
+</figure>
+  </li>
+<li>Kaiming init allows training deep rectifier networks and converges, this allows them to reduce the error to below human level <code>4.94% compared to 5.1%</code>, you should check out how the human benchmark was established by checking out <a href="http://karpathy.github.io/2014/09/02/what-i-learned-from-competing-against-a-convnet-on-imagenet/">Andrej Karpathy's blog on this</a> </li>
+<li>It has to be noted however that this is largely due to the fine grained details that can be learned by NNs, if a prediction is incorrect humans still mostly guess the right category (for example vehicle) while NNs can be completely off. So superhuman performance is only achieved in detecting fine grained classes. This can be confirmed when training on the Pascal VOC dataset.  </li>
+</ul>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><a class="u-url" href="/DL_from_Foundations/2020/04/04/.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/DL_from_Foundations/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/DL_from_Foundations/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
