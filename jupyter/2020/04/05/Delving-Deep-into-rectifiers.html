@@ -3,34 +3,36 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | fastpages</title>
+<title>Delving Deep into Rectifiers a summaryt | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Delving Deep into Rectifiers a summaryt" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="summary" />
-<meta property="og:description" content="summary" />
-<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html" />
-<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html" />
+<meta name="description" content="Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet." />
+<meta property="og:description" content="Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet." />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html" />
 <meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/He.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-05T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-05T00:00:00-05:00","dateModified":"2020-04-05T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-05T00:00:00-05:00","dateModified":"2020-04-05T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html"},"description":"Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet.","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/He.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html","headline":"Delving Deep into Rectifiers a summaryt","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | fastpages</title>
+<title>Delving Deep into Rectifiers a summaryt | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Delving Deep into Rectifiers a summaryt" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="summary" />
-<meta property="og:description" content="summary" />
-<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html" />
-<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html" />
+<meta name="description" content="Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet." />
+<meta property="og:description" content="Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet." />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html" />
 <meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/He.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-05T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-05T00:00:00-05:00","dateModified":"2020-04-05T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-05T00:00:00-05:00","dateModified":"2020-04-05T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html"},"description":"Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet.","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/He.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html","headline":"Delving Deep into Rectifiers a summaryt","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -101,7 +103,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="page-description">summary</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-05T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Delving Deep into Rectifiers a summaryt</h1><p class="page-description">Using initialization and a LReLu inspired activation function to reach superhuman performance on ImageNet.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-05T00:00:00-05:00" itemprop="datePublished">
         Apr 5, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -111,6 +113,13 @@ window.onload = wrap_img;
     
 </span></p>
 
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
     
 
     
@@ -138,7 +147,21 @@ window.onload = wrap_img;
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <!--
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Delving-Deep-into-Rectifiers:">Delving Deep into Rectifiers: </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#What-did-the-authors-want-to-achieve-?">What did the authors want to achieve ? </a></li>
+<li class="toc-entry toc-h3"><a href="#Key-elements">Key elements </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#PReLU">PReLU </a></li>
+<li class="toc-entry toc-h4"><a href="#Kaiming-Initalization">Kaiming Initalization </a></li>
+<li class="toc-entry toc-h4"><a href="#Implementation-Details">Implementation Details </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Results-and-Conclusion">Results and Conclusion </a></li>
+</ul>
+</li>
+</ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -154,16 +177,24 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Delving-Deep-into-Rectifiers:">Delving Deep into Rectifiers:<a class="anchor-link" href="#Delving-Deep-into-Rectifiers:"> </a></h2><p>Surpassing Human-Level Performance on ImageNet Classification a summary of the paper</p>
+<h2 id="Delving-Deep-into-Rectifiers:">
+<a class="anchor" href="#Delving-Deep-into-Rectifiers:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Delving Deep into Rectifiers:<a class="anchor-link" href="#Delving-Deep-into-Rectifiers:"> </a>
+</h2>
+<p>Surpassing Human-Level Performance on ImageNet Classification a summary of the paper</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="What-did-the-authors-want-to-achieve-?">What did the authors want to achieve ?<a class="anchor-link" href="#What-did-the-authors-want-to-achieve-?"> </a></h3><ul>
+<h3 id="What-did-the-authors-want-to-achieve-?">
+<a class="anchor" href="#What-did-the-authors-want-to-achieve-?" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?<a class="anchor-link" href="#What-did-the-authors-want-to-achieve-?"> </a>
+</h3>
+<ul>
 <li>Achieve above human level performance on vision (ImageNet) </li>
 <li>Train deep Networks with rectifier functions (ReLu,LReLu,PReLU) effectively </li>
 <li>Improve accuracy by enabling the training of deeper and larger networks </li>
@@ -172,14 +203,21 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Key-elements">Key elements<a class="anchor-link" href="#Key-elements"> </a></h3><ul>
+<h3 id="Key-elements">
+<a class="anchor" href="#Key-elements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key elements<a class="anchor-link" href="#Key-elements"> </a>
+</h3>
+<ul>
 <li>The key elements are a different kind of rectifier activation function called PReLu, which is very similar to LReLu as well as a different initalization technique called Kaiming/He init which improves upon the fact that Xavier initalization does not consider the non-linearities of ReLu kind functions          </li>
 </ul>
-<h4 id="PReLU">PReLU<a class="anchor-link" href="#PReLU"> </a></h4><p><figure>
+<h4 id="PReLU">
+<a class="anchor" href="#PReLU" aria-hidden="true"><span class="octicon octicon-link"></span></a>PReLU<a class="anchor-link" href="#PReLU"> </a>
+</h4>
+<p><figure>
   
-    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/prelu.png" alt="drawing" style="max-width: 400px" />
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/prelu.png" alt="drawing" style="max-width: 400px">
     
     
 </figure>
@@ -189,30 +227,41 @@ window.onload = wrap_img;
 <li>Due to the number of extra hyperparams being equal to the number of channels, no additional risk of overfitting is introduced </li>
 <li>PReLu seems to keep more information in early layers and becomes more discriminative in deeper stages due to being able to model more non-linear functions </li>
 </ul>
-<h4 id="Kaiming-Initalization">Kaiming Initalization<a class="anchor-link" href="#Kaiming-Initalization"> </a></h4><ul>
-<li><p>The problem with Xavier init, is that it does not take into account the non-linearities of rectifier funcions, therefore a new init technique is derived by taking these activation functions into account, for the forward pass the following is derived :</p>
+<h4 id="Kaiming-Initalization">
+<a class="anchor" href="#Kaiming-Initalization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Kaiming Initalization<a class="anchor-link" href="#Kaiming-Initalization"> </a>
+</h4>
 <ul>
-<li><p>Based on the response of a conv layer, which is computed by : 
+<li>
+<p>The problem with Xavier init, is that it does not take into account the non-linearities of rectifier funcions, therefore a new init technique is derived by taking these activation functions into account, for the forward pass the following is derived :</p>
+<ul>
+<li>
+<p>Based on the response of a conv layer, which is computed by : 
 $y_{l} =  W_{l}*x_{l}+b_{l}$ ,with $x$ being a $ n = k^{2}*c$ vector ($k*k$ co-located pixels, in $c$ channels) and $W_{l}$ being a $d$ x $n$ matrix, where $d$ is the num of filters</p>
 </li>
-<li><p>The elements in $W_{l}$ and $x_{l}$ are assumed to be independent from each other and share the same distribution, $W_{l}$ and $x_{l}$ are also independet from each other it follows : 
+<li>
+<p>The elements in $W_{l}$ and $x_{l}$ are assumed to be independent from each other and share the same distribution, $W_{l}$ and $x_{l}$ are also independet from each other it follows : 
 $Var[y_{l}] = n_{l} *Var[w_{l}*x_{l}] $</p>
 </li>
-<li><p>We let $w_{l}$ have zero mean, the variance of the product of independent
-variables gives us :<br />
+<li>
+<p>We let $w_{l}$ have zero mean, the variance of the product of independent
+variables gives us :<br>
 $Var[y_{l}] = n_{l} *Var[w_{l}]*Var[x_{l}] $
 , which leads to 
 $Var[y_{l}] = n_{l} *Var[w_{l}]*E[x_{l}^{2}] $</p>
 </li>
-<li><p>$E[x_{l}^{2}]$ is the expectation of the square of $x_{l}$, we notice that $E[x_{l}^{2}]\neq Var[x_{l}]$ unless $x_{l}$ has 0 mean (Random variability) , which is not the case for ReLu : $x_{l} = max(0,y_{l-1})$</p>
+<li>
+<p>$E[x_{l}^{2}]$ is the expectation of the square of $x_{l}$, we notice that $E[x_{l}^{2}]\neq Var[x_{l}]$ unless $x_{l}$ has 0 mean (Random variability) , which is not the case for ReLu : $x_{l} = max(0,y_{l-1})$</p>
 </li>
-<li><p>if $w_{l-1}$ is symmetric around 0 and $b_{l-1}=0$, it follows that $y_{l-1}$ is a symmetric distribution around zero. This means that $E[x_{l}^{2}]=0.5 * Var[y_{l-1}]$ when the activation is ReLu thus : 
+<li>
+<p>if $w_{l-1}$ is symmetric around 0 and $b_{l-1}=0$, it follows that $y_{l-1}$ is a symmetric distribution around zero. This means that $E[x_{l}^{2}]=0.5 * Var[y_{l-1}]$ when the activation is ReLu thus : 
 $Var[y_{l}] = 0.5 * n_{l} *Var[w_{l}]*Var[y_{l-1}] $</p>
 </li>
-<li><p>when we have L layers we have :</p>
+<li>
+<p>when we have L layers we have :</p>
 <p>$Var[y_{l}] = Var[y_{1}] * \prod^{L}_{l=2} (0.5 * n_{l} *Var[w_{l}])$</p>
 </li>
-<li><p>the initalization should not magnify the magnitude of the inputs signals, this is achieved by applying a proper scalar :</p>
+<li>
+<p>the initalization should not magnify the magnitude of the inputs signals, this is achieved by applying a proper scalar :</p>
 </li>
 </ul>
 <p>$0.5 * n_{l} *Var[w_{l}] = 1, \forall {l}$ (ReLu case)</p>
@@ -221,7 +270,8 @@ $Var[y_{l}] = 0.5 * n_{l} *Var[w_{l}]*Var[y_{l-1}] $</p>
 </ul>
 <p>=&gt; this distribution is a 0-mean Gaussian with a std of $\sqrt{2/n_{l}}$, which is also adopted in the first layer</p>
 <ul>
-<li><p>For the backward pass the same function applies, with $n_{l}=k_{l}^{2}*d_{l-1} = k_{l}^{2}*c_{l}$ replaced by $\tilde{n}=k_{l}^{2}*d_{l}$ :</p>
+<li>
+<p>For the backward pass the same function applies, with $n_{l}=k_{l}^{2}*d_{l-1} = k_{l}^{2}*c_{l}$ replaced by $\tilde{n}=k_{l}^{2}*d_{l}$ :</p>
 <p>$0.5 * \tilde{n} *Var[w_{l}] = 1, \forall {l}$ (ReLu)</p>
 <p>$0.5 *(1+a^{2}) * \tilde{n} *Var[w_{l}] = 1, \forall {l}$ (PReLu case)</p>
 </li>
@@ -229,7 +279,10 @@ $Var[y_{l}] = 0.5 * n_{l} *Var[w_{l}]*Var[y_{l-1}] $</p>
 <p>"This means that if the initialization properly scales
 the backward signal, then this is also the case for the forward signal; and vice versa. For all models in this paper,
 both forms can make them converge."</p>
-<h4 id="Implementation-Details">Implementation Details<a class="anchor-link" href="#Implementation-Details"> </a></h4><ul>
+<h4 id="Implementation-Details">
+<a class="anchor" href="#Implementation-Details" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation Details<a class="anchor-link" href="#Implementation-Details"> </a>
+</h4>
+<ul>
 <li>The standard hyperparms are as follows : <ul>
 <li>Weight decay is 0.0005</li>
 <li>Momentum is 0.9.</li>
@@ -252,11 +305,15 @@ speedup using 4 GPUs, and a 6.0x speedup using 8 GPUs)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Results-and-Conclusion">Results and Conclusion<a class="anchor-link" href="#Results-and-Conclusion"> </a></h3><p><figure>
+<h3 id="Results-and-Conclusion">
+<a class="anchor" href="#Results-and-Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results and Conclusion<a class="anchor-link" href="#Results-and-Conclusion"> </a>
+</h3>
+<p><figure>
   
-    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/prelu_results.png" alt="drawing" style="max-width: 400px" />
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/prelu_results.png" alt="drawing" style="max-width: 400px">
     
     
 </figure>
@@ -265,7 +322,7 @@ speedup using 4 GPUs, and a 6.0x speedup using 8 GPUs)</li>
 <li>PRelu reduces top-1 error by 1.05% and top-5 error by 0.23% (@scale 384), when the large model A is used 
 <figure>
   
-    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/He.png" alt="drawing" style="max-width: 400px" />
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/He.png" alt="drawing" style="max-width: 400px">
     
     
 </figure>
@@ -281,7 +338,15 @@ speedup using 4 GPUs, and a 6.0x speedup using 8 GPUs)</li>
 
 
 
-  </div><a class="u-url" href="/DL_from_Foundations/2020/04/05/Delving-Deep-into-rectifiers.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Cedric-Perauer/DL_from_Foundations"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/DL_from_Foundations/jupyter/2020/04/05/Delving-Deep-into-rectifiers.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
