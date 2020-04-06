@@ -842,9 +842,9 @@ PyTorch does the same thing as well, but also adds <code class="highlighter-roug
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>As this Callback alread tracks all our Stats, we can easily update it to include early stopping and saving the best model, based on validaton loss, I did it like this :</p>
+<p>As this Callback alread tracks all our Stats, we can easily cerate a new Callback to save the best model based on validation loss at a given epoch and introduce early stopping. This can be done by inheriting from <code class="highlighter-rouge">AvgStatsCallback</code> which already has handy <code class="highlighter-rouge">begin_epoch</code> and <code class="highlighter-rouge">after_loss</code> functions that we can use.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AvgStatsCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Early_save</span><span class="p">(</span><span class="n">AvgStatsCallback</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metrics</span><span class="p">,</span><span class="n">early_stopping_iter</span><span class="p">,</span><span class="n">loss_stop</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span> <span class="o">=</span> <span class="n">AvgStats</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span><span class="bp">True</span><span class="p">),</span><span class="n">AvgStats</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span><span class="bp">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">lowest_val_loss</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s">"inf"</span><span class="p">)</span>
@@ -852,11 +852,7 @@ PyTorch does the same thing as well, but also adds <code class="highlighter-roug
         <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_array</span> <span class="o">=</span> <span class="n">deque</span><span class="p">(</span><span class="n">maxlen</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">early_stopping_iter</span> <span class="o">=</span> <span class="mi">3</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">loss_stop</span> <span class="o">=</span> <span class="n">loss_stop</span>
-        
-    <span class="k">def</span> <span class="nf">begin_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
-        
+           
     <span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_acc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="o">.</span><span class="n">avg_stats</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cur_val_loss</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">lowest_val_loss</span> <span class="p">:</span> 
@@ -874,11 +870,6 @@ PyTorch does the same thing as well, but also adds <code class="highlighter-roug
             <span class="k">if</span><span class="p">(</span><span class="n">diff</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss_stop</span><span class="p">):</span> 
                 <span class="k">return</span> <span class="s">"stop"</span>
     
-    
-    <span class="k">def</span> <span class="nf">after_loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_train</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span>
-        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span> <span class="n">stats</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
-    
     <span class="k">def</span> <span class="nf">after_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">train_stats</span><span class="p">)</span>
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="p">)</span>
@@ -889,6 +880,9 @@ PyTorch does the same thing as well, but also adds <code class="highlighter-roug
         <span class="k">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">valid_stats</span><span class="o">.</span><span class="n">avg_stats</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
         
 </code></pre></div></div>
+
+<p>It keeps track of the last 3 losses and will stop training if the loss difference is too small. It will also save a model that performs best on validation with the handy <code class="highlighter-rouge">torch.save</code> function.</p>
+
 <p>The Class now also keeps track of the lowest validation loss overall and can save the best model based on validation loss. Early stopping was implemented by tracking the last n elements, with <code class="highlighter-rouge">n=early_stopping_iter</code> in this case. We are storing it in a deque data structures. The <code class="highlighter-rouge">early_stopping</code> function will return a string that will then lead to our <code class="highlighter-rouge">after_epoch</code> function returning True which will stop training, as we have :</p>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="bp">self</span><span class="p">(</span><span class="s">'after_epoch'</span><span class="p">):</span> 
         <span class="k">break</span>
