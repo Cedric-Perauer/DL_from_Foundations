@@ -1,9 +1,10 @@
 ---
 toc: true
 layout: post
-description: Summaries for Building Fastai Funtions from scratch 
+description: Summaries for Building Fastai Funtions from scratch (Lesson 1) 
 categories: [markdown]
-title: Fastai DL from the Foundations Lesson 1
+title: Fastai DL from the Foundations Matmul, Initalization, ReLU, Backprop, MSE
+
 ---
 
 # Fastai DL from the Foundations Lesson 1 

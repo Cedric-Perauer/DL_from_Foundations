@@ -2,9 +2,10 @@
 toc: true
 layout: post
 use_math : true
-description: Summaries for Building Fastai Funtions from scratch 
+description: Summaries for Building Fastai Funtions from scratch (Lesson 2)
 categories: [markdown]
-title: Fastai DL from the Foundations Lesson 2
+title: Fastai DL from the Foundations Softmax, NLL, Training, Module, Dataloader, Sampler, Callbacks
+
 ---
 
 
