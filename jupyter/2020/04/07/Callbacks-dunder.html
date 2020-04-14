@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      11 min read
+      12 min read
     
 </span></p>
 
@@ -239,6 +239,21 @@ window.onload = wrap_img;
 </div>
 
     </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
     
 
@@ -815,9 +830,10 @@ OK I guess! We've finished epoch 4!
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sm_pred</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">4</span><span class="p">]]</span>
-<span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">sm_pred</span><span class="p">)</span>
-<span class="n">log_softmax</span><span class="p">(</span><span class="n">sm_pred</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sm_pred</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">]</span>
+<span class="n">sm_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">sm_pred</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">log_softmax</span><span class="p">(</span><span class="n">sm_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -829,15 +845,9 @@ OK I guess! We've finished epoch 4!
 
 <div class="output_area">
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">TypeError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-38-7c4089344894&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">      1</span> sm_pred <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">5</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">4</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>log_softmax<span class="ansi-blue-fg">(</span>torch<span class="ansi-blue-fg">(</span>sm_pred<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-red-fg">TypeError</span>: 'module' object is not callable</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>tensor([-1.3133, -0.3133])
+</pre>
 </div>
 </div>
 
@@ -854,9 +864,14 @@ OK I guess! We've finished epoch 4!
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">progress</span><span class="p">(</span><span class="n">cb</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">results</span><span class="p">):</span> 
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)):</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">progress</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span><span class="n">cb</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> 
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span> 
+        <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">([</span><span class="n">i</span><span class="p">,</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
         
+        <span class="k">if</span> <span class="n">cb</span> <span class="p">:</span> 
+            <span class="n">cb</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">res</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
 </pre></div>
 
     </div>
@@ -873,12 +888,131 @@ OK I guess! We've finished epoch 4!
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">show_random_loss</span><span class="p">(</span><span class="n">value</span><span class="p">):</span> 
-    <span class="k">def</span> <span class="nf">_inner</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The loss in epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2"> is : </span><span class="si">{</span><span class="n">exclamation</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">show_random_loss</span><span class="p">():</span> 
+    <span class="k">def</span> <span class="nf">_inner</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span><span class="n">loss</span><span class="p">):</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Loss"</span><span class="p">,</span><span class="n">loss</span><span class="p">)</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">log_softmax</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"log-soft"</span><span class="p">,</span><span class="n">a</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"The loss in epoch </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s2"> is : </span><span class="si">{</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_inner</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">progress</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="n">show_random_loss</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Loss tensor([0., 1.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 0 is : tensor([-1.3133, -0.3133])
+Loss tensor([1., 2.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 1 is : tensor([-1.3133, -0.3133])
+Loss tensor([2., 3.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 2 is : tensor([-1.3133, -0.3133])
+Loss tensor([3., 4.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 3 is : tensor([-1.3133, -0.3133])
+Loss tensor([4., 5.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 4 is : tensor([-1.3133, -0.3133])
+Loss tensor([5., 6.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 5 is : tensor([-1.3133, -0.3133])
+Loss tensor([6., 7.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 6 is : tensor([-1.3133, -0.3133])
+Loss tensor([7., 8.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 7 is : tensor([-1.3133, -0.3133])
+Loss tensor([8., 9.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 8 is : tensor([-1.3133, -0.3133])
+Loss tensor([ 9., 10.])
+log-soft tensor([-1.3133, -0.3133])
+The loss in epoch 9 is : tensor([-1.3133, -0.3133])
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([ 9., 10.])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">slow_calculation</span><span class="p">(</span><span class="n">show_random_loss</span><span class="p">(</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">sm_pred</span><span class="p">)))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>The loss in epoch 0 is : tensor([-435.,    0., -430.])
+The loss in epoch 1 is : tensor([-435.,    0., -430.])
+The loss in epoch 2 is : tensor([-435.,    0., -430.])
+The loss in epoch 3 is : tensor([-435.,    0., -430.])
+The loss in epoch 4 is : tensor([-435.,    0., -430.])
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>30</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
