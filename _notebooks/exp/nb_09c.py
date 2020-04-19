@@ -6,7 +6,7 @@
 
 from exp.nb_09b import *
 import time
-from fastprogress.fastprogress import master_bar, progress_bar
+from fastprogress import master_bar, progress_bar
 from fastprogress.fastprogress import format_time
 
 class AvgStatsCallback(Callback):
@@ -48,5 +48,5 @@ class ProgressCallback(Callback):
     def begin_validate(self): self.set_pb()
 
     def set_pb(self):
-        self.pb = progress_bar(self.dl, parent=self.mbar, auto_update=False)
+        self.pb = progress_bar(self.dl, parent=self.mbar)
         self.mbar.update(self.epoch)
