@@ -3,34 +3,36 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | fastpages</title>
+<title>Fastai Course DL from the Foundations LSUV | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Fastai Course DL from the Foundations LSUV" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="summary" />
-<meta property="og:description" content="summary" />
-<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html" />
-<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html" />
+<meta name="description" content="LSUV, an initalization technique (Lesson 4 Part 1)" />
+<meta property="og:description" content="LSUV, an initalization technique (Lesson 4 Part 1)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html" />
 <meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/lesson3.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-16T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-16T00:00:00-05:00","dateModified":"2020-04-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-16T00:00:00-05:00","dateModified":"2020-04-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html"},"description":"LSUV, an initalization technique (Lesson 4 Part 1)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/lesson3.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html","headline":"Fastai Course DL from the Foundations LSUV","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | fastpages</title>
+<title>Fastai Course DL from the Foundations LSUV | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Fastai Course DL from the Foundations LSUV" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="summary" />
-<meta property="og:description" content="summary" />
-<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html" />
-<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html" />
+<meta name="description" content="LSUV, an initalization technique (Lesson 4 Part 1)" />
+<meta property="og:description" content="LSUV, an initalization technique (Lesson 4 Part 1)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html" />
 <meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/lesson3.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-16T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-16T00:00:00-05:00","dateModified":"2020-04-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/16/LSUV.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-16T00:00:00-05:00","dateModified":"2020-04-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html"},"description":"LSUV, an initalization technique (Lesson 4 Part 1)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/lesson3.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/16/LSUV.html","headline":"Fastai Course DL from the Foundations LSUV","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -101,7 +103,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="page-description">summary</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-16T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Fastai Course DL from the Foundations LSUV</h1><p class="page-description">LSUV, an initalization technique (Lesson 4 Part 1)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-16T00:00:00-05:00" itemprop="datePublished">
         Apr 16, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -111,6 +113,13 @@ window.onload = wrap_img;
     
 </span></p>
 
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
     
 
     
@@ -138,7 +147,9 @@ window.onload = wrap_img;
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <!--
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Fastai-Layerwise-Sequential-Unit-Variance-(LSUV)">Fastai Layerwise Sequential Unit Variance (LSUV) </a></li>
+</ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -154,10 +165,14 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fastai-Layerwise-Sequential-Unit-Variance-(LSUV)">Fastai Layerwise Sequential Unit Variance (LSUV)<a class="anchor-link" href="#Fastai-Layerwise-Sequential-Unit-Variance-(LSUV)"> </a></h2><ul>
-<li>This Post is based on the Notebok by the <a href="https://course.fast.ai/">Fastai Course Part2</a><br />
+<h2 id="Fastai-Layerwise-Sequential-Unit-Variance-(LSUV)">
+<a class="anchor" href="#Fastai-Layerwise-Sequential-Unit-Variance-(LSUV)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fastai Layerwise Sequential Unit Variance (LSUV)<a class="anchor-link" href="#Fastai-Layerwise-Sequential-Unit-Variance-(LSUV)"> </a>
+</h2>
+<ul>
+<li>This Post is based on the Notebok by the <a href="https://course.fast.ai/">Fastai Course Part2</a><br>
 =&gt; With LSUV the computer will figure out how to init our net proberly, and will initalize our network with unit Variance </li>
 </ul>
 
@@ -169,7 +184,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -183,7 +199,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -193,7 +209,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -204,19 +221,21 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Getting the MNIST data and a CNN</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=235">Jump_to lesson 11 video</a></p>
 
@@ -228,7 +247,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -248,7 +268,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -258,7 +278,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -273,7 +294,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -283,7 +304,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -294,7 +316,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -304,7 +326,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -328,7 +351,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -338,7 +361,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -349,12 +373,13 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we're going to look at the paper <a href="https://arxiv.org/pdf/1511.06422.pdf">All You Need is a Good Init</a>, which introduces <em>Layer-wise Sequential Unit-Variance</em> (<em>LSUV</em>). We initialize our neural net with the usual technique, then we pass a batch through the model and check the outputs of the linear and convolutional layers. We can then rescale the weights according to the actual variance we observe on the activations, and subtract the mean we observe from the initial bias. That way we will have activations that stay normalized.</p>
 <p>We repeat this process until we are satisfied with the mean/variance we observe.</p>
@@ -368,7 +393,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -379,7 +405,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -387,10 +413,10 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>train: [2.31547421875, tensor(0.1591, device=&#39;cuda:0&#39;)]
-valid: [2.2347482421875, tensor(0.2266, device=&#39;cuda:0&#39;)]
-train: [1.050069921875, tensor(0.6582, device=&#39;cuda:0&#39;)]
-valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
+<pre>train: [2.31547421875, tensor(0.1591, device='cuda:0')]
+valid: [2.2347482421875, tensor(0.2266, device='cuda:0')]
+train: [1.050069921875, tensor(0.6582, device='cuda:0')]
+valid: [0.2111361328125, tensor(0.9348, device='cuda:0')]
 </pre>
 </div>
 </div>
@@ -401,7 +427,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now we recreate our model and we'll try again with LSUV. Hopefully, we'll get better results!</p>
 
@@ -413,7 +440,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -424,12 +452,13 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Helper function to get one batch of a given dataloader, with the callbacks called to preprocess it.</p>
 
@@ -441,7 +470,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -449,14 +479,14 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <span class="k">def</span> <span class="nf">get_batch</span><span class="p">(</span><span class="n">dl</span><span class="p">,</span> <span class="n">run</span><span class="p">):</span>
     <span class="n">run</span><span class="o">.</span><span class="n">xb</span><span class="p">,</span><span class="n">run</span><span class="o">.</span><span class="n">yb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dl</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="n">run</span><span class="o">.</span><span class="n">cbs</span><span class="p">:</span> <span class="n">cb</span><span class="o">.</span><span class="n">set_runner</span><span class="p">(</span><span class="n">run</span><span class="p">)</span>
-    <span class="n">run</span><span class="p">(</span><span class="s1">&#39;begin_batch&#39;</span><span class="p">)</span>
+    <span class="n">run</span><span class="p">(</span><span class="s1">'begin_batch'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">run</span><span class="o">.</span><span class="n">xb</span><span class="p">,</span><span class="n">run</span><span class="o">.</span><span class="n">yb</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -466,7 +496,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -477,12 +508,13 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We only want the outputs of convolutional or linear layers. To find them, we need a recursive function. We can use <code>sum(list, [])</code> to concatenate the lists the function finds (<code>sum</code> applies the + operate between the elements of the list you pass it, beginning with the initial state in the second argument).</p>
 
@@ -494,7 +526,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -513,7 +546,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -523,7 +556,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -534,7 +568,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -576,7 +610,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -587,7 +622,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -627,7 +662,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is a helper function to grab the mean and std of the output of a hooked layer.</p>
 
@@ -639,7 +675,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -652,7 +689,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -662,7 +699,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -673,12 +711,13 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So now we can look at the mean and std of the conv layers of our model.</p>
 
@@ -690,7 +729,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -703,7 +743,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -726,7 +766,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We first adjust the bias terms to make the means 0, then we adjust the standard deviations to make the stds 1 (with a threshold of 1e-3). The <code>mdl(xb) is not None</code> clause is just there to pass <code>xb</code> through <code>mdl</code> and compute all the activations so that the hooks get updated.</p>
 
@@ -738,7 +779,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -756,12 +798,13 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We execute that initialization on all the conv layers in order:</p>
 
@@ -773,7 +816,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -784,7 +828,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -807,14 +851,16 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Note that the mean doesn't exactly stay at 0. since we change the standard deviation after by scaling the weight.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then training is beginning on better grounds.</p>
 
@@ -826,7 +872,8 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -837,7 +884,7 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -845,10 +892,10 @@ valid: [0.2111361328125, tensor(0.9348, device=&#39;cuda:0&#39;)]
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>train: [0.5833533203125, tensor(0.8165, device=&#39;cuda:0&#39;)]
-valid: [0.14450025634765626, tensor(0.9564, device=&#39;cuda:0&#39;)]
-train: [0.111139541015625, tensor(0.9656, device=&#39;cuda:0&#39;)]
-valid: [0.09887520751953124, tensor(0.9700, device=&#39;cuda:0&#39;)]
+<pre>train: [0.5833533203125, tensor(0.8165, device='cuda:0')]
+valid: [0.14450025634765626, tensor(0.9564, device='cuda:0')]
+train: [0.111139541015625, tensor(0.9656, device='cuda:0')]
+valid: [0.09887520751953124, tensor(0.9700, device='cuda:0')]
 CPU times: user 2.33 s, sys: 24 ms, total: 2.35 s
 Wall time: 1.96 s
 </pre>
@@ -861,7 +908,8 @@ Wall time: 1.96 s
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>LSUV is particularly useful for more complex and deeper architectures that are hard to initialize to get unit variance at the last layer.</p>
 
@@ -872,7 +920,15 @@ Wall time: 1.96 s
 
 
 
-  </div><a class="u-url" href="/DL_from_Foundations/2020/04/16/LSUV.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Cedric-Perauer/DL_from_Foundations"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/DL_from_Foundations/jupyter/2020/04/16/LSUV.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
