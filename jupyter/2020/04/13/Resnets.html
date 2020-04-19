@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      5 min read
     
 </span></p>
 
@@ -159,6 +159,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#Implementation-Details">Implementation Details </a></li>
 </ul>
 </li>
+<li class="toc-entry toc-h3"><a href="#Implementation-of-a-ResBlock">Implementation of a ResBlock </a></li>
 <li class="toc-entry toc-h3"><a href="#Results-and-Conclusion">Results and Conclusion </a></li>
 </ul>
 </li>
@@ -252,6 +253,46 @@ input/output dimensions. Identity shortcut connections are key, as with projecti
 <li>training for up to 60x1e5 iterations</li>
 <li>weight decay : 0.0001 and momentum of 0.9</li>
 </ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Implementation-of-a-ResBlock">
+<a class="anchor" href="#Implementation-of-a-ResBlock" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation of a ResBlock<a class="anchor-link" href="#Implementation-of-a-ResBlock"> </a>
+</h3>
+<p>A Residual Block can be implemented as follows in PyTorch :</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">conv</span><span class="p">(</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">"""Creates a convolutional layer, with optional batch normalization.</span>
+<span class="sd">    """</span>
+    <span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">conv_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">in_channels</span><span class="p">,</span> <span class="n">out_channels</span><span class="o">=</span><span class="n">out_channels</span><span class="p">,</span><span class="n">kernel_size</span><span class="o">=</span><span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span><span class="n">bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">conv_layer</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">batch_norm</span><span class="p">:</span>
+        <span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">(</span><span class="n">out_channels</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">layers</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Resblock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span> 
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">conv_dim</span><span class="p">):</span> 
+        <span class="nb">super</span><span class="p">(</span><span class="n">Resblock</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">conv</span><span class="p">(</span><span class="n">conv_dim</span><span class="p">,</span> <span class="n">conv_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">conv</span><span class="p">(</span><span class="n">conv_dim</span><span class="p">,</span> <span class="n">conv_dim</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">batch_norm</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">):</span> 
+        <span class="n">out1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">leaky_relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">out</span> <span class="o">=</span>  <span class="n">x</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">leaky_relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">out1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">resblocks_create</span><span class="p">(</span><span class="n">conv_dim</span><span class="p">,</span><span class="n">n_res_blocks</span><span class="p">):</span>
+    <span class="n">res_layers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n_res_blocks</span><span class="p">):</span>
+        <span class="n">res_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Resblock</span><span class="p">(</span><span class="n">conv_dim</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">res_layers</span><span class="p">)</span>
+</pre></div>
+<p>Instead of the conv function, you could obviously use the Impl</p>
 
 </div>
 </div>
