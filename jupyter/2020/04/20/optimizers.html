@@ -3,34 +3,36 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | fastpages</title>
+<title>Fastai Course DL from the Foundations Optimizer Functions | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Fastai Course DL from the Foundations Optimizer Functions" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="summary" />
-<meta property="og:description" content="summary" />
-<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html" />
-<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html" />
+<meta name="description" content="Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)" />
+<meta property="og:description" content="Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html" />
 <meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/LSUV.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-20T00:00:00-05:00","dateModified":"2020-04-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-20T00:00:00-05:00","dateModified":"2020-04-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html"},"description":"Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/LSUV.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html","headline":"Fastai Course DL from the Foundations Optimizer Functions","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | fastpages</title>
+<title>Fastai Course DL from the Foundations Optimizer Functions | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Fastai Course DL from the Foundations Optimizer Functions" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="summary" />
-<meta property="og:description" content="summary" />
-<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html" />
-<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html" />
+<meta name="description" content="Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)" />
+<meta property="og:description" content="Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html" />
 <meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/LSUV.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-20T00:00:00-05:00","dateModified":"2020-04-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html"},"description":"summary","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/2020/04/20/optimizers.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-20T00:00:00-05:00","dateModified":"2020-04-20T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html"},"description":"Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/LSUV.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/20/optimizers.html","headline":"Fastai Course DL from the Foundations Optimizer Functions","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -101,7 +103,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="page-description">summary</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-20T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Fastai Course DL from the Foundations Optimizer Functions</h1><p class="page-description">Implementation of Optimizers from scratch, such as ADAM and friends as well as LAMB (Lesson 4 Part 3)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-20T00:00:00-05:00" itemprop="datePublished">
         Apr 20, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -111,6 +113,13 @@ window.onload = wrap_img;
     
 </span></p>
 
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
     
 
     
@@ -138,7 +147,22 @@ window.onload = wrap_img;
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <!--
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Fastai-Optimizer-tweaks">Fastai Optimizer tweaks </a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#Imagenette-data">Imagenette data </a></li>
+<li class="toc-entry toc-h2"><a href="#Refining-the-optimizer">Refining the optimizer </a></li>
+<li class="toc-entry toc-h2"><a href="#Weight-decay">Weight decay </a></li>
+<li class="toc-entry toc-h2"><a href="#With-momentum">With momentum </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Momentum-experiments">Momentum experiments </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Adam-and-friends">Adam and friends </a></li>
+<li class="toc-entry toc-h2"><a href="#LAMB">LAMB </a></li>
+</ul>
+</li>
+</ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -154,9 +178,13 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Fastai-Optimizer-tweaks">Fastai Optimizer tweaks<a class="anchor-link" href="#Fastai-Optimizer-tweaks"> </a></h1><ul>
+<h1 id="Fastai-Optimizer-tweaks">
+<a class="anchor" href="#Fastai-Optimizer-tweaks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Fastai Optimizer tweaks<a class="anchor-link" href="#Fastai-Optimizer-tweaks"> </a>
+</h1>
+<ul>
 <li>This Post is based on the Notebok by the <a href="https://course.fast.ai/">Fastai Course Part2</a>     </li>
 </ul>
 
@@ -168,7 +196,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -182,7 +211,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -192,7 +221,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -203,7 +233,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -213,7 +243,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -224,7 +255,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -234,7 +265,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&#39;https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-160&#39;</pre>
+<pre>'https://s3.amazonaws.com/fast-ai-imageclas/imagenette2-160'</pre>
 </div>
 
 </div>
@@ -245,20 +276,25 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Imagenette-data">Imagenette data<a class="anchor-link" href="#Imagenette-data"> </a></h2>
+<h2 id="Imagenette-data">
+<a class="anchor" href="#Imagenette-data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Imagenette data<a class="anchor-link" href="#Imagenette-data"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We grab the data from the previous notebook.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=3917">Jump_to lesson 11 video</a></p>
 
@@ -270,7 +306,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -281,7 +318,7 @@ window.onload = wrap_img;
     </div>
 </div>
 </div>
-</p>
+
     </details>
 <div class="output_wrapper">
 <div class="output">
@@ -304,7 +341,7 @@ window.onload = wrap_img;
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/tarfile.py</span> in <span class="ansi-cyan-fg">frombuf</span><span class="ansi-blue-fg">(cls, buf, encoding, errors)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1028</span>         <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>buf<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 1029</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> EmptyHeaderError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;empty header&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">-&gt; 1029</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">raise</span> EmptyHeaderError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"empty header"</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1030</span>         <span class="ansi-green-fg">if</span> len<span class="ansi-blue-fg">(</span>buf<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">!=</span> BLOCKSIZE<span class="ansi-blue-fg">:</span>
 
 <span class="ansi-red-fg">EmptyHeaderError</span>: empty header
@@ -317,16 +354,16 @@ During handling of the above exception, another exception occurred:
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/site-packages/fastai/datasets.py</span> in <span class="ansi-cyan-fg">untar_data</span><span class="ansi-blue-fg">(url, fname, dest, data, force_download)</span>
 <span class="ansi-green-intense-fg ansi-bold">    231</span>         <span class="ansi-green-fg">if</span> url <span class="ansi-green-fg">in</span> _checks<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    232</span>             <span class="ansi-green-fg">assert</span> _check_file<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">==</span> _checks<span class="ansi-blue-fg">[</span>url<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">f&#34;Downloaded file {fname} does not match checksum expected! Remove that file from {Config().data_archive_path()} and try your code again.&#34;</span>
-<span class="ansi-green-fg">--&gt; 233</span><span class="ansi-red-fg">         </span>tarfile<span class="ansi-blue-fg">.</span>open<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;r:gz&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>extractall<span class="ansi-blue-fg">(</span>dest<span class="ansi-blue-fg">.</span>parent<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    232</span>             <span class="ansi-green-fg">assert</span> _check_file<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">==</span> _checks<span class="ansi-blue-fg">[</span>url<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">f"Downloaded file {fname} does not match checksum expected! Remove that file from {Config().data_archive_path()} and try your code again."</span>
+<span class="ansi-green-fg">--&gt; 233</span><span class="ansi-red-fg">         </span>tarfile<span class="ansi-blue-fg">.</span>open<span class="ansi-blue-fg">(</span>fname<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">'r:gz'</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>extractall<span class="ansi-blue-fg">(</span>dest<span class="ansi-blue-fg">.</span>parent<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">    234</span>     <span class="ansi-green-fg">return</span> dest
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/tarfile.py</span> in <span class="ansi-cyan-fg">open</span><span class="ansi-blue-fg">(cls, name, mode, fileobj, bufsize, **kwargs)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1587</span>             <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1588</span>                 <span class="ansi-green-fg">raise</span> CompressionError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;unknown compression type %r&#34;</span> <span class="ansi-blue-fg">%</span> comptype<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1588</span>                 <span class="ansi-green-fg">raise</span> CompressionError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"unknown compression type %r"</span> <span class="ansi-blue-fg">%</span> comptype<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-fg">-&gt; 1589</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">return</span> func<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> filemode<span class="ansi-blue-fg">,</span> fileobj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1590</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1591</span>         <span class="ansi-green-fg">elif</span> <span class="ansi-blue-fg">&#34;|&#34;</span> <span class="ansi-green-fg">in</span> mode<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1591</span>         <span class="ansi-green-fg">elif</span> <span class="ansi-blue-fg">"|"</span> <span class="ansi-green-fg">in</span> mode<span class="ansi-blue-fg">:</span>
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/tarfile.py</span> in <span class="ansi-cyan-fg">gzopen</span><span class="ansi-blue-fg">(cls, name, mode, fileobj, compresslevel, **kwargs)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1641</span> 
@@ -336,23 +373,23 @@ During handling of the above exception, another exception occurred:
 <span class="ansi-green-intense-fg ansi-bold">   1645</span>             fileobj<span class="ansi-blue-fg">.</span>close<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/tarfile.py</span> in <span class="ansi-cyan-fg">taropen</span><span class="ansi-blue-fg">(cls, name, mode, fileobj, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1617</span>         <span class="ansi-green-fg">if</span> mode <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;r&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;a&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;w&#34;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#34;x&#34;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">   1618</span>             <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;mode must be &#39;r&#39;, &#39;a&#39;, &#39;w&#39; or &#39;x&#39;&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1617</span>         <span class="ansi-green-fg">if</span> mode <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"r"</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">"a"</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">"w"</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">"x"</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1618</span>             <span class="ansi-green-fg">raise</span> ValueError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"mode must be 'r', 'a', 'w' or 'x'"</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-fg">-&gt; 1619</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> cls<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> mode<span class="ansi-blue-fg">,</span> fileobj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1620</span> 
 <span class="ansi-green-intense-fg ansi-bold">   1621</span>     <span class="ansi-blue-fg">@</span>classmethod
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/tarfile.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, name, mode, fileobj, format, tarinfo, dereference, ignore_zeros, encoding, errors, pax_headers, debug, errorlevel, copybufsize)</span>
-<span class="ansi-green-intense-fg ansi-bold">   1480</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>mode <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#34;r&#34;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1480</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>mode <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">"r"</span><span class="ansi-blue-fg">:</span>
 <span class="ansi-green-intense-fg ansi-bold">   1481</span>                 self<span class="ansi-blue-fg">.</span>firstmember <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">None</span>
 <span class="ansi-green-fg">-&gt; 1482</span><span class="ansi-red-fg">                 </span>self<span class="ansi-blue-fg">.</span>firstmember <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>next<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">   1483</span> 
-<span class="ansi-green-intense-fg ansi-bold">   1484</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>mode <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">&#34;a&#34;</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1484</span>             <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>mode <span class="ansi-blue-fg">==</span> <span class="ansi-blue-fg">"a"</span><span class="ansi-blue-fg">:</span>
 
 <span class="ansi-green-fg">~/.conda/envs/fastai/lib/python3.6/tarfile.py</span> in <span class="ansi-cyan-fg">next</span><span class="ansi-blue-fg">(self)</span>
 <span class="ansi-green-intense-fg ansi-bold">   2310</span>             <span class="ansi-green-fg">except</span> EmptyHeaderError<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-intense-fg ansi-bold">   2311</span>                 <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>offset <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">-&gt; 2312</span><span class="ansi-red-fg">                     </span><span class="ansi-green-fg">raise</span> ReadError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;empty file&#34;</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">-&gt; 2312</span><span class="ansi-red-fg">                     </span><span class="ansi-green-fg">raise</span> ReadError<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">"empty file"</span><span class="ansi-blue-fg">)</span>
 <span class="ansi-green-intense-fg ansi-bold">   2313</span>             <span class="ansi-green-fg">except</span> TruncatedHeaderError <span class="ansi-green-fg">as</span> e<span class="ansi-blue-fg">:</span>
 <span class="ansi-green-intense-fg ansi-bold">   2314</span>                 <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>offset <span class="ansi-blue-fg">==</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">:</span>
 
@@ -371,7 +408,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -380,7 +418,7 @@ During handling of the above exception, another exception occurred:
 <span class="n">bs</span><span class="o">=</span><span class="mi">128</span>
 
 <span class="n">il</span> <span class="o">=</span> <span class="n">ImageList</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tfms</span><span class="o">=</span><span class="n">tfms</span><span class="p">)</span>
-<span class="n">sd</span> <span class="o">=</span> <span class="n">SplitData</span><span class="o">.</span><span class="n">split_by_func</span><span class="p">(</span><span class="n">il</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">grandparent_splitter</span><span class="p">,</span> <span class="n">valid_name</span><span class="o">=</span><span class="s1">&#39;val&#39;</span><span class="p">))</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">SplitData</span><span class="o">.</span><span class="n">split_by_func</span><span class="p">(</span><span class="n">il</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">grandparent_splitter</span><span class="p">,</span> <span class="n">valid_name</span><span class="o">=</span><span class="s1">'val'</span><span class="p">))</span>
 <span class="n">ll</span> <span class="o">=</span> <span class="n">label_by_func</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="n">parent_labeler</span><span class="p">,</span> <span class="n">proc_y</span><span class="o">=</span><span class="n">CategoryProcessor</span><span class="p">())</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">to_databunch</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="n">c_in</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
@@ -388,12 +426,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then a model:</p>
 
@@ -405,7 +444,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -416,7 +456,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -426,7 +466,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -438,12 +479,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the baseline of training with vanilla SGD.</p>
 
@@ -455,7 +497,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -466,7 +509,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -476,7 +519,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -487,18 +531,22 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Refining-the-optimizer">Refining the optimizer<a class="anchor-link" href="#Refining-the-optimizer"> </a></h2>
+<h2 id="Refining-the-optimizer">
+<a class="anchor" href="#Refining-the-optimizer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Refining the optimizer<a class="anchor-link" href="#Refining-the-optimizer"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In PyTorch, the base optimizer in <code>torch.optim</code> is just a dictionary that stores the hyper-parameters and references to the parameters of the model we want to train in parameter groups (different groups can have different learning rates/momentum/weight decay... which is what lets us do discriminative learning rates).</p>
 <p>It contains a method <code>step</code> that will update our parameters with the gradients and a method <code>zero_grad</code> to detach and zero the gradients of all our parameters.</p>
@@ -507,7 +555,8 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=4074">Jump_to lesson 11 video</a></p>
 
@@ -519,7 +568,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -549,12 +599,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To do basic SGD, this what a step looks like:</p>
 
@@ -566,7 +617,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -580,7 +632,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -590,7 +642,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -602,12 +655,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now that we have changed the optimizer, we will need to adjust the callbacks that were using properties from the PyTorch optimizer: in particular the hyper-parameters are in the list of dictionaries <code>opt.hypers</code> (PyTorch has everything in the the list of param groups).</p>
 
@@ -619,7 +673,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -630,7 +685,7 @@ During handling of the above exception, another exception occurred:
 
     <span class="k">def</span> <span class="nf">after_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_train</span><span class="p">:</span> <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s1">'lr'</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span>        
 
     <span class="k">def</span> <span class="nf">plot_lr</span>  <span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lrs</span><span class="p">)</span>
@@ -639,7 +694,7 @@ During handling of the above exception, another exception occurred:
     <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">skip_last</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
         <span class="n">losses</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">losses</span><span class="p">]</span>
         <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span><span class="o">-</span><span class="n">skip_last</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xscale</span><span class="p">(</span><span class="s1">'log'</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lrs</span><span class="p">[:</span><span class="n">n</span><span class="p">],</span> <span class="n">losses</span><span class="p">[:</span><span class="n">n</span><span class="p">])</span>
 
 <span class="k">class</span> <span class="nc">ParamScheduler</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
@@ -664,7 +719,7 @@ During handling of the above exception, another exception occurred:
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_train</span><span class="p">:</span> <span class="k">return</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span>
         <span class="n">lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_lr</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_lr</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">min_lr</span><span class="p">)</span> <span class="o">**</span> <span class="n">pos</span>
-        <span class="k">for</span> <span class="n">pg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">:</span> <span class="n">pg</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr</span>
+        <span class="k">for</span> <span class="n">pg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">:</span> <span class="n">pg</span><span class="p">[</span><span class="s1">'lr'</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr</span>
             
     <span class="k">def</span> <span class="nf">after_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_iter</span><span class="o">&gt;=</span><span class="bp">self</span><span class="o">.</span><span class="n">max_iter</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="o">&gt;</span><span class="bp">self</span><span class="o">.</span><span class="n">best_loss</span><span class="o">*</span><span class="mi">10</span><span class="p">:</span>
@@ -675,12 +730,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So let's check we didn't break anything and that recorder and param scheduler work properly.</p>
 
@@ -692,7 +748,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -704,7 +761,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -714,7 +771,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -722,13 +780,13 @@ During handling of the above exception, another exception occurred:
 
 <span class="n">cbfs</span> <span class="o">=</span> <span class="p">[</span><span class="n">partial</span><span class="p">(</span><span class="n">AvgStatsCallback</span><span class="p">,</span><span class="n">accuracy</span><span class="p">),</span>
         <span class="n">CudaCallback</span><span class="p">,</span> <span class="n">Recorder</span><span class="p">,</span>
-        <span class="n">partial</span><span class="p">(</span><span class="n">ParamScheduler</span><span class="p">,</span> <span class="s1">&#39;lr&#39;</span><span class="p">,</span> <span class="n">sched</span><span class="p">)]</span>
+        <span class="n">partial</span><span class="p">(</span><span class="n">ParamScheduler</span><span class="p">,</span> <span class="s1">'lr'</span><span class="p">,</span> <span class="n">sched</span><span class="p">)]</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -738,7 +796,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -750,7 +809,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -760,7 +819,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -772,7 +832,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -782,7 +842,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -794,7 +855,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -804,7 +865,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -816,30 +878,35 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Weight-decay">Weight decay<a class="anchor-link" href="#Weight-decay"> </a></h2>
+<h2 id="Weight-decay">
+<a class="anchor" href="#Weight-decay" aria-hidden="true"><span class="octicon octicon-link"></span></a>Weight decay<a class="anchor-link" href="#Weight-decay"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=4623">Jump_to lesson 11 video</a></p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>By letting our model learn high parameters, it might fit all the data points in the training set with an over-complex function that has very sharp changes, which will lead to overfitting.</p>
 <p><figure>
   
-    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/overfit.png" alt="Fitting vs over-fitting" style="max-width: 600px" />
+    <img class="docimage" src="/DL_from_Foundations/images/copied_from_nb/images/overfit.png" alt="Fitting vs over-fitting" style="max-width: 600px">
     
     
 </figure>
@@ -849,7 +916,8 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Limiting our weights from growing too much is going to hinder the training of the model, but it will yield to a state where it generalizes better. Going back to the theory a little bit, weight decay (or just <code>wd</code>) is a parameter that controls that sum of squares we add to our loss:</p>
 <div class="highlight"><pre><span></span><span class="n">loss_with_wd</span> <span class="o">=</span> <span class="n">loss</span> <span class="o">+</span> <span class="p">(</span><span class="n">wd</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">weights</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
@@ -872,7 +940,8 @@ During handling of the above exception, another exception occurred:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Weight decay is subtracting <code>lr*wd*weight</code> from the weights. We need this function to have an attribute <code>_defaults</code> so that we are sure there is an hyper-parameter of the same name in our <code>Optimizer</code>.</p>
 
@@ -884,7 +953,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -899,12 +969,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>L2 regularization is adding <code>wd*weight</code> to the gradients.</p>
 
@@ -916,7 +987,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -931,12 +1003,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's allow steppers to add to our <code>defaults</code> (which are the default values of all the hyper-parameters). This helper function adds in <code>dest</code> the key/values it finds while going through <code>os</code> and applying <code>f</code> when they was no <code>key</code> of the same name.</p>
 
@@ -948,7 +1021,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -959,18 +1033,19 @@ During handling of the above exception, another exception occurred:
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">f</span><span class="p">(</span><span class="n">o</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dest</span><span class="p">:</span> <span class="n">dest</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
 
-<span class="k">def</span> <span class="nf">get_defaults</span><span class="p">(</span><span class="n">d</span><span class="p">):</span> <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="s1">&#39;_defaults&#39;</span><span class="p">,{})</span>
+<span class="k">def</span> <span class="nf">get_defaults</span><span class="p">(</span><span class="n">d</span><span class="p">):</span> <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="s1">'_defaults'</span><span class="p">,{})</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the same as before, we just take the default values of the steppers when none are provided in the kwargs.</p>
 
@@ -982,7 +1057,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1014,7 +1090,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1024,7 +1100,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1036,7 +1113,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1046,7 +1123,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1058,12 +1136,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Before trying to train, let's check the behavior works as intended: when we don't provide a value for <code>wd</code>, we pull the corresponding default from <code>weight_decay</code>.</p>
 
@@ -1075,7 +1154,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1086,7 +1166,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1096,26 +1176,28 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
 
 <span class="n">opt</span> <span class="o">=</span> <span class="n">sgd_opt</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;wd&#39;</span><span class="p">],</span> <span class="mf">0.</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'wd'</span><span class="p">],</span> <span class="mf">0.</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'lr'</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>But if we provide a value, it overrides the default.</p>
 
@@ -1127,26 +1209,28 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
 
 <span class="n">opt</span> <span class="o">=</span> <span class="n">sgd_opt</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">wd</span><span class="o">=</span><span class="mf">1e-4</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;wd&#39;</span><span class="p">],</span> <span class="mf">1e-4</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;lr&#39;</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'wd'</span><span class="p">],</span> <span class="mf">1e-4</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s1">'lr'</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now let's fit.</p>
 
@@ -1158,7 +1242,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1170,7 +1255,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1180,7 +1265,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1192,7 +1278,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1202,7 +1288,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1214,37 +1301,45 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is already better than the baseline!</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="With-momentum">With momentum<a class="anchor-link" href="#With-momentum"> </a></h2>
+<h2 id="With-momentum">
+<a class="anchor" href="#With-momentum" aria-hidden="true"><span class="octicon octicon-link"></span></a>With momentum<a class="anchor-link" href="#With-momentum"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=4872">Jump_to lesson 11 video</a></p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Momentum requires to add some state. We need to save the moving average of the gradients to be able to do the step and store this inside the optimizer state. To do this, we introduce statistics. Statistics are object with two methods:</p>
 <ul>
-<li><code>init_state</code>, that returns the initial state (a tensor of 0. for the moving average of gradients)</li>
-<li><code>update</code>, that updates the state with the new gradient value</li>
+<li>
+<code>init_state</code>, that returns the initial state (a tensor of 0. for the moving average of gradients)</li>
+<li>
+<code>update</code>, that updates the state with the new gradient value</li>
 </ul>
 <p>We also read the <code>_defaults</code> values of those objects, to allow them to provide default values to hyper-parameters.</p>
 
@@ -1256,7 +1351,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1284,7 +1380,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1294,7 +1390,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1309,12 +1406,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Here is an example of <code>Stat</code>:</p>
 
@@ -1326,7 +1424,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1335,21 +1434,22 @@ During handling of the above exception, another exception occurred:
 <span class="k">class</span> <span class="nc">AverageGrad</span><span class="p">(</span><span class="n">Stat</span><span class="p">):</span>
     <span class="n">_defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mom</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;grad_avg&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)}</span>
+    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">'grad_avg'</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)}</span>
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">mom</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;grad_avg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">mom</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">state</span><span class="p">[</span><span class="s1">'grad_avg'</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">mom</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then we add the momentum step (instead of using the gradients to perform the step, we use the average).</p>
 
@@ -1361,7 +1461,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1375,7 +1476,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1385,7 +1486,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1398,7 +1500,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1408,7 +1510,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1420,7 +1523,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1430,7 +1533,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1442,32 +1546,38 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=5115">Jump_to lesson 11 video</a> for discussion about weight decay interaction with batch normalisation</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Momentum-experiments">Momentum experiments<a class="anchor-link" href="#Momentum-experiments"> </a></h3>
+<h3 id="Momentum-experiments">
+<a class="anchor" href="#Momentum-experiments" aria-hidden="true"><span class="octicon octicon-link"></span></a>Momentum experiments<a class="anchor-link" href="#Momentum-experiments"> </a>
+</h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>What does momentum do to the gradients exactly? Let's do some plots to find out!</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=5487">Jump_to lesson 11 video</a></p>
 
@@ -1479,7 +1589,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1493,7 +1604,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1503,7 +1614,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1512,24 +1624,25 @@ During handling of the above exception, another exception occurred:
 <span class="k">def</span> <span class="nf">plot_mom</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="n">_</span><span class="p">,</span><span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
     <span class="k">for</span> <span class="n">beta</span><span class="p">,</span><span class="n">ax</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">betas</span><span class="p">,</span> <span class="n">axs</span><span class="o">.</span><span class="n">flatten</span><span class="p">()):</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">'None'</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">'.'</span><span class="p">)</span>
         <span class="n">avg</span><span class="p">,</span><span class="n">res</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
             <span class="n">avg</span><span class="p">,</span><span class="n">p</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">avg</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">yi</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
             <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;beta=</span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">'red'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">'beta=</span><span class="si">{</span><span class="n">beta</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is the regular momentum.</p>
 
@@ -1541,7 +1654,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1557,12 +1671,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>As we can see, with a too high value, it may go way too high with no way to change its course.</p>
 <p>Another way to smooth noisy data is to do an exponentially weighted moving average. In this case, there is a dampening of (1-beta) in front of the new value, which is less trusted than the current average. We'll define <code>lin_comb</code> (<em>linear combination</em>) to make this easier (note that in the lesson this was named <code>ewma</code>).</p>
@@ -1575,7 +1690,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1587,12 +1703,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We can see it gets to a zero-constant when the data is purely random. If the data has a certain shape, it will get that shape (with some delay for high beta).</p>
 
@@ -1604,7 +1721,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1616,7 +1734,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1626,7 +1744,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1638,7 +1757,7 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1648,7 +1767,8 @@ During handling of the above exception, another exception occurred:
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1660,12 +1780,13 @@ During handling of the above exception, another exception occurred:
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Debiasing is here to correct the wrong information we may have in the very first batch. The debias term corresponds to the sum of the coefficient in our moving average. At the time step i, our average is:</p>
 <p>$\begin{align*}
@@ -1692,7 +1813,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1708,25 +1830,30 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Adam-and-friends">Adam and friends<a class="anchor-link" href="#Adam-and-friends"> </a></h2>
+<h2 id="Adam-and-friends">
+<a class="anchor" href="#Adam-and-friends" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adam and friends<a class="anchor-link" href="#Adam-and-friends"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In Adam, we use the gradient averages but with dampening (not like in SGD with momentum), so let's add this to the <code>AverageGrad</code> class.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=5889">Jump_to lesson 11 video</a></p>
 
@@ -1738,7 +1865,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1748,22 +1876,23 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     <span class="n">_defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mom</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dampening</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span>
-    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;grad_avg&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)}</span>
+    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">'grad_avg'</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)}</span>
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">mom</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;mom_damp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">mom</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dampening</span> <span class="k">else</span> <span class="mf">1.</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;grad_avg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">mom</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;mom_damp&#39;</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">state</span><span class="p">[</span><span class="s1">'mom_damp'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">mom</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dampening</span> <span class="k">else</span> <span class="mf">1.</span>
+        <span class="n">state</span><span class="p">[</span><span class="s1">'grad_avg'</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">mom</span><span class="p">)</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">'mom_damp'</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We also need to track the moving average of the gradients squared.</p>
 
@@ -1775,7 +1904,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1785,22 +1915,23 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     <span class="n">_defaults</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sqr_mom</span><span class="o">=</span><span class="mf">0.99</span><span class="p">)</span>
     
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dampening</span><span class="p">:</span><span class="nb">bool</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">dampening</span><span class="o">=</span><span class="n">dampening</span>
-    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;sqr_avg&#39;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)}</span>
+    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">'sqr_avg'</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)}</span>
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">sqr_mom</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;sqr_damp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">sqr_mom</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dampening</span> <span class="k">else</span> <span class="mf">1.</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;sqr_avg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">sqr_mom</span><span class="p">)</span><span class="o">.</span><span class="n">addcmul_</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">&#39;sqr_damp&#39;</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">state</span><span class="p">[</span><span class="s1">'sqr_damp'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">sqr_mom</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dampening</span> <span class="k">else</span> <span class="mf">1.</span>
+        <span class="n">state</span><span class="p">[</span><span class="s1">'sqr_avg'</span><span class="p">]</span><span class="o">.</span><span class="n">mul_</span><span class="p">(</span><span class="n">sqr_mom</span><span class="p">)</span><span class="o">.</span><span class="n">addcmul_</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s1">'sqr_damp'</span><span class="p">],</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>We will also need the number of steps done during training for the debiasing.</p>
 
@@ -1812,28 +1943,30 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
 
 <span class="k">class</span> <span class="nc">StepCount</span><span class="p">(</span><span class="n">Stat</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;step&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="k">def</span> <span class="nf">init_state</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span> <span class="k">return</span> <span class="p">{</span><span class="s1">'step'</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
     <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="n">state</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">state</span><span class="p">[</span><span class="s1">'step'</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="k">return</span> <span class="n">state</span>
 </pre></div>
 
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This helper function computes the debias term. If we dampening, <code>damp = 1 - mom</code> and we get the same result as before. If we don't use dampening, (<code>damp = 1</code>) we will need to divide by <code>1 - mom</code> because that term is missing everywhere.</p>
 
@@ -1845,7 +1978,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1857,12 +1991,13 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Then the Adam step is just the following:</p>
 
@@ -1874,7 +2009,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1891,7 +2027,7 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1901,7 +2037,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1915,7 +2052,7 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1925,7 +2062,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1937,7 +2075,7 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -1947,7 +2085,8 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -1959,25 +2098,30 @@ S &amp;=(1-\beta)\ \beta^{i} + (1-\beta)\ \beta^{i-1} + \cdots + (1-\beta)\ \bet
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="LAMB">LAMB<a class="anchor-link" href="#LAMB"> </a></h2>
+<h2 id="LAMB">
+<a class="anchor" href="#LAMB" aria-hidden="true"><span class="octicon octicon-link"></span></a>LAMB<a class="anchor-link" href="#LAMB"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a href="https://course.fast.ai/videos/?lesson=11&amp;t=6038">Jump_to lesson 11 video</a></p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>It's then super easy to implement a new optimizer. This is LAMB from a <a href="https://arxiv.org/pdf/1904.00962.pdf">very recent paper</a>:</p>
 <p>$\begin{align}
@@ -2001,7 +2145,8 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -2021,7 +2166,7 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -2031,7 +2176,8 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -2043,7 +2189,7 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -2053,7 +2199,8 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -2065,7 +2212,7 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
@@ -2075,7 +2222,8 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
 <div class="cell border-box-sizing code_cell rendered">
 <details class="description" open="">
       <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p><div class="input">
+        <p></p>
+<div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
@@ -2087,17 +2235,20 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
     </div>
 </div>
 </div>
-</p>
+
     </details>
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Other recent variants of optimizers:</p>
 <ul>
-<li><a href="https://arxiv.org/abs/1708.03888">Large Batch Training of Convolutional Networks</a> (LARS also uses weight statistics, not just gradient statistics. Can you add that to this class?)</li>
-<li><a href="https://arxiv.org/abs/1804.04235">Adafactor: Adaptive Learning Rates with Sublinear Memory Cost</a> (Adafactor combines stats over multiple sets of axes)</li>
+<li>
+<a href="https://arxiv.org/abs/1708.03888">Large Batch Training of Convolutional Networks</a> (LARS also uses weight statistics, not just gradient statistics. Can you add that to this class?)</li>
+<li>
+<a href="https://arxiv.org/abs/1804.04235">Adafactor: Adaptive Learning Rates with Sublinear Memory Cost</a> (Adafactor combines stats over multiple sets of axes)</li>
 <li><a href="https://arxiv.org/abs/1902.09843">Adaptive Gradient Methods with Dynamic Bound of Learning Rate</a></li>
 </ul>
 
@@ -2108,7 +2259,15 @@ w_{t}^{l} &amp;= w_{t}^{l-1} - \eta_{l} * s_{t}^{l} \\
 
 
 
-  </div><a class="u-url" href="/DL_from_Foundations/2020/04/20/optimizers.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Cedric-Perauer/DL_from_Foundations"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/DL_from_Foundations/jupyter/2020/04/20/optimizers.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
