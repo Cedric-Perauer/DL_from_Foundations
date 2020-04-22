@@ -1,0 +1,3785 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Fastai Course DL from the Foundations Transfer Learning | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Fastai Course DL from the Foundations Transfer Learning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)" />
+<meta property="og:description" content="Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/logo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-21T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-04-21T00:00:00-05:00","dateModified":"2020-04-21T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html"},"description":"Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/logo.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html","headline":"Fastai Course DL from the Foundations Transfer Learning","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Fastai Course DL from the Foundations Transfer Learning | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Fastai Course DL from the Foundations Transfer Learning" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)" />
+<meta property="og:description" content="Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/logo.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-21T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-04-21T00:00:00-05:00","dateModified":"2020-04-21T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html"},"description":"Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/logo.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html","headline":"Fastai Course DL from the Foundations Transfer Learning","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/DL_from_Foundations/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/DL_from_Foundations/about/">About Me</a><a class="page-link" href="/DL_from_Foundations/search/">Search</a><a class="page-link" href="/DL_from_Foundations/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Fastai Course DL from the Foundations Transfer Learning</h1><p class="page-description">Transfer Learning, use a network pretrained on Imagenette on Imagewoof (Lesson 5 Part 3)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-21T00:00:00-05:00" itemprop="datePublished">
+        Apr 21, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/Cedric-Perauer/DL_from_Foundations/tree/master/_notebooks/2020-04-21-3transfer-learning.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/Cedric-Perauer/DL_from_Foundations/master?filepath=_notebooks%2F2020-04-21-3transfer-learning.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/Cedric-Perauer/DL_from_Foundations/blob/master/_notebooks/2020-04-21-3transfer-learning.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Serializing-the-model">Serializing the model </a></li>
+<li class="toc-entry toc-h2"><a href="#Pets">Pets </a></li>
+<li class="toc-entry toc-h2"><a href="#Custom-head">Custom head </a></li>
+<li class="toc-entry toc-h2"><a href="#adapt_model-and-gradual-unfreezing">adapt_model and gradual unfreezing </a></li>
+<li class="toc-entry toc-h2"><a href="#Batch-norm-transfer">Batch norm transfer </a></li>
+<li class="toc-entry toc-h2"><a href="#Discriminative-LR-and-param-groups">Discriminative LR and param groups </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-04-21-3transfer-learning.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+<span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+
+<span class="kn">from</span> <span class="nn">exp.nb_11</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Serializing-the-model">
+<a class="anchor" href="#Serializing-the-model" aria-hidden="true"><span class="octicon octicon-link"></span></a>Serializing the model<a class="anchor-link" href="#Serializing-the-model"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://course.fast.ai/videos/?lesson=12&amp;t=2920">Jump_to lesson 12 video</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">untar_data</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">URLs</span><span class="o">.</span><span class="n">IMAGEWOOF_160</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+
+<span class="n">size</span> <span class="o">=</span> <span class="mi">128</span>
+<span class="n">bs</span> <span class="o">=</span> <span class="mi">64</span>
+
+<span class="n">tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_rgb</span><span class="p">,</span> <span class="n">RandomResizedCrop</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="p">(</span><span class="mf">0.35</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span> <span class="n">np_to_float</span><span class="p">,</span> <span class="n">PilRandomFlip</span><span class="p">()]</span>
+<span class="n">val_tfms</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_rgb</span><span class="p">,</span> <span class="n">CenterCrop</span><span class="p">(</span><span class="n">size</span><span class="p">),</span> <span class="n">np_to_float</span><span class="p">]</span>
+<span class="n">il</span> <span class="o">=</span> <span class="n">ImageList</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">tfms</span><span class="o">=</span><span class="n">tfms</span><span class="p">)</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">SplitData</span><span class="o">.</span><span class="n">split_by_func</span><span class="p">(</span><span class="n">il</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">grandparent_splitter</span><span class="p">,</span> <span class="n">valid_name</span><span class="o">=</span><span class="s1">'val'</span><span class="p">))</span>
+<span class="n">ll</span> <span class="o">=</span> <span class="n">label_by_func</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="n">parent_labeler</span><span class="p">,</span> <span class="n">proc_y</span><span class="o">=</span><span class="n">CategoryProcessor</span><span class="p">())</span>
+<span class="n">ll</span><span class="o">.</span><span class="n">valid</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">tfms</span> <span class="o">=</span> <span class="n">val_tfms</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">to_databunch</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="n">c_in</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse</span>
+
+<span class="nb">len</span><span class="p">(</span><span class="n">il</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>12954</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+<span class="n">loss_func</span> <span class="o">=</span> <span class="n">LabelSmoothingCrossEntropy</span><span class="p">()</span>
+<span class="n">opt_func</span> <span class="o">=</span> <span class="n">adam_opt</span><span class="p">(</span><span class="n">mom</span><span class="o">=</span><span class="mf">0.9</span><span class="p">,</span> <span class="n">mom_sqr</span><span class="o">=</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">wd</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">sched_1cycle</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">pct_start</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">mom_start</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">mom_mid</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">mom_end</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+    <span class="n">phases</span> <span class="o">=</span> <span class="n">create_phases</span><span class="p">(</span><span class="n">pct_start</span><span class="p">)</span>
+    <span class="n">sched_lr</span>  <span class="o">=</span> <span class="n">combine_scheds</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">cos_1cycle_anneal</span><span class="p">(</span><span class="n">lr</span><span class="o">/</span><span class="mf">10.</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">lr</span><span class="o">/</span><span class="mf">1e5</span><span class="p">))</span>
+    <span class="n">sched_mom</span> <span class="o">=</span> <span class="n">combine_scheds</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">cos_1cycle_anneal</span><span class="p">(</span><span class="n">mom_start</span><span class="p">,</span> <span class="n">mom_mid</span><span class="p">,</span> <span class="n">mom_end</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">ParamScheduler</span><span class="p">(</span><span class="s1">'lr'</span><span class="p">,</span> <span class="n">sched_lr</span><span class="p">),</span>
+            <span class="n">ParamScheduler</span><span class="p">(</span><span class="s1">'mom'</span><span class="p">,</span> <span class="n">sched_mom</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">lr</span> <span class="o">=</span> <span class="mf">3e-3</span>
+<span class="n">pct_start</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">cbsched</span> <span class="o">=</span> <span class="n">sched_1cycle</span><span class="p">(</span><span class="n">lr</span><span class="p">,</span> <span class="n">pct_start</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="n">cbsched</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='40', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>2.130161</td>
+      <td>0.248089</td>
+      <td>2.085567</td>
+      <td>0.276152</td>
+      <td>00:15</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1.993560</td>
+      <td>0.317562</td>
+      <td>2.078038</td>
+      <td>0.288878</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.907229</td>
+      <td>0.362105</td>
+      <td>1.908168</td>
+      <td>0.367269</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1.827499</td>
+      <td>0.405319</td>
+      <td>1.952905</td>
+      <td>0.351234</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1.774419</td>
+      <td>0.423823</td>
+      <td>1.992134</td>
+      <td>0.336472</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>1.722007</td>
+      <td>0.449197</td>
+      <td>1.837551</td>
+      <td>0.401883</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>1.686701</td>
+      <td>0.470803</td>
+      <td>1.984103</td>
+      <td>0.358361</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>1.677165</td>
+      <td>0.473684</td>
+      <td>2.270435</td>
+      <td>0.356834</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>1.638770</td>
+      <td>0.499280</td>
+      <td>2.088254</td>
+      <td>0.376686</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>1.610834</td>
+      <td>0.505042</td>
+      <td>2.130411</td>
+      <td>0.363451</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>1.567782</td>
+      <td>0.529086</td>
+      <td>1.999561</td>
+      <td>0.408755</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>1.524520</td>
+      <td>0.548255</td>
+      <td>3.583080</td>
+      <td>0.271061</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>1.484032</td>
+      <td>0.571080</td>
+      <td>1.894512</td>
+      <td>0.450496</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>13</td>
+      <td>1.446350</td>
+      <td>0.597341</td>
+      <td>1.581483</td>
+      <td>0.526852</td>
+      <td>00:14</td>
+    </tr>
+    <tr>
+      <td>14</td>
+      <td>1.407801</td>
+      <td>0.603546</td>
+      <td>1.724309</td>
+      <td>0.484856</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>15</td>
+      <td>1.367980</td>
+      <td>0.626814</td>
+      <td>2.098016</td>
+      <td>0.422499</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>16</td>
+      <td>1.339640</td>
+      <td>0.637784</td>
+      <td>1.608337</td>
+      <td>0.543904</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>17</td>
+      <td>1.307783</td>
+      <td>0.650416</td>
+      <td>1.544712</td>
+      <td>0.570629</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>18</td>
+      <td>1.273955</td>
+      <td>0.669252</td>
+      <td>1.716685</td>
+      <td>0.533469</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>19</td>
+      <td>1.243974</td>
+      <td>0.685429</td>
+      <td>1.656472</td>
+      <td>0.565538</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>1.215433</td>
+      <td>0.698393</td>
+      <td>1.512875</td>
+      <td>0.574701</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>1.175064</td>
+      <td>0.715125</td>
+      <td>1.317181</td>
+      <td>0.658183</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>1.149006</td>
+      <td>0.728310</td>
+      <td>1.489734</td>
+      <td>0.611606</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>23</td>
+      <td>1.107240</td>
+      <td>0.743712</td>
+      <td>1.476818</td>
+      <td>0.602952</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>24</td>
+      <td>1.080577</td>
+      <td>0.756787</td>
+      <td>1.456552</td>
+      <td>0.625095</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>25</td>
+      <td>1.058459</td>
+      <td>0.768089</td>
+      <td>1.338278</td>
+      <td>0.660473</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>26</td>
+      <td>1.028792</td>
+      <td>0.782271</td>
+      <td>1.194180</td>
+      <td>0.711886</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>27</td>
+      <td>0.997885</td>
+      <td>0.795789</td>
+      <td>1.130299</td>
+      <td>0.744464</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>28</td>
+      <td>0.960315</td>
+      <td>0.816067</td>
+      <td>1.161608</td>
+      <td>0.731738</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>29</td>
+      <td>0.935516</td>
+      <td>0.829363</td>
+      <td>1.069859</td>
+      <td>0.773479</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>30</td>
+      <td>0.906349</td>
+      <td>0.841219</td>
+      <td>1.066289</td>
+      <td>0.776533</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>31</td>
+      <td>0.878236</td>
+      <td>0.849307</td>
+      <td>1.067750</td>
+      <td>0.777552</td>
+      <td>00:13</td>
+    </tr>
+    <tr>
+      <td>32</td>
+      <td>0.850478</td>
+      <td>0.868255</td>
+      <td>1.027464</td>
+      <td>0.790277</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>33</td>
+      <td>0.828395</td>
+      <td>0.877895</td>
+      <td>1.023876</td>
+      <td>0.789005</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>34</td>
+      <td>0.800545</td>
+      <td>0.892078</td>
+      <td>1.019160</td>
+      <td>0.796386</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>35</td>
+      <td>0.790883</td>
+      <td>0.899280</td>
+      <td>0.999217</td>
+      <td>0.803512</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>36</td>
+      <td>0.774763</td>
+      <td>0.904377</td>
+      <td>1.007500</td>
+      <td>0.801985</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>37</td>
+      <td>0.768861</td>
+      <td>0.902936</td>
+      <td>0.998095</td>
+      <td>0.804530</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>38</td>
+      <td>0.757434</td>
+      <td>0.912133</td>
+      <td>0.995890</td>
+      <td>0.802749</td>
+      <td>00:12</td>
+    </tr>
+    <tr>
+      <td>39</td>
+      <td>0.762366</td>
+      <td>0.909252</td>
+      <td>0.995066</td>
+      <td>0.803003</td>
+      <td>00:12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="nb">type</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>collections.OrderedDict</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">st</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'0.0.weight, 0.1.weight, 0.1.bias, 0.1.running_mean, 0.1.running_var, 0.1.num_batches_tracked, 1.0.weight, 1.1.weight, 1.1.bias, 1.1.running_mean, 1.1.running_var, 1.1.num_batches_tracked, 2.0.weight, 2.1.weight, 2.1.bias, 2.1.running_mean, 2.1.running_var, 2.1.num_batches_tracked, 4.0.convs.0.0.weight, 4.0.convs.0.1.weight, 4.0.convs.0.1.bias, 4.0.convs.0.1.running_mean, 4.0.convs.0.1.running_var, 4.0.convs.0.1.num_batches_tracked, 4.0.convs.1.0.weight, 4.0.convs.1.1.weight, 4.0.convs.1.1.bias, 4.0.convs.1.1.running_mean, 4.0.convs.1.1.running_var, 4.0.convs.1.1.num_batches_tracked, 4.1.convs.0.0.weight, 4.1.convs.0.1.weight, 4.1.convs.0.1.bias, 4.1.convs.0.1.running_mean, 4.1.convs.0.1.running_var, 4.1.convs.0.1.num_batches_tracked, 4.1.convs.1.0.weight, 4.1.convs.1.1.weight, 4.1.convs.1.1.bias, 4.1.convs.1.1.running_mean, 4.1.convs.1.1.running_var, 4.1.convs.1.1.num_batches_tracked, 5.0.convs.0.0.weight, 5.0.convs.0.1.weight, 5.0.convs.0.1.bias, 5.0.convs.0.1.running_mean, 5.0.convs.0.1.running_var, 5.0.convs.0.1.num_batches_tracked, 5.0.convs.1.0.weight, 5.0.convs.1.1.weight, 5.0.convs.1.1.bias, 5.0.convs.1.1.running_mean, 5.0.convs.1.1.running_var, 5.0.convs.1.1.num_batches_tracked, 5.0.idconv.0.weight, 5.0.idconv.1.weight, 5.0.idconv.1.bias, 5.0.idconv.1.running_mean, 5.0.idconv.1.running_var, 5.0.idconv.1.num_batches_tracked, 5.1.convs.0.0.weight, 5.1.convs.0.1.weight, 5.1.convs.0.1.bias, 5.1.convs.0.1.running_mean, 5.1.convs.0.1.running_var, 5.1.convs.0.1.num_batches_tracked, 5.1.convs.1.0.weight, 5.1.convs.1.1.weight, 5.1.convs.1.1.bias, 5.1.convs.1.1.running_mean, 5.1.convs.1.1.running_var, 5.1.convs.1.1.num_batches_tracked, 6.0.convs.0.0.weight, 6.0.convs.0.1.weight, 6.0.convs.0.1.bias, 6.0.convs.0.1.running_mean, 6.0.convs.0.1.running_var, 6.0.convs.0.1.num_batches_tracked, 6.0.convs.1.0.weight, 6.0.convs.1.1.weight, 6.0.convs.1.1.bias, 6.0.convs.1.1.running_mean, 6.0.convs.1.1.running_var, 6.0.convs.1.1.num_batches_tracked, 6.0.idconv.0.weight, 6.0.idconv.1.weight, 6.0.idconv.1.bias, 6.0.idconv.1.running_mean, 6.0.idconv.1.running_var, 6.0.idconv.1.num_batches_tracked, 6.1.convs.0.0.weight, 6.1.convs.0.1.weight, 6.1.convs.0.1.bias, 6.1.convs.0.1.running_mean, 6.1.convs.0.1.running_var, 6.1.convs.0.1.num_batches_tracked, 6.1.convs.1.0.weight, 6.1.convs.1.1.weight, 6.1.convs.1.1.bias, 6.1.convs.1.1.running_mean, 6.1.convs.1.1.running_var, 6.1.convs.1.1.num_batches_tracked, 7.0.convs.0.0.weight, 7.0.convs.0.1.weight, 7.0.convs.0.1.bias, 7.0.convs.0.1.running_mean, 7.0.convs.0.1.running_var, 7.0.convs.0.1.num_batches_tracked, 7.0.convs.1.0.weight, 7.0.convs.1.1.weight, 7.0.convs.1.1.bias, 7.0.convs.1.1.running_mean, 7.0.convs.1.1.running_var, 7.0.convs.1.1.num_batches_tracked, 7.0.idconv.0.weight, 7.0.idconv.1.weight, 7.0.idconv.1.bias, 7.0.idconv.1.running_mean, 7.0.idconv.1.running_var, 7.0.idconv.1.num_batches_tracked, 7.1.convs.0.0.weight, 7.1.convs.0.1.weight, 7.1.convs.0.1.bias, 7.1.convs.0.1.running_mean, 7.1.convs.0.1.running_var, 7.1.convs.0.1.num_batches_tracked, 7.1.convs.1.0.weight, 7.1.convs.1.1.weight, 7.1.convs.1.1.bias, 7.1.convs.1.1.running_mean, 7.1.convs.1.1.running_var, 7.1.convs.1.1.num_batches_tracked, 10.weight, 10.bias'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">st</span><span class="p">[</span><span class="s1">'10.bias'</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor([-0.0070,  0.0070, -0.0086, -0.0081,  0.0253,  0.0061,  0.0274,  0.0104,
+        -0.0421, -0.0088], device='cuda:0')</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">mdl_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">/</span><span class="s1">'models'</span>
+<span class="n">mdl_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It's also possible to save the whole model, including the architecture, but it gets quite fiddly and we don't recommend it. Instead, just save the parameters, and recreate the model directly.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">st</span><span class="p">,</span> <span class="n">mdl_path</span><span class="o">/</span><span class="s1">'iw5'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pets">
+<a class="anchor" href="#Pets" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pets<a class="anchor-link" href="#Pets"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://course.fast.ai/videos/?lesson=12&amp;t=3127">Jump_to lesson 12 video</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">pets</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">untar_data</span><span class="p">(</span><span class="n">datasets</span><span class="o">.</span><span class="n">URLs</span><span class="o">.</span><span class="n">PETS</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">pets</span><span class="o">.</span><span class="n">ls</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>[PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/annotations'),
+ PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images')]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">pets_path</span> <span class="o">=</span> <span class="n">pets</span><span class="o">/</span><span class="s1">'images'</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">il</span> <span class="o">=</span> <span class="n">ImageList</span><span class="o">.</span><span class="n">from_files</span><span class="p">(</span><span class="n">pets_path</span><span class="p">,</span> <span class="n">tfms</span><span class="o">=</span><span class="n">tfms</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">il</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>ImageList (7390 items)
+[PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/British_Shorthair_45.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/Siamese_128.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/staffordshire_bull_terrier_185.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/basset_hound_98.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/basset_hound_136.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/Birman_136.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/scottish_terrier_40.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/saint_bernard_96.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/german_shorthaired_27.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/chihuahua_5.jpg')...]
+Path: /home/cedric/.fastai/data/oxford-iiit-pet/images</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">random_splitter</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">p_valid</span><span class="p">):</span> <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">p_valid</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">sd</span> <span class="o">=</span> <span class="n">SplitData</span><span class="o">.</span><span class="n">split_by_func</span><span class="p">(</span><span class="n">il</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">random_splitter</span><span class="p">,</span> <span class="n">p_valid</span><span class="o">=</span><span class="mf">0.1</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">sd</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>SplitData
+Train: ImageList (6667 items)
+[PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/British_Shorthair_45.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/staffordshire_bull_terrier_185.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/basset_hound_98.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/basset_hound_136.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/Birman_136.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/scottish_terrier_40.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/german_shorthaired_27.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/Egyptian_Mau_62.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/yorkshire_terrier_71.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/Bombay_113.jpg')...]
+Path: /home/cedric/.fastai/data/oxford-iiit-pet/images
+Valid: ImageList (723 items)
+[PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/Siamese_128.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/saint_bernard_96.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/chihuahua_5.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/keeshond_163.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/staffordshire_bull_terrier_86.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/yorkshire_terrier_113.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/japanese_chin_94.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/staffordshire_bull_terrier_115.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/american_pit_bull_terrier_71.jpg'), PosixPath('/home/cedric/.fastai/data/oxford-iiit-pet/images/great_pyrenees_195.jpg')...]
+Path: /home/cedric/.fastai/data/oxford-iiit-pet/images</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="n">il</span><span class="o">.</span><span class="n">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">;</span> <span class="n">n</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'British_Shorthair_45.jpg'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^(.*)_\d+.jpg$'</span><span class="p">,</span> <span class="n">n</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'British_Shorthair'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">pet_labeler</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span> <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s1">'^(.*)_\d+.jpg$'</span><span class="p">,</span> <span class="n">fn</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">proc</span> <span class="o">=</span> <span class="n">CategoryProcessor</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">ll</span> <span class="o">=</span> <span class="n">label_by_func</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="n">pet_labeler</span><span class="p">,</span> <span class="n">proc_y</span><span class="o">=</span><span class="n">proc</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="s1">', '</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'British_Shorthair, staffordshire_bull_terrier, basset_hound, Birman, scottish_terrier, german_shorthaired, Egyptian_Mau, yorkshire_terrier, Bombay, great_pyrenees, english_cocker_spaniel, leonberger, Siamese, american_bulldog, japanese_chin, Maine_Coon, newfoundland, Abyssinian, pug, Russian_Blue, beagle, samoyed, havanese, wheaten_terrier, Bengal, boxer, american_pit_bull_terrier, miniature_pinscher, Sphynx, chihuahua, shiba_inu, english_setter, saint_bernard, pomeranian, Persian, keeshond, Ragdoll'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">ll</span><span class="o">.</span><span class="n">valid</span><span class="o">.</span><span class="n">x</span><span class="o">.</span><span class="n">tfms</span> <span class="o">=</span> <span class="n">val_tfms</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">c_out</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">vocab</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">ll</span><span class="o">.</span><span class="n">to_databunch</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="n">c_in</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="n">c_out</span><span class="p">,</span> <span class="n">num_workers</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbsched</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='5', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>3.460010</td>
+      <td>0.087896</td>
+      <td>3.508121</td>
+      <td>0.081604</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>3.291101</td>
+      <td>0.138443</td>
+      <td>4.057820</td>
+      <td>0.084371</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>3.074502</td>
+      <td>0.194390</td>
+      <td>3.341131</td>
+      <td>0.146611</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>2.764267</td>
+      <td>0.287986</td>
+      <td>2.808986</td>
+      <td>0.251729</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>2.467706</td>
+      <td>0.386681</td>
+      <td>2.570934</td>
+      <td>0.344398</td>
+      <td>00:09</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Custom-head">
+<a class="anchor" href="#Custom-head" aria-hidden="true"><span class="octicon octicon-link"></span></a>Custom head<a class="anchor-link" href="#Custom-head"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://course.fast.ai/videos/?lesson=12&amp;t=3265">Jump_to lesson 12 video</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">st</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mdl_path</span><span class="o">/</span><span class="s1">'iw5'</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">m</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">m</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">st</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;All keys matched successfully&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">cut</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">children</span><span class="p">())</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool2d</span><span class="p">))</span>
+<span class="n">m_cut</span> <span class="o">=</span> <span class="n">m</span><span class="p">[:</span><span class="n">cut</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">xb</span><span class="p">,</span><span class="n">yb</span> <span class="o">=</span> <span class="n">get_batch</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">valid_dl</span><span class="p">,</span> <span class="n">learn</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">pred</span> <span class="o">=</span> <span class="n">m_cut</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">pred</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([128, 512, 4, 4])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">ni</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">class</span> <span class="nc">AdaptiveConcatPool2d</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sz</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">sz</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ap</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool2d</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mp</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveMaxPool2d</span><span class="p">(</span><span class="n">sz</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">mp</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">ap</span><span class="p">(</span><span class="n">x</span><span class="p">)],</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">nh</span> <span class="o">=</span> <span class="mi">40</span>
+
+<span class="n">m_new</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+    <span class="n">m_cut</span><span class="p">,</span> <span class="n">AdaptiveConcatPool2d</span><span class="p">(),</span> <span class="n">Flatten</span><span class="p">(),</span>
+    <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">ni</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">c_out</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">m_new</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbsched</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='5', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>2.869728</td>
+      <td>0.286336</td>
+      <td>2.255571</td>
+      <td>0.448133</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2.109874</td>
+      <td>0.496625</td>
+      <td>2.265567</td>
+      <td>0.448133</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.930034</td>
+      <td>0.561272</td>
+      <td>2.033231</td>
+      <td>0.504841</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1.674324</td>
+      <td>0.657567</td>
+      <td>1.723327</td>
+      <td>0.641770</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1.474969</td>
+      <td>0.736463</td>
+      <td>1.574200</td>
+      <td>0.699862</td>
+      <td>00:09</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="adapt_model-and-gradual-unfreezing">
+<a class="anchor" href="#adapt_model-and-gradual-unfreezing" aria-hidden="true"><span class="octicon octicon-link"></span></a>adapt_model and gradual unfreezing<a class="anchor-link" href="#adapt_model-and-gradual-unfreezing"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://course.fast.ai/videos/?lesson=12&amp;t=3483">Jump_to lesson 12 video</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">adapt_model</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="n">cut</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">children</span><span class="p">())</span>
+               <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span><span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool2d</span><span class="p">))</span>
+    <span class="n">m_cut</span> <span class="o">=</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">[:</span><span class="n">cut</span><span class="p">]</span>
+    <span class="n">xb</span><span class="p">,</span><span class="n">yb</span> <span class="o">=</span> <span class="n">get_batch</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">valid_dl</span><span class="p">,</span> <span class="n">learn</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">m_cut</span><span class="p">(</span><span class="n">xb</span><span class="p">)</span>
+    <span class="n">ni</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">m_new</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
+        <span class="n">m_cut</span><span class="p">,</span> <span class="n">AdaptiveConcatPool2d</span><span class="p">(),</span> <span class="n">Flatten</span><span class="p">(),</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">ni</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">c_out</span><span class="p">))</span>
+    <span class="n">learn</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">m_new</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">)</span>
+<span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mdl_path</span><span class="o">/</span><span class="s1">'iw5'</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;All keys matched successfully&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">adapt_model</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sched_1cycle</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='3', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>2.782441</td>
+      <td>0.298035</td>
+      <td>2.739205</td>
+      <td>0.340249</td>
+      <td>00:05</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2.570200</td>
+      <td>0.401830</td>
+      <td>2.523606</td>
+      <td>0.439834</td>
+      <td>00:05</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2.133533</td>
+      <td>0.512674</td>
+      <td>2.141393</td>
+      <td>0.496542</td>
+      <td>00:05</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbsched</span><span class="p">,</span> <span class="n">reset_opt</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='5', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1.907010</td>
+      <td>0.585271</td>
+      <td>1.969608</td>
+      <td>0.571231</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1.861008</td>
+      <td>0.595770</td>
+      <td>2.103309</td>
+      <td>0.510373</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.801710</td>
+      <td>0.607920</td>
+      <td>2.016537</td>
+      <td>0.508990</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1.609392</td>
+      <td>0.691615</td>
+      <td>1.749493</td>
+      <td>0.634855</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1.424160</td>
+      <td>0.761212</td>
+      <td>1.586875</td>
+      <td>0.695712</td>
+      <td>00:09</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Batch-norm-transfer">
+<a class="anchor" href="#Batch-norm-transfer" aria-hidden="true"><span class="octicon octicon-link"></span></a>Batch norm transfer<a class="anchor-link" href="#Batch-norm-transfer"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://course.fast.ai/videos/?lesson=12&amp;t=3567">Jump_to lesson 12 video</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">)</span>
+<span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mdl_path</span><span class="o">/</span><span class="s1">'iw5'</span><span class="p">))</span>
+<span class="n">adapt_model</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">apply_mod</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="n">f</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">children</span><span class="p">():</span> <span class="n">apply_mod</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">set_grad</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">,</span><span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">)):</span> <span class="k">return</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="s1">'weight'</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">m</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">apply_mod</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">set_grad</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">sched_1cycle</span><span class="p">(</span><span class="mf">1e-2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='3', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>2.690954</td>
+      <td>0.320084</td>
+      <td>2.427597</td>
+      <td>0.403873</td>
+      <td>00:06</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2.192524</td>
+      <td>0.474726</td>
+      <td>2.123527</td>
+      <td>0.484094</td>
+      <td>00:06</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.914695</td>
+      <td>0.569222</td>
+      <td>1.958007</td>
+      <td>0.557400</td>
+      <td>00:06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">apply_mod</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">partial</span><span class="p">(</span><span class="n">set_grad</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbsched</span><span class="p">,</span> <span class="n">reset_opt</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='5', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1.819283</td>
+      <td>0.609569</td>
+      <td>1.912626</td>
+      <td>0.580913</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1.793303</td>
+      <td>0.617219</td>
+      <td>2.100043</td>
+      <td>0.493776</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.751841</td>
+      <td>0.628919</td>
+      <td>2.360935</td>
+      <td>0.394191</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1.569761</td>
+      <td>0.704065</td>
+      <td>1.744866</td>
+      <td>0.626556</td>
+      <td>00:09</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1.408960</td>
+      <td>0.767062</td>
+      <td>1.579932</td>
+      <td>0.692946</td>
+      <td>00:08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Pytorch already has an <code>apply</code> method we can use:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">partial</span><span class="p">(</span><span class="n">set_grad</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">False</span><span class="p">));</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discriminative-LR-and-param-groups">
+<a class="anchor" href="#Discriminative-LR-and-param-groups" aria-hidden="true"><span class="octicon octicon-link"></span></a>Discriminative LR and param groups<a class="anchor-link" href="#Discriminative-LR-and-param-groups"> </a>
+</h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://course.fast.ai/videos/?lesson=12&amp;t=3799">Jump_to lesson 12 video</a></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span> <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mdl_path</span><span class="o">/</span><span class="s1">'iw5'</span><span class="p">))</span>
+<span class="n">adapt_model</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">bn_splitter</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_bn_splitter</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm2d</span><span class="p">):</span> <span class="n">g2</span> <span class="o">+=</span> <span class="n">l</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="s1">'weight'</span><span class="p">):</span> <span class="n">g1</span> <span class="o">+=</span> <span class="n">l</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">ll</span> <span class="ow">in</span> <span class="n">l</span><span class="o">.</span><span class="n">children</span><span class="p">():</span> <span class="n">_bn_splitter</span><span class="p">(</span><span class="n">ll</span><span class="p">,</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span>
+        
+    <span class="n">g1</span><span class="p">,</span><span class="n">g2</span> <span class="o">=</span> <span class="p">[],[]</span>
+    <span class="n">_bn_splitter</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">g1</span><span class="p">,</span> <span class="n">g2</span><span class="p">)</span>
+    
+    <span class="n">g2</span> <span class="o">+=</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">g1</span><span class="p">,</span><span class="n">g2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="n">bn_splitter</span><span class="p">(</span><span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">test_eq</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">parameters</span><span class="p">())))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">Learner</span><span class="o">.</span><span class="n">ALL_CBS</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{'after_backward',
+ 'after_batch',
+ 'after_cancel_batch',
+ 'after_cancel_epoch',
+ 'after_cancel_train',
+ 'after_epoch',
+ 'after_fit',
+ 'after_loss',
+ 'after_pred',
+ 'after_step',
+ 'begin_batch',
+ 'begin_epoch',
+ 'begin_fit',
+ 'begin_validate'}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">SimpleNamespace</span>
+<span class="n">cb_types</span> <span class="o">=</span> <span class="n">SimpleNamespace</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">o</span><span class="p">:</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">Learner</span><span class="o">.</span><span class="n">ALL_CBS</span><span class="p">})</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">cb_types</span><span class="o">.</span><span class="n">after_backward</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>'after_backward'</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">class</span> <span class="nc">DebugCallback</span><span class="p">(</span><span class="n">Callback</span><span class="p">):</span>
+    <span class="n">_order</span> <span class="o">=</span> <span class="mi">999</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb_name</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">cb_name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">cb_name</span><span class="p">,</span><span class="n">f</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cb_name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">cb_name</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">cb_name</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>      <span class="n">set_trace</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">sched_1cycle</span><span class="p">(</span><span class="n">lrs</span><span class="p">,</span> <span class="n">pct_start</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">mom_start</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">mom_mid</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">mom_end</span><span class="o">=</span><span class="mf">0.95</span><span class="p">):</span>
+    <span class="n">phases</span> <span class="o">=</span> <span class="n">create_phases</span><span class="p">(</span><span class="n">pct_start</span><span class="p">)</span>
+    <span class="n">sched_lr</span>  <span class="o">=</span> <span class="p">[</span><span class="n">combine_scheds</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">cos_1cycle_anneal</span><span class="p">(</span><span class="n">lr</span><span class="o">/</span><span class="mf">10.</span><span class="p">,</span> <span class="n">lr</span><span class="p">,</span> <span class="n">lr</span><span class="o">/</span><span class="mf">1e5</span><span class="p">))</span>
+                 <span class="k">for</span> <span class="n">lr</span> <span class="ow">in</span> <span class="n">lrs</span><span class="p">]</span>
+    <span class="n">sched_mom</span> <span class="o">=</span> <span class="n">combine_scheds</span><span class="p">(</span><span class="n">phases</span><span class="p">,</span> <span class="n">cos_1cycle_anneal</span><span class="p">(</span><span class="n">mom_start</span><span class="p">,</span> <span class="n">mom_mid</span><span class="p">,</span> <span class="n">mom_end</span><span class="p">))</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">ParamScheduler</span><span class="p">(</span><span class="s1">'lr'</span><span class="p">,</span> <span class="n">sched_lr</span><span class="p">),</span>
+            <span class="n">ParamScheduler</span><span class="p">(</span><span class="s1">'mom'</span><span class="p">,</span> <span class="n">sched_mom</span><span class="p">)]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">disc_lr_sched</span> <span class="o">=</span> <span class="n">sched_1cycle</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mf">3e-2</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">xresnet18</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">loss_func</span><span class="p">,</span> <span class="n">opt_func</span><span class="p">,</span>
+                    <span class="n">c_out</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">norm</span><span class="o">=</span><span class="n">norm_imagenette</span><span class="p">,</span> <span class="n">splitter</span><span class="o">=</span><span class="n">bn_splitter</span><span class="p">)</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">mdl_path</span><span class="o">/</span><span class="s1">'iw5'</span><span class="p">))</span>
+<span class="n">adapt_model</span><span class="p">(</span><span class="n">learn</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="k">def</span> <span class="nf">_print_det</span><span class="p">(</span><span class="n">o</span><span class="p">):</span> 
+    <span class="nb">print</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">param_groups</span><span class="p">),</span> <span class="n">o</span><span class="o">.</span><span class="n">opt</span><span class="o">.</span><span class="n">hypers</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="n">CancelTrainException</span><span class="p">()</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">disc_lr_sched</span> <span class="o">+</span> <span class="p">[</span><span class="n">DebugCallback</span><span class="p">(</span><span class="n">cb_types</span><span class="o">.</span><span class="n">after_batch</span><span class="p">,</span> <span class="n">_print_det</span><span class="p">)])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='1', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>2 [{'mom': 0.9499999999999997, 'mom_sqr': 0.99, 'eps': 1e-06, 'wd': 0.01, 'lr': 0.0, 'sqr_mom': 0.99}, {'mom': 0.9499999999999997, 'mom_sqr': 0.99, 'eps': 1e-06, 'wd': 0.01, 'lr': 0.0030000000000000512, 'sqr_mom': 0.99}]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">disc_lr_sched</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='3', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>2.585809</td>
+      <td>0.358032</td>
+      <td>2.342050</td>
+      <td>0.409405</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>2.312127</td>
+      <td>0.433328</td>
+      <td>2.434426</td>
+      <td>0.412172</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>2.032101</td>
+      <td>0.523324</td>
+      <td>1.978259</td>
+      <td>0.539419</td>
+      <td>00:08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">disc_lr_sched</span> <span class="o">=</span> <span class="n">sched_1cycle</span><span class="p">([</span><span class="mf">1e-3</span><span class="p">,</span><span class="mf">1e-2</span><span class="p">],</span> <span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description" open="">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse_show</span>
+
+<span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">disc_lr_sched</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+    <div>
+        <style>
+            /* Turns off some styling */
+            progress {
+                /* gets rid of default border in Firefox and Opera. */
+                border: none;
+                /* Needs to be in here for Safari polyfill so background images work as expected. */
+                background-size: auto;
+            }
+            .progress-bar-interrupted, .progress-bar-interrupted::-webkit-progress-bar {
+                background: #F44336;
+            }
+        </style>
+      &lt;progress value='0' class='' max='5', style='width:300px; height:20px; vertical-align: middle;'&gt;&lt;/progress&gt;
+      
+    </div>
+    
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>train_accuracy</th>
+      <th>valid_loss</th>
+      <th>valid_accuracy</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1.862455</td>
+      <td>0.596520</td>
+      <td>2.062223</td>
+      <td>0.511757</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1.927012</td>
+      <td>0.558422</td>
+      <td>2.068517</td>
+      <td>0.508990</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1.780360</td>
+      <td>0.621869</td>
+      <td>1.958512</td>
+      <td>0.542185</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1.633498</td>
+      <td>0.674516</td>
+      <td>1.755347</td>
+      <td>0.605809</td>
+      <td>00:08</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1.534966</td>
+      <td>0.709615</td>
+      <td>1.697863</td>
+      <td>0.641770</td>
+      <td>00:08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Cedric-Perauer/DL_from_Foundations"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/DL_from_Foundations/jupyter/2020/04/21/3transfer-learning.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/DL_from_Foundations/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/DL_from_Foundations/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
