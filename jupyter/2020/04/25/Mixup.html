@@ -12,11 +12,11 @@
 <link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html" />
 <meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html" />
 <meta property="og:site_name" content="fastpages" />
-<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/mixup_tables.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-25T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-25T00:00:00-05:00","dateModified":"2020-04-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html"},"description":"Suggests a multi class augmentation technique to improve generalization, memorization of corrupted labels and improves robustness against adversarial examples","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html","headline":"Summary Mixup Augmentation Technique","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-25T00:00:00-05:00","dateModified":"2020-04-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html"},"description":"Suggests a multi class augmentation technique to improve generalization, memorization of corrupted labels and improves robustness against adversarial examples","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/mixup_tables.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html","headline":"Summary Mixup Augmentation Technique","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Summary Mixup Augmentation Technique | fastpages</title>
@@ -28,11 +28,11 @@
 <link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html" />
 <meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html" />
 <meta property="og:site_name" content="fastpages" />
-<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/mixup_tables.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-04-25T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2020-04-25T00:00:00-05:00","dateModified":"2020-04-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html"},"description":"Suggests a multi class augmentation technique to improve generalization, memorization of corrupted labels and improves robustness against adversarial examples","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html","headline":"Summary Mixup Augmentation Technique","@context":"https://schema.org"}</script>
+{"datePublished":"2020-04-25T00:00:00-05:00","dateModified":"2020-04-25T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html"},"description":"Suggests a multi class augmentation technique to improve generalization, memorization of corrupted labels and improves robustness against adversarial examples","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/mixup_tables.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/25/Mixup.html","headline":"Summary Mixup Augmentation Technique","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -262,7 +262,7 @@ Experiments were made on both ImageNet and CIFAR-10/100 using different alphas f
 <p>the binary cross entropy loss is used in this case. Solving this equation is a very difficult optimization problem (Goodfellow et al., 2016) as the discriminator often provides the generator with vanishing gradients. Using mixup, the optimization problem looks like this : 
 <img src="/DL_from_Foundations/images/copied_from_nb/images/gan_mix.png" alt=""></p>
 <p>The models are fully connected, with 3 hidden layers and 512 ReLU units. The generator accepts 2D Gaussian noise vectors, 20000 mini-batches of size 128 are used for training with the discriminator being trained for 5 epochs before every generator iteration. Table 5 shows the improved performance of mixup.</p>
-<p>A part of these mostly supervised use cases (except for GANs), the authors believe that other non straightforward use cases such as segmentation or different unsupervised techniques s</p>
+<p>A part of these mostly supervised use cases (except for GANs), the authors believe that other non straightforward use cases such as segmentation or different unsupervised techniques should be promising areas of future research.</p>
 
 </div>
 </div>

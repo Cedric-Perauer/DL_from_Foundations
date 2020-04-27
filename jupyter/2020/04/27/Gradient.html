@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Summary Gradient Descent Optimization Algorithms | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Summary Gradient Descent Optimization Algorithms" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)" />
+<meta property="og:description" content="All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-27T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-04-27T00:00:00-05:00","dateModified":"2020-04-27T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html"},"description":"All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html","headline":"Summary Gradient Descent Optimization Algorithms","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Summary Gradient Descent Optimization Algorithms | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Summary Gradient Descent Optimization Algorithms" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)" />
+<meta property="og:description" content="All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-27T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-04-27T00:00:00-05:00","dateModified":"2020-04-27T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html"},"description":"All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/resnet_var.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/04/27/Gradient.html","headline":"Summary Gradient Descent Optimization Algorithms","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/DL_from_Foundations/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/DL_from_Foundations/about/">About Me</a><a class="page-link" href="/DL_from_Foundations/search/">Search</a><a class="page-link" href="/DL_from_Foundations/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Summary Gradient Descent Optimization Algorithms</h1><p class="page-description">All you need is a good init suggests a novel initialization technique that allows the initalization of deep architectures wrt to other activations than ReLU (focus of Kaiming init)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-04-27T00:00:00-05:00" itemprop="datePublished">
+        Apr 27, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/Cedric-Perauer/DL_from_Foundations/tree/master/_notebooks/2020-04-27- Gradient.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/Cedric-Perauer/DL_from_Foundations/master?filepath=_notebooks%2F2020-04-27-+Gradient.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/Cedric-Perauer/DL_from_Foundations/blob/master/_notebooks/2020-04-27- Gradient.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/DL_from_Foundations/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#What-did-the-authors-want-to-achieve-?">What did the authors want to achieve ? </a></li>
+<li class="toc-entry toc-h2"><a href="#Key-elements-(Methods-in-this-case)">Key elements (Methods in this case) </a></li>
+<li class="toc-entry toc-h2"><a href="#SGD-Based">SGD Based </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Batch-Gradient-Descent">Batch Gradient Descent </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Formula-:">Formula : </a></li>
+<li class="toc-entry toc-h4"><a href="#Code-:">Code : </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Stochastic-Gradient-Descent-(SGD)">Stochastic Gradient Descent (SGD) </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Formula-:">Formula : </a></li>
+<li class="toc-entry toc-h4"><a href="#Code-:">Code : </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Mini-Batch-Gradient-Descent-(most-commonly-refered-to-as-the-actual-SGD)">Mini-Batch Gradient Descent (most commonly refered to as the actual SGD) </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Formula-:">Formula : </a></li>
+<li class="toc-entry toc-h4"><a href="#Code-:">Code : </a></li>
+<li class="toc-entry toc-h4"><a href="#Challenges-of-SGD">Challenges of SGD </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Gradient-descent-optimization-algorithms">Gradient descent optimization algorithms </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Momentum">Momentum </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Formula-:">Formula : </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Nesterov-accelerated-gradient-(NGA)">Nesterov accelerated gradient (NGA) </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Formula">Formula </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Results-and-Conclusion">Results and Conclusion </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-04-27- Gradient.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-did-the-authors-want-to-achieve-?">
+<a class="anchor" href="#What-did-the-authors-want-to-achieve-?" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?<a class="anchor-link" href="#What-did-the-authors-want-to-achieve-?"> </a>
+</h2>
+<ul>
+<li>give an overview of the different optimizers that exist and the challenges faced</li>
+<li>analyze additional methods that can be used to improve gradient descent</li>
+<li>the paper is more geared towards the mathematical understandinf of these optimizers as it does not make performance comparisons  </li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Key-elements-(Methods-in-this-case)">
+<a class="anchor" href="#Key-elements-(Methods-in-this-case)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Key elements (Methods in this case)<a class="anchor-link" href="#Key-elements-(Methods-in-this-case)"> </a>
+</h2>
+<p>In the following all sorts of SGD variants and optimization algorithms will be adressed. The following parameters are universal in the upcoming formulas:</p>
+<p>θ : parameters<br>
+ η : learning rate<br>
+J(θ) : objective function depening on models parameters</p>
+<h2 id="SGD-Based">
+<a class="anchor" href="#SGD-Based" aria-hidden="true"><span class="octicon octicon-link"></span></a>SGD Based<a class="anchor-link" href="#SGD-Based"> </a>
+</h2>
+<h3 id="Batch-Gradient-Descent">
+<a class="anchor" href="#Batch-Gradient-Descent" aria-hidden="true"><span class="octicon octicon-link"></span></a>Batch Gradient Descent<a class="anchor-link" href="#Batch-Gradient-Descent"> </a>
+</h3>
+<h4 id="Formula-:">
+<a class="anchor" href="#Formula-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formula :<a class="anchor-link" href="#Formula-:"> </a>
+</h4>
+<p>$θ = θ − η · ∇θJ(θ)$</p>
+<h4 id="Code-:">
+<a class="anchor" href="#Code-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code :<a class="anchor-link" href="#Code-:"> </a>
+</h4>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span> <span class="n">nb_epochs</span> <span class="p">):</span>
+<span class="n">params_grad</span> <span class="o">=</span> <span class="n">evaluate_gradient</span> <span class="p">(</span> <span class="n">loss_function</span> <span class="p">,</span> <span class="n">data</span> <span class="p">,</span> <span class="n">params</span> <span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">params_grad</span>
+</pre></div>
+<p>This is the vanilla version, it updates all parameters in one update. It is redundant and very slow and can be impossible to compute for large datasets due to memory limitations. It also does not allow for online training.</p>
+<h3 id="Stochastic-Gradient-Descent-(SGD)">
+<a class="anchor" href="#Stochastic-Gradient-Descent-(SGD)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Stochastic Gradient Descent (SGD)<a class="anchor-link" href="#Stochastic-Gradient-Descent-(SGD)"> </a>
+</h3>
+<p>SGD performs a parameter update for each training example ${x^i}$ and ${y^i}$ respectively and therefore allows online training as well as faster training and the ability to train larger datasets.</p>
+<h4 id="Formula-:">
+<a class="anchor" href="#Formula-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formula :<a class="anchor-link" href="#Formula-:"> </a>
+</h4>
+<p>$θ = θ − η · ∇θJ(θ; {x^i};{y^i})$</p>
+<h4 id="Code-:">
+<a class="anchor" href="#Code-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code :<a class="anchor-link" href="#Code-:"> </a>
+</h4>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span> <span class="n">nb_epochs</span> <span class="p">):</span>
+<span class="n">np</span> <span class="o">.</span> <span class="n">random</span> <span class="o">.</span> <span class="n">shuffle</span> <span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+<span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">data</span> <span class="p">:</span>
+<span class="n">params_grad</span> <span class="o">=</span> <span class="n">evaluate_gradient</span> <span class="p">(</span> <span class="n">loss_function</span> <span class="p">,</span> <span class="n">example</span> <span class="p">,</span> <span class="n">params</span> <span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">params_grad</span>
+</pre></div>
+<p>SGD also has the potential to reach better local minima, convergance is compilcated however but can be combated with weight decay,almost certainly converging to a local or the global minimum for non-convex and convex optimization respectively. As is common for most batch gradient descent techniques the data is also shuffled in the beginning, the advantages of shuffling are discussed in the additional strategies section.</p>
+<h3 id="Mini-Batch-Gradient-Descent-(most-commonly-refered-to-as-the-actual-SGD)">
+<a class="anchor" href="#Mini-Batch-Gradient-Descent-(most-commonly-refered-to-as-the-actual-SGD)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Mini-Batch Gradient Descent (most commonly refered to as the actual SGD)<a class="anchor-link" href="#Mini-Batch-Gradient-Descent-(most-commonly-refered-to-as-the-actual-SGD)"> </a>
+</h3>
+<p>Mini-Batch Gradient Descent  takes the best of both worlds and performs updates on smaller batches (common sizes range between 16 and 1024).</p>
+<h4 id="Formula-:">
+<a class="anchor" href="#Formula-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formula :<a class="anchor-link" href="#Formula-:"> </a>
+</h4>
+<p>$θ = θ − η · ∇θJ(θ; {x^{i:i+n}};{y^{i:i+n}})$</p>
+<h4 id="Code-:">
+<a class="anchor" href="#Code-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Code :<a class="anchor-link" href="#Code-:"> </a>
+</h4>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span> <span class="n">nb_epochs</span> <span class="p">):</span>
+<span class="n">np</span> <span class="o">.</span> <span class="n">random</span> <span class="o">.</span> <span class="n">shuffle</span> <span class="p">(</span> <span class="n">data</span> <span class="p">)</span>
+<span class="k">for</span> <span class="n">batch</span> <span class="ow">in</span> <span class="n">get_batches</span> <span class="p">(</span> <span class="n">data</span> <span class="p">,</span> <span class="n">batch_size</span> <span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="n">params_grad</span> <span class="o">=</span> <span class="n">evaluate_gradient</span> <span class="p">(</span> <span class="n">loss_function</span> <span class="p">,</span> <span class="n">batch</span> <span class="p">,</span> <span class="n">params</span> <span class="p">)</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">params</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">params_grad</span>
+</pre></div>
+<p>It is usually refered to as SGD. This technique reduces the variance, which leads to better convergence. It can also make use of highly computationally optimized matrix operations to make computing the gradient of a mini-batch very fast.</p>
+<h4 id="Challenges-of-SGD">
+<a class="anchor" href="#Challenges-of-SGD" aria-hidden="true"><span class="octicon octicon-link"></span></a>Challenges of SGD<a class="anchor-link" href="#Challenges-of-SGD"> </a>
+</h4>
+<p>Vanilla SGD does not guarantee good convergence, so the following challenges have to be adressed :</p>
+<ul>
+<li>choosing the learning rate is very difficult, small values can lead to very slow convergence while large ones can lead to divergence</li>
+<li>techniques that combat this like annealing and scheduling of the $\eta$ are used to combat this, however they do not adjust to the dataset used and have to be specified in advance</li>
+<li>the learning rate is fixed for all parameters, however we would like to updates each parameter depending on the occurence of features (e.g. higher lr for rarer features) </li>
+<li>minimizing non-convex functions, where the convex criterion :       </li>
+</ul>
+<p>$f(\lambda*x_{1}+(1-\lambda)*x_{2}) {\leq } \lambda*f(x_{1}) + (1-\lambda) * f(x_{2})$</p>
+<p>is not fullfilled, often leads to convergence in local minima. Often this is due to saddle points as Dauphin et al. found out.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Gradient-descent-optimization-algorithms">
+<a class="anchor" href="#Gradient-descent-optimization-algorithms" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gradient descent optimization algorithms<a class="anchor-link" href="#Gradient-descent-optimization-algorithms"> </a>
+</h2>
+<p>In the following widely used optimization algorithms will be adressed. The following parameters are universal in the upcoming formulas:</p>
+<p>θ : parameters<br>
+ η : learning rate<br>
+J(θ) : objective function depening on models parameters<br>
+ $γ$ : fraction that was introduced with Momentum (usually set to 0.9)<br>
+ $t$ (index) : time step<br>
+ $\epsilon$ : smoothing term to avoid division by zero, introduced by Adagrad (usuall set to 1e-8)</p>
+<h3 id="Momentum">
+<a class="anchor" href="#Momentum" aria-hidden="true"><span class="octicon octicon-link"></span></a>Momentum<a class="anchor-link" href="#Momentum"> </a>
+</h3>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/Momentum.png" alt=""></p>
+<p>SGD has trouble navigating ravines (area where surface curves much more steeply in one dimension than in another), SGD often oscillates in these cases while only making small progress. These are common around local optima. 
+Momentum helps accelerate SGD in the relevant direction and dampens these ocsillations by introducing a new $γ$ term that is used to add a fraction of the update vector of the past time step to the current update vector.<br>
+<br><br></p>
+<h4 id="Formula-:">
+<a class="anchor" href="#Formula-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formula :<a class="anchor-link" href="#Formula-:"> </a>
+</h4>
+<p>$vt = γv_{t−1} + η∇θJ(θ)$<br>
+$θ = θ − v_{t}$
+<br><br></p>
+<p>An analogy to this is a ball rolling dowhill, it becomes faster on the way (until it reaches its maximum speed due to air resistance, i.e. $γ&lt;1$)</p>
+<h3 id="Nesterov-accelerated-gradient-(NGA)">
+<a class="anchor" href="#Nesterov-accelerated-gradient-(NGA)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Nesterov accelerated gradient (NGA)<a class="anchor-link" href="#Nesterov-accelerated-gradient-(NGA)"> </a>
+</h3>
+<p>The idea of NGA is that we do not want to blindly go downhill, but rather know when the uphill section starts so we can slow down again. NGA does take this into account by using our momentum term $γv_{t−1}$ to approximate the next time step using $θ − γv_{t}$. (only the gradient is missing for the full update). This allows us to compute the gradient w.r.t the approximate future position of our parameters rather than the current one. 
+<br><br></p>
+<h4 id="Formula">
+<a class="anchor" href="#Formula" aria-hidden="true"><span class="octicon octicon-link"></span></a>Formula<a class="anchor-link" href="#Formula"> </a>
+</h4>
+<p>$vt = γv_{t−1} + η∇θJ(θ-γv_{t−1})$<br>
+$θ = θ − v_{t}$
+<br><br></p>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/Hinton_mom.png" alt="">
+NAG first makes a jump in the direction of calculated gradient (brown vector) and then makes a correction (green vector) 
+This anticipatory update prevents us from going too fast and results in increased
+responsiveness, which has significantly increased the performance of RNNs on a number of tasks. Now we are able to update e</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Results-and-Conclusion">
+<a class="anchor" href="#Results-and-Conclusion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results and Conclusion<a class="anchor-link" href="#Results-and-Conclusion"> </a>
+</h2>
+<p>The authors were able to give a good overview of different SGD techniques and it's optimizers like Momentum, Nesterov accelerated gradient, Adagrad, Adadelta,
+RMSprop, Adam, AdaMax, Nadam, as well as different algorithms to optimize asynchronous SGD. Additionally strategies that can improve upon this like curriculum learning, batch norm and early stopping were deployed.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Cedric-Perauer/DL_from_Foundations"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/DL_from_Foundations/jupyter/2020/04/27/Gradient.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/DL_from_Foundations/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/DL_from_Foundations/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
