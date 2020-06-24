@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>YOLO is back with new researchers, a summary of version 4 | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="YOLO is back with new researchers, a summary of version 4" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Summaries for Building Fastai Funtions from scratch (Lesson 1)" />
+<meta property="og:description" content="Summaries for Building Fastai Funtions from scratch (Lesson 1)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-24T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-06-24T00:00:00-05:00","dateModified":"2020-06-24T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html"},"description":"Summaries for Building Fastai Funtions from scratch (Lesson 1)","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html","headline":"YOLO is back with new researchers, a summary of version 4","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>YOLO is back with new researchers, a summary of version 4 | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="YOLO is back with new researchers, a summary of version 4" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Summaries for Building Fastai Funtions from scratch (Lesson 1)" />
+<meta property="og:description" content="Summaries for Building Fastai Funtions from scratch (Lesson 1)" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-06-24T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-06-24T00:00:00-05:00","dateModified":"2020-06-24T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html"},"description":"Summaries for Building Fastai Funtions from scratch (Lesson 1)","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html","headline":"YOLO is back with new researchers, a summary of version 4","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/DL_from_Foundations/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/DL_from_Foundations/about/">About Me</a><a class="page-link" href="/DL_from_Foundations/search/">Search</a><a class="page-link" href="/DL_from_Foundations/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">YOLO is back with new researchers, a summary of version 4</h1><p class="page-description">Summaries for Building Fastai Funtions from scratch (Lesson 1)</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-06-24T00:00:00-05:00" itemprop="datePublished">
+        Jun 24, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#markdown">markdown</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#yolov4-optimal-speed-and-accuracy-of-object-detection-paper-summary">YOLOv4: Optimal Speed and Accuracy of Object Detection Paper Summary</a>
+<ul>
+<li class="toc-entry toc-h2"><a href="#what-did-the-authors-want-to-achieve-">What did the authors want to achieve ?</a></li>
+<li class="toc-entry toc-h2"><a href="#methods-used">Methods used</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#bag-of-freebies-methods-that-only-increase-training-runtime-and-not-inference">Bag of Freebies (methods that only increase training runtime and not inference)</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#dataset-bias-">Dataset Bias :</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#bag-of-specials-methods-that-only-have-a-small-impact-on-inference-speed-but-improve-accuracy-significantly">Bag of specials (methods that only have a small impact on inference speed, but improve accuracy significantly)</a></li>
+<li class="toc-entry toc-h3"><a href="#architecture-selection">Architecture Selection</a></li>
+<li class="toc-entry toc-h3"><a href="#architecture-summary">Architecture Summary</a></li>
+<li class="toc-entry toc-h3"><a href="#results">Results</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><h1 id="yolov4-optimal-speed-and-accuracy-of-object-detection-paper-summary">
+<a class="anchor" href="#yolov4-optimal-speed-and-accuracy-of-object-detection-paper-summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>YOLOv4: Optimal Speed and Accuracy of Object Detection Paper Summary</h1>
+<p>(Alexey Bochkovskiy,Chien-Yao Wang, Hong-Yuan Mark Liao)</p>
+
+<h2 id="what-did-the-authors-want-to-achieve-">
+<a class="anchor" href="#what-did-the-authors-want-to-achieve-" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?</h2>
+<ul>
+  <li>fast (real time) object detection, that can be trained on a GPU with 8-16 GB of VRAM</li>
+  <li>a model that can be easily trained and used</li>
+  <li>add state of the art methods for object detection, building on YOLOv3</li>
+  <li>find a good model for both GPU and VPU implementation</li>
+</ul>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/yolov4.png" alt="images"></p>
+
+<h2 id="methods-used">
+<a class="anchor" href="#methods-used" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods used</h2>
+
+<h3 id="bag-of-freebies-methods-that-only-increase-training-runtime-and-not-inference">
+<a class="anchor" href="#bag-of-freebies-methods-that-only-increase-training-runtime-and-not-inference" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bag of Freebies (methods that only increase training runtime and not inference)</h3>
+
+<ul>
+  <li>New Data Augmentation techniques are used, for photometric and geometric variability : 
+=&gt; Random Erase, Cutout to leave part of image of certain value
+=&gt; Dropout, Dropblock does the same with the net params</li>
+  <li>Mixup : mult image augmentation</li>
+  <li>Style Transfer GAN for texture stability
+    <h4 id="dataset-bias-">
+<a class="anchor" href="#dataset-bias-" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dataset Bias :</h4>
+    <p>=&gt; focal loss, data imbalance between different classics
+=&gt; one-hot hard representation 
+=&gt; soft labels 
+BBox regression :</p>
+  </li>
+  <li>MSE has x and y independent, also Anchors
+=&gt; IoU loss =&gt; coverage and area are considered 
+=&gt; scale invariant, not the case with traditional methods
+=&gt; DIoU and CIoU loss</li>
+</ul>
+
+<h3 id="bag-of-specials-methods-that-only-have-a-small-impact-on-inference-speed-but-improve-accuracy-significantly">
+<a class="anchor" href="#bag-of-specials-methods-that-only-have-a-small-impact-on-inference-speed-but-improve-accuracy-significantly" aria-hidden="true"><span class="octicon octicon-link"></span></a>Bag of specials (methods that only have a small impact on inference speed, but improve accuracy significantly)</h3>
+
+<ul>
+  <li>only a small cost of compute during inference, improve accuracy :
+    <ul>
+      <li>enlarging receptive field : SPP, ASPP, RFB, SPP originates 		  from Spatial Pyramid Matching 
+=&gt; extract bag of words features 
+ 	- SPP infeasible for FCN nets, as it outputs a 1D feature 	  vector =&gt; YOLOv3 concat of max pooling outputs with 		  kxk kernel size =&gt; larger receptive field of the backbone 		  =&gt; 2.7% higher AP50, 0.5 more compute necessary</li>
+      <li>ASPP diff. to SPP : max pool of 3x3, dilation of k</li>
+      <li>RFB : several dilated kxk convs =&gt; 7% more AP, 5.7% more compute
+Attention module :</li>
+    </ul>
+  </li>
+  <li>mainly channelwise and pointwise attention, SE and SAM modules, SAM with no extra cost on GPU =&gt; better for us 
+Feature Integration :</li>
+  <li>skip connections, hyper-column</li>
+  <li>channelwise weighting on multi-scale with FPN methods :
+    <ul>
+      <li>SFAM, ASFF, BiFPN, …
+Activation Functions :
+        <ul>
+          <li>Mish, Swish, (fully differentiable) PReLu, …
+Post-processing :</li>
+          <li>NMS “messy” with occlusions =&gt; DIoU NMS distance : center to BBox screening process</li>
+          <li>NMS method not necessary in anchor free method</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="architecture-selection">
+<a class="anchor" href="#architecture-selection" aria-hidden="true"><span class="octicon octicon-link"></span></a>Architecture Selection</h3>
+
+<ul>
+  <li>things to think about : a reference that is good for classification is not always good for object detection, due to the detector needing :
+    <ul>
+      <li>higher input size (for small objects)</li>
+      <li>more layers (higher receptive field to cover larger input)</li>
+      <li>more parameters (for greater capacity, to detect different sized objects)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>=&gt; a detector needs a backbone with more 3x3 convs and more params</p>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/yolov4comp.png" alt="images"></p>
+
+<p>Due to that, CSPDarknet53 seems to be the best choice in theory</p>
+
+<p>The following improvements are done :</p>
+<ul>
+  <li>SPP additional module for larger receptive field (almost no runtime disadvantage)</li>
+  <li>PANet path-aggregation neck as param aggregation method instead of FPN from YOLOv3</li>
+  <li>YOLOv3 anchor based head is used</li>
+  <li>DropBlock regularization method</li>
+</ul>
+
+<p>For single GPU training :</p>
+<ul>
+  <li>synchBN is not considered : goal is to run on single GPU, thanks guys !!</li>
+  <li>new data augmentation mosaic (mixes 4 training images), Self Adversarial Training =&gt; detection of objects outside their context<br>
+SAT : 
+Forward Backward Training : 
+1) adversarial attack is performed on input
+2) neural net is trained to detect and object on this moded image in a normal way</li>
+</ul>
+
+<p>Also :</p>
+<ul>
+  <li>optimal hyper-params while applying genetic algos</li>
+  <li>Cross mini Batch Normalization : mini-batch split within batch</li>
+  <li>SAM is modified from spatial-wise to pointwise attention, as can be seen below :</li>
+</ul>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/Pan_mod.png" alt="images"></p>
+
+<h3 id="architecture-summary">
+<a class="anchor" href="#architecture-summary" aria-hidden="true"><span class="octicon octicon-link"></span></a>Architecture Summary</h3>
+<ul>
+  <li>Backbone : CSPDarknet53</li>
+  <li>Neck : SPP, PAN</li>
+  <li>Head : Yolov3</li>
+</ul>
+
+<p>Techniques :</p>
+<ul>
+  <li>Bag of freebies for Backbone : 
+CutMix and Mosaic data augmentation, DropBlock reg., class label smoothing</li>
+  <li>Bag of freebies for detector : 
+CIoU-loss, CmBN, DropBlock reg., Mosaic data augmentation, SAT, Eliminate gird sensitivity, multi anchors for a single ground truth, cosine annealing, hyperparams, random training shapes</li>
+  <li>Bag of Specials for Backbone : 
+Mish activation, Cross-stage partial connections (CSP), Multi-
+input weighted residual connections (MiWRC)</li>
+  <li>Bag of specials for detector : 
+Mish act., SPP-block, SAM-block, PAN path-aggregation block, DIoU-NMS</li>
+</ul>
+
+<h3 id="results">
+<a class="anchor" href="#results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results</h3>
+
+<p>A FPS /mAP (@Iou50) comparison to other detecors can be seen below :</p>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/Yolo_comp.png" alt="images"></p>
+
+  </div><a class="u-url" href="/DL_from_Foundations/markdown/2020/06/24/YOLOv4.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/DL_from_Foundations/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/DL_from_Foundations/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
