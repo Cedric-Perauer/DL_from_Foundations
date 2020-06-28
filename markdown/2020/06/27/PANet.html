@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      13 min read
     
 </span></p>
 
@@ -131,6 +131,31 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h4"><a href="#findings">Findings</a></li>
 <li class="toc-entry toc-h4"><a href="#contributions">Contributions</a></li>
+<li class="toc-entry toc-h4"><a href="#framework">Framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#panet-paper-summary-1">PANet Paper Summary</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#what-did-the-authors-want-to-achieve--1">What did the authors want to achieve ?</a></li>
+<li class="toc-entry toc-h3"><a href="#methods-used-1">Methods used</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#findings-1">Findings</a></li>
+<li class="toc-entry toc-h4"><a href="#contributions-1">Contributions</a></li>
+<li class="toc-entry toc-h4"><a href="#framework-1">Framework</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#panet-paper-summary-2">PANet Paper Summary</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#what-did-the-authors-want-to-achieve--2">What did the authors want to achieve ?</a></li>
+<li class="toc-entry toc-h3"><a href="#methods-used-2">Methods used</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#findings-2">Findings</a></li>
+<li class="toc-entry toc-h4"><a href="#contributions-2">Contributions</a></li>
+<li class="toc-entry toc-h4"><a href="#framework-2">Framework</a></li>
 </ul>
 </li>
 </ul>
@@ -140,6 +165,8 @@ window.onload = wrap_img;
 
 <h3 id="what-did-the-authors-want-to-achieve-">
 <a class="anchor" href="#what-did-the-authors-want-to-achieve-" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?</h3>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/PAN.png" alt="images"></p>
 
 <ul>
   <li>improve Computer Vision tasks object detection and mainly instance segmentation</li>
@@ -166,8 +193,243 @@ window.onload = wrap_img;
 =&gt; new : propagate low-level features to enhance the feature hierarchy for instance recogniton</li>
   <li>2) Adaptive feature pooling is introduced to recover broken information between each proposal and all feature levels</li>
   <li>3) for multi view : augmentation of mask prediction with small fc layers : more diverse info, masks have better quality</li>
-  <li>1) &amp; 2) are both used for detection and segmentation and lead to improvments of both tasks</li>
+  <li>1) &amp; 2) are both used for detection and segmentation and lead to improvements of both tasks</li>
 </ul>
+
+<h4 id="framework">
+<a class="anchor" href="#framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Framework</h4>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/bottom_up.png" alt="images"></p>
+
+<p>Bottom-up Path Augmentation</p>
+<ul>
+  <li>Intuition : bottom up is augmented to easily propagate lower layers</li>
+  <li>We know that high layers respond to whole objects, lower layers to fine features</li>
+  <li>Localization can be enhanced with top-down paths (FPN)</li>
+  <li>Here a path from low level to higher ones is built, based on higher layers respose to edges and instance parts which helps localization error</li>
+  <li>Approach follow FPN, also using ResNet : layers with same spatial size are in same feature space (b) in figure 1)</li>
+  <li>As shown in figure 2), each feature map takes a higher resolution feature map $N_{i}$ and a coarser map $P_{i+1}$ and generates a new one using a 3x3 conv with stride 2 for size reduction on each $N_{i}$ map. After that each element of $P_{i+1}$ is and the down sampled map are added using lateral connection. The fused map is convoluted using another 3x3 kernel to generate $N_{i+1}$, the whole process is iterated until $P_{5}$ is reached. All convs are followed by a ReLU.</li>
+  <li>up to 0.9 mAP improvement with large input sizes</li>
+</ul>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/mask_pred_pan.png" alt="images"></p>
+
+<p>Adaptive Feature Pooling</p>
+<ul>
+  <li>Idea : Adapative feature pooling allows each propsal to access info from all levels</li>
+  <li>In FPN, small proposals are assigned to low level features and high proposals to higher level ones . This can be non-optimal, as e.g. 2 examples with 10-pixel difference can be assigned to different levels even though they are rather similar. Also features may not correlate strongly with the layer they belong to.</li>
+  <li>High-level features have a larger receptive field and a more global context, whereas lower ones have fine details and high-localization accuracy. Therefore pooling from all levels and all proposals is fused for prediction. The authors call it adaptive feature pooling. For fusion max operations are used. For each level a ratio of kept features is calculated, surprisingly almost 70% are from other higher levels. The findings show that, features from multi levels together are helpful for accurate prediction. An intuition that is similar to DenseNet.This also supports bottom-up augmentation.</li>
+  <li>The exact process can be seen in figure 1 c), at first each proposal is mapped to different feature levels. Then ROIAlign is used to pool grids from each level. After that fusion of feature grids from different levels is performed using an element-wise max or sum. The focus is on in net feature hierarchy, instead of using different levels from image pyramids. It is comparable to L2 norm, where concat and dimension reduction are used.</li>
+</ul>
+
+<p>Fully Connected Fusion</p>
+<ul>
+  <li>Results have shown that MLP is also useful for pixelwise mask prediction. FC layers have different properties compared to FCN, FCN shares parameters and predicts based on local receptifve field. FC layers are localy sensitive since they do not use param sharing. They can adaptto different spatial locations. Using these ideas, it is helpful to differentiate parts in an image and use this infomration by fusing them.</li>
+  <li>Mask branch operates on pooled features and mainly consists of a FCN net with 4 conv (each 3x3 with 256 filters) and 1 deconv layer (upsample by 2). A shortcut from layer conv3 to fc is also implemented. The fc layer predicts a class agnostic foreground/background mask. It’s efficient and allows for better generality.</li>
+  <li>up to 0.7 mAP improvement for all scales</li>
+</ul>
+
+<p>Others</p>
+<ul>
+  <li>MultiGPU Sync Batch Norm</li>
+  <li>Heavier head : effective for box AP</li>
+  <li>multi scale training</li>
+</ul>
+
+<p>Total improvement in AP is 4.4 over baseline, half of it is due to Synch BN and multi scale training</p>
+
+<p>Results</p>
+<ul>
+  <li>Ablation study was done for architecture design</li>
+  <li>Winner of 2017 COCO Segmentation, SOTA performance in segmentation (Cityscapes) and detection</li>
+</ul>
+
+<hr>
+<p>toc: true
+layout: post
+use_math : true
+description: A summary of PANet, Path Aggregation Net for Instance Segmentation<br>
+categories: [markdown]
+title: PANet Paper Summary
+—</p>
+
+<h2 id="panet-paper-summary-1">
+<a class="anchor" href="#panet-paper-summary-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>PANet Paper Summary</h2>
+
+<h3 id="what-did-the-authors-want-to-achieve--1">
+<a class="anchor" href="#what-did-the-authors-want-to-achieve--1" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?</h3>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/PAN.png" alt="images"></p>
+
+<ul>
+  <li>improve Computer Vision tasks object detection and mainly instance segmentation</li>
+  <li>build on top of Fast/ Faster /Mask RCNN and improve info propagation</li>
+  <li>design an architecture that can deal with blurry and heavy occlusion of the new datasets back then (2018) , like COCO 2017</li>
+  <li>use in-net feature hierarchy : top down path with lateral connections is augmented to emphasize strong sementical features</li>
+</ul>
+
+<h3 id="methods-used-1">
+<a class="anchor" href="#methods-used-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods used</h3>
+<h4 id="findings-1">
+<a class="anchor" href="#findings-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Findings</h4>
+<ul>
+  <li>Mask RCNN : long path from low-level to topmost features, which makes it difficult to access localization information</li>
+  <li>Mask RCNN : only single view, losinance to gather diverse information</li>
+  <li>Mask RCNN : predictions based on pooled feature grides that are assigned heuristicallyg ch, can be updated since lower level info can be important for final prediction</li>
+</ul>
+
+<h4 id="contributions-1">
+<a class="anchor" href="#contributions-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h4>
+<ul>
+  <li>PANet is proposed for instance segementation</li>
+  <li>1) bottom-up path augmentation to shorten information path and improve featrue pyramid with accurate low-level information 
+=&gt; new : propagate low-level features to enhance the feature hierarchy for instance recogniton</li>
+  <li>2) Adaptive feature pooling is introduced to recover broken information between each proposal and all feature levels</li>
+  <li>3) for multi view : augmentation of mask prediction with small fc layers : more diverse info, masks have better quality</li>
+  <li>1) &amp; 2) are both used for detection and segmentation and lead to improvements of both tasks</li>
+</ul>
+
+<h4 id="framework-1">
+<a class="anchor" href="#framework-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Framework</h4>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/bottom_up.png" alt="images"></p>
+
+<p>Bottom-up Path Augmentation</p>
+<ul>
+  <li>Intuition : bottom up is augmented to easily propagate lower layers</li>
+  <li>We know that high layers respond to whole objects, lower layers to fine features</li>
+  <li>Localization can be enhanced with top-down paths (FPN)</li>
+  <li>Here a path from low level to higher ones is built, based on higher layers respose to edges and instance parts which helps localization error</li>
+  <li>Approach follow FPN, also using ResNet : layers with same spatial size are in same feature space (b) in figure 1)</li>
+  <li>As shown in figure 2), each feature map takes a higher resolution feature map $N_{i}$ and a coarser map $P_{i+1}$ and generates a new one using a 3x3 conv with stride 2 for size reduction on each $N_{i}$ map. After that each element of $P_{i+1}$ is and the down sampled map are added using lateral connection. The fused map is convoluted using another 3x3 kernel to generate $N_{i+1}$, the whole process is iterated until $P_{5}$ is reached. All convs are followed by a ReLU.</li>
+  <li>up to 0.9 mAP improvement with large input sizes</li>
+</ul>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/mask_pred_pan.png" alt="images"></p>
+
+<p>Adaptive Feature Pooling</p>
+<ul>
+  <li>Idea : Adapative feature pooling allows each propsal to access info from all levels</li>
+  <li>In FPN, small proposals are assigned to low level features and high proposals to higher level ones . This can be non-optimal, as e.g. 2 examples with 10-pixel difference can be assigned to different levels even though they are rather similar. Also features may not correlate strongly with the layer they belong to.</li>
+  <li>High-level features have a larger receptive field and a more global context, whereas lower ones have fine details and high-localization accuracy. Therefore pooling from all levels and all proposals is fused for prediction. The authors call it adaptive feature pooling. For fusion max operations are used. For each level a ratio of kept features is calculated, surprisingly almost 70% are from other higher levels. The findings show that, features from multi levels together are helpful for accurate prediction. An intuition that is similar to DenseNet.This also supports bottom-up augmentation.</li>
+  <li>The exact process can be seen in figure 1 c), at first each proposal is mapped to different feature levels. Then ROIAlign is used to pool grids from each level. After that fusion of feature grids from different levels is performed using an element-wise max or sum. The focus is on in net feature hierarchy, instead of using different levels from image pyramids. It is comparable to L2 norm, where concat and dimension reduction are used.</li>
+</ul>
+
+<p>Fully Connected Fusion</p>
+<ul>
+  <li>Results have shown that MLP is also useful for pixelwise mask prediction. FC layers have different properties compared to FCN, FCN shares parameters and predicts based on local receptifve field. FC layers are localy sensitive since they do not use param sharing. They can adaptto different spatial locations. Using these ideas, it is helpful to differentiate parts in an image and use this infomration by fusing them.</li>
+  <li>Mask branch operates on pooled features and mainly consists of a FCN net with 4 conv (each 3x3 with 256 filters) and 1 deconv layer (upsample by 2). A shortcut from layer conv3 to fc is also implemented. The fc layer predicts a class agnostic foreground/background mask. It’s efficient and allows for better generality.</li>
+  <li>up to 0.7 mAP improvement for all scales</li>
+</ul>
+
+<p>Others</p>
+<ul>
+  <li>MultiGPU Sync Batch Norm</li>
+  <li>Heavier head : effective for box AP</li>
+  <li>multi scale training</li>
+</ul>
+
+<p>Total improvement in AP is 4.4 over baseline, half of it is due to Synch BN and multi scale training</p>
+
+<p>Results</p>
+<ul>
+  <li>Ablation study was done for architecture design</li>
+  <li>Winner of 2017 COCO Segmentation, SOTA performance in segmentation (Cityscapes) and detection</li>
+</ul>
+
+<hr>
+<p>toc: true
+layout: post
+use_math : true
+description: A summary of PANet, Path Aggregation Net for Instance Segmentation<br>
+categories: [markdown]
+title: PANet Paper Summary
+—</p>
+
+<h2 id="panet-paper-summary-2">
+<a class="anchor" href="#panet-paper-summary-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>PANet Paper Summary</h2>
+
+<h3 id="what-did-the-authors-want-to-achieve--2">
+<a class="anchor" href="#what-did-the-authors-want-to-achieve--2" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?</h3>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/PAN.png" alt="images"></p>
+
+<ul>
+  <li>improve Computer Vision tasks object detection and mainly instance segmentation</li>
+  <li>build on top of Fast/ Faster /Mask RCNN and improve info propagation</li>
+  <li>design an architecture that can deal with blurry and heavy occlusion of the new datasets back then (2018) , like COCO 2017</li>
+  <li>use in-net feature hierarchy : top down path with lateral connections is augmented to emphasize strong sementical features</li>
+</ul>
+
+<h3 id="methods-used-2">
+<a class="anchor" href="#methods-used-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods used</h3>
+<h4 id="findings-2">
+<a class="anchor" href="#findings-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Findings</h4>
+<ul>
+  <li>Mask RCNN : long path from low-level to topmost features, which makes it difficult to access localization information</li>
+  <li>Mask RCNN : only single view, losinance to gather diverse information</li>
+  <li>Mask RCNN : predictions based on pooled feature grides that are assigned heuristicallyg ch, can be updated since lower level info can be important for final prediction</li>
+</ul>
+
+<h4 id="contributions-2">
+<a class="anchor" href="#contributions-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h4>
+<ul>
+  <li>PANet is proposed for instance segementation</li>
+  <li>1) bottom-up path augmentation to shorten information path and improve featrue pyramid with accurate low-level information 
+=&gt; new : propagate low-level features to enhance the feature hierarchy for instance recogniton</li>
+  <li>2) Adaptive feature pooling is introduced to recover broken information between each proposal and all feature levels</li>
+  <li>3) for multi view : augmentation of mask prediction with small fc layers : more diverse info, masks have better quality</li>
+  <li>1) &amp; 2) are both used for detection and segmentation and lead to improvements of both tasks</li>
+</ul>
+
+<h4 id="framework-2">
+<a class="anchor" href="#framework-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Framework</h4>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/bottom_up.png" alt="images"></p>
+
+<p>Bottom-up Path Augmentation</p>
+<ul>
+  <li>Intuition : bottom up is augmented to easily propagate lower layers</li>
+  <li>We know that high layers respond to whole objects, lower layers to fine features</li>
+  <li>Localization can be enhanced with top-down paths (FPN)</li>
+  <li>Here a path from low level to higher ones is built, based on higher layers respose to edges and instance parts which helps localization error</li>
+  <li>Approach follow FPN, also using ResNet : layers with same spatial size are in same feature space (b) in figure 1)</li>
+  <li>As shown in figure 2), each feature map takes a higher resolution feature map $N_{i}$ and a coarser map $P_{i+1}$ and generates a new one using a 3x3 conv with stride 2 for size reduction on each $N_{i}$ map. After that each element of $P_{i+1}$ is and the down sampled map are added using lateral connection. The fused map is convoluted using another 3x3 kernel to generate $N_{i+1}$, the whole process is iterated until $P_{5}$ is reached. All convs are followed by a ReLU.</li>
+  <li>up to 0.9 mAP improvement with large input sizes</li>
+</ul>
+
+<p><img src="https://Cedric-Perauer.github.io/DL_from_Foundations/images/mask_pred_pan.png" alt="images"></p>
+
+<p>Adaptive Feature Pooling</p>
+<ul>
+  <li>Idea : Adapative feature pooling allows each propsal to access info from all levels</li>
+  <li>In FPN, small proposals are assigned to low level features and high proposals to higher level ones . This can be non-optimal, as e.g. 2 examples with 10-pixel difference can be assigned to different levels even though they are rather similar. Also features may not correlate strongly with the layer they belong to.</li>
+  <li>High-level features have a larger receptive field and a more global context, whereas lower ones have fine details and high-localization accuracy. Therefore pooling from all levels and all proposals is fused for prediction. The authors call it adaptive feature pooling. For fusion max operations are used. For each level a ratio of kept features is calculated, surprisingly almost 70% are from other higher levels. The findings show that, features from multi levels together are helpful for accurate prediction. An intuition that is similar to DenseNet.This also supports bottom-up augmentation.</li>
+  <li>The exact process can be seen in figure 1 c), at first each proposal is mapped to different feature levels. Then ROIAlign is used to pool grids from each level. After that fusion of feature grids from different levels is performed using an element-wise max or sum. The focus is on in net feature hierarchy, instead of using different levels from image pyramids. It is comparable to L2 norm, where concat and dimension reduction are used.</li>
+</ul>
+
+<p>Fully Connected Fusion</p>
+<ul>
+  <li>Results have shown that MLP is also useful for pixelwise mask prediction. FC layers have different properties compared to FCN, FCN shares parameters and predicts based on local receptifve field. FC layers are localy sensitive since they do not use param sharing. They can adaptto different spatial locations. Using these ideas, it is helpful to differentiate parts in an image and use this infomration by fusing them.</li>
+  <li>Mask branch operates on pooled features and mainly consists of a FCN net with 4 conv (each 3x3 with 256 filters) and 1 deconv layer (upsample by 2). A shortcut from layer conv3 to fc is also implemented. The fc layer predicts a class agnostic foreground/background mask. It’s efficient and allows for better generality.</li>
+  <li>up to 0.7 mAP improvement for all scales</li>
+</ul>
+
+<p>Others</p>
+<ul>
+  <li>MultiGPU Sync Batch Norm</li>
+  <li>Heavier head : effective for box AP</li>
+  <li>multi scale training</li>
+</ul>
+
+<p>Total improvement in AP is 4.4 over baseline, half of it is due to Synch BN and multi scale training</p>
+
+<p>Results</p>
+<ul>
+  <li>Ablation study was done for architecture design</li>
+  <li>Winner of 2017 COCO Segmentation, SOTA performance in segmentation (Cityscapes) and detection</li>
+</ul>
+
 
   </div><a class="u-url" href="/DL_from_Foundations/markdown/2020/06/27/PANet.html" hidden></a>
 </article>
