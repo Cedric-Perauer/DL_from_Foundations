@@ -157,15 +157,15 @@ window.onload = wrap_img;
 <a class="anchor" href="#findings" aria-hidden="true"><span class="octicon octicon-link"></span></a>Findings</h4>
 <ul>
   <li>Mask RCNN : long path from low-level to topmost features, which makes it difficult to access localization information</li>
-  <li>Mask RCNN : only single view, losinance to gather diverse information</li>
-  <li>Mask RCNN : predictions based on pooled feature grides that are assigned heuristicallyg ch, can be updated since lower level info can be important for final prediction</li>
+  <li>Mask RCNN : only single view, multi view preferd to gather diverse information</li>
+  <li>Mask RCNN : predictions based on pooled feature grides that are assigned heuristically, can be updated since lower level info can be important for final prediction</li>
 </ul>
 
 <h4 id="contributions">
 <a class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h4>
 <ul>
   <li>PANet is proposed for instance segementation</li>
-  <li>1) bottom-up path augmentation to shorten information path and improve featrue pyramid with accurate low-level information 
+  <li>1) bottom-up path augmentation to shorten information path and improve feature pyramid with accurate low-level information 
 =&gt; new : propagate low-level features to enhance the feature hierarchy for instance recogniton</li>
   <li>2) Adaptive feature pooling is introduced to recover broken information between each proposal and all feature levels</li>
   <li>3) for multi view : augmentation of mask prediction with small fc layers : more diverse info, masks have better quality</li>
@@ -182,9 +182,9 @@ window.onload = wrap_img;
   <li>Intuition : bottom up is augmented to easily propagate lower layers</li>
   <li>We know that high layers respond to whole objects, lower layers to fine features</li>
   <li>Localization can be enhanced with top-down paths (FPN)</li>
-  <li>Here a path from low level to higher ones is built, based on higher layers respose to edges and instance parts which helps localization error</li>
+  <li>Here a path from low levels to higher ones is built, based on higher layers respose to edges and instance parts which helps localization error</li>
   <li>Approach follow FPN, also using ResNet : layers with same spatial size are in same feature space (b) in figure 1)</li>
-  <li>As shown in figure 2), each feature map takes a higher resolution feature map $N_{i}$ and a coarser map $P_{i+1}$ and generates a new one using a 3x3 conv with stride 2 for size reduction on each $N_{i}$ map. After that each element of $P_{i+1}$ is and the down sampled map are added using lateral connection. The fused map is convoluted using another 3x3 kernel to generate $N_{i+1}$, the whole process is iterated until $P_{5}$ is reached. All convs are followed by a ReLU.</li>
+  <li>As shown in figure 2), each feature map takes a higher resolution feature map $N_{i}$ and a coarser map $P_{i+1}$ and generates a new one using a 3x3 conv with stride 2 for size reduction on each $N_{i}$ map. After that each element of $P_{i+1}$ and the down sampled map are added using lateral connection. The fused map is convoluted using another 3x3 kernel to generate $N_{i+1}$, the whole process is iterated until $P_{5}$ is reached. All convs are followed by a ReLU.</li>
   <li>up to 0.9 mAP improvement with large input sizes</li>
 </ul>
 
@@ -200,7 +200,7 @@ window.onload = wrap_img;
 
 <p>Fully Connected Fusion</p>
 <ul>
-  <li>Results have shown that MLP is also useful for pixelwise mask prediction. FC layers have different properties compared to FCN, FCN shares parameters and predicts based on local receptifve field. FC layers are localy sensitive since they do not use param sharing. They can adaptto different spatial locations. Using these ideas, it is helpful to differentiate parts in an image and use this infomration by fusing them.</li>
+  <li>Results have shown that MLP is also useful for pixelwise mask prediction. FC layers have different properties compared to FCN, FCN shares parameters and predicts based on local receptifve field. FC layers are localy sensitive since they do not use param sharing. They can adapt to different spatial locations. Using these ideas, it is helpful to differentiate parts in an image and use this information by fusing them.</li>
   <li>Mask branch operates on pooled features and mainly consists of a FCN net with 4 conv (each 3x3 with 256 filters) and 1 deconv layer (upsample by 2). A shortcut from layer conv3 to fc is also implemented. The fc layer predicts a class agnostic foreground/background mask. It’s efficient and allows for better generality.</li>
   <li>up to 0.7 mAP improvement for all scales</li>
 </ul>
