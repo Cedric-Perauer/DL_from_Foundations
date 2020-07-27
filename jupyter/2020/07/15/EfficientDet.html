@@ -232,9 +232,9 @@ $Figure$ $1$</p>
 <p>As explained earlier, the different resolutions that the feature maps have should be considered and therefore weithed during aggregation. In this work the authors use Pyramid Attention Network, which uses global self-attention upsampling to recover the location of the pixels. In order to weigh each input seperately, an additional learnable weight is added for each input. The authors consider three different fusion approaches :</p>
 <p>1) Unbounded Fusion : $0 = \sum\limits_{i} w_{i} * I_{i}$
 =&gt; could lead to instability, so weight norm is applied here</p>
-<p>2) Softmax-based function : $O = \sum\limits_{i} \dfrac{e^{w_{i}}}{\sum\limits_{j} e{w_{j}}} * I_{i}$<br>
+<p>2) Softmax-based function : $O = \sum\limits_{i} \dfrac{e^{w_{i}}}{\sum\limits_{j} e^{w_{j}}} * I_{i}$<br>
 =&gt; here the idea is to normalize the probablities between 0 and 1, weighting the importance of each input that way. However the softmax introduces extra slowdown on the GPU hardware, so 3) is proposed :</p>
-<p>3) Fast normalized fusion : $O = \sum\limits_{i} \dfrac}{\epsilon + \sum\limits_{j}  {w_{j}}} * I_{i}$</p>
+<p>3) Fast normalized fusion : $O = \sum\limits_{i} \dfrac{w_{i}}{\sum\limits_{j} {w_{j}} + \epsilon} * I_{i}$</p>
 <p>This function has the same learning charaterstics as 2), but it runs about 30% faster on GPU  Depthwise sep. convs are used for better runtime.</p>
 <h3 id="Architecture">
 <a class="anchor" href="#Architecture" aria-hidden="true"><span class="octicon octicon-link"></span></a>Architecture<a class="anchor-link" href="#Architecture"> </a>
