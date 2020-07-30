@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ADABOUND Summary | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="ADABOUND Summary" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun" />
+<meta property="og:description" content="Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/adabound.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-31T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-07-31T00:00:00-05:00","dateModified":"2020-07-31T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html"},"description":"Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/adabound.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html","headline":"ADABOUND Summary","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>ADABOUND Summary | fastpages</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="ADABOUND Summary" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun" />
+<meta property="og:description" content="Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun" />
+<link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html" />
+<meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html" />
+<meta property="og:site_name" content="fastpages" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/adabound.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-31T00:00:00-05:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-07-31T00:00:00-05:00","dateModified":"2020-07-31T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html"},"description":"Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/adabound.png","@type":"BlogPosting","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html","headline":"ADABOUND Summary","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/DL_from_Foundations/">fastpages</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/DL_from_Foundations/about/">About Me</a><a class="page-link" href="/DL_from_Foundations/search/">Search</a><a class="page-link" href="/DL_from_Foundations/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">ADABOUND Summary</h1><p class="page-description">Adaptive Gradient Methods With Dynamic Bound Of Learning Rate by Iangchen Luo, Yuanhao Xiong, Yan Liu and Xu Sun</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-31T00:00:00-05:00" itemprop="datePublished">
+        Jul 31, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/DL_from_Foundations/categories/#jupyter">jupyter</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#What-did-the-authors-want-to-achieve-?">What did the authors want to achieve ? </a></li>
+<li class="toc-entry toc-h2"><a href="#Methods">Methods </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Analysis-of-already-existing-adaptive-methods">Analysis of already existing adaptive methods </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Theorem-1">Theorem 1 </a></li>
+<li class="toc-entry toc-h4"><a href="#Theorem-2">Theorem 2 </a></li>
+<li class="toc-entry toc-h4"><a href="#Theorem-3">Theorem 3 </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h3"><a href="#Adabound">Adabound </a></li>
+<li class="toc-entry toc-h3"><a href="#Implementation">Implementation </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Results">Results </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-07-31-ADABOUND.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://arxiv.org/abs/1902.09843">Paper Link</a></p>
+<h2 id="What-did-the-authors-want-to-achieve-?">
+<a class="anchor" href="#What-did-the-authors-want-to-achieve-?" aria-hidden="true"><span class="octicon octicon-link"></span></a>What did the authors want to achieve ?<a class="anchor-link" href="#What-did-the-authors-want-to-achieve-?"> </a>
+</h2>
+<p>In recent years, a lot of different first order methods (ADAGRAD, RMSProp, ADAM, AMSGRAD) have been introduced for training deep neural nets in order to combat the uniform gradient scaling of SGD and it's slower training speed. Experiments and the release of state of the art CV and NLP models - which use traditional SGD (often with momentum) -  prove that these optimizers generalize poorly in comparison to classic SGD. Sometimes they don't even converge, which is largely because of unstable and extreme learning rates.</p>
+<p>The authors therefore provide new, dynamically bounded versions of AMSGRAD and ADAM, called AMSBOUND and ADABOUND. These new techniques can be seen as adaptive methods during early training, which smoothly transform into SGD/SGD with momentum as training time increases. Their method is inspired by gradient clipping.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Methods">
+<a class="anchor" href="#Methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Methods<a class="anchor-link" href="#Methods"> </a>
+</h2>
+<p><br><br></p>
+<h3 id="Analysis-of-already-existing-adaptive-methods">
+<a class="anchor" href="#Analysis-of-already-existing-adaptive-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Analysis of already existing adaptive methods<a class="anchor-link" href="#Analysis-of-already-existing-adaptive-methods"> </a>
+</h3>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/frame_adabound.png" alt="image"> 
+The figure above shows the generic training loop that was used by the authors, where :</p>
+<p>$g_{t}$ represents the gradient at step $t$<br>
+$\alpha_{t}$ represents the learning rate at step $t$, which is gradually being                           reduced for theoretical proof of convergence<br>
+$m_{t}$ represents the momentum term at step $t$, a function of the gradients<br>
+$V_{t}$ represents the scaling term at step $t$, a function of the gradients</p>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/adabound_algos.png" alt="image"></p>
+<p>The table above shows different optimizers w.r.t to the generic training loop. $\phi_{t}$ and $\psi_{t}$ are the respective functions used for computing $m_{t}$ and $V_{t}$ respectively. 
+<br><br>
+The authors mainly focus on ADAM in their research, as it is very general so it also applies to other adaptive methods (RMSProp, ADAGRAD). Note that ADAM is a combination of RMSprop and momentum, with the distinction that momentum is incorporated directly in the first-order moment estimate (with the use of exponential weighting) and also the additional use of weight decay.<br>
+<br><br>
+At the time of writing, AMSGRAD was a recently released adaptive method, which was supposed to perform as well as SGD. However AMSGRAD does not yield evident improvement when compared to ADAM. AMSGRAD uses a smaller learning rate than ADAM and the AMSGRAD researchers consider that large learning rates are probLematic. Due to the smaller learning rate being used in AMSGRAD, the authors suspect that small learning rates might be a problem for ADAM as well.<br>
+<br><br></p>
+<p>To prove their theory, the authors sample learning rates of several weights and biases for ResNet-34 on CIFAR-10 with ADAM. They randomly select 9 3x3 conv kernels from different layers and biases from the last fully connected layer. Because parameters of the same layer very similar, 9 weights sampled from 9 kernels and one bias are considered. These weights and the bias are visualized in a heatmap. They find that tiny learning rates of smaller than 0.01 and larger ones greater than 1000 lead to the model being closer to convergence. Therefore it is empirically proven, that the learning rate can be both too large and too small in extreme cases. AMSGRAD combats the impact of large learning rates, but it does neglect the other side of the spectrum.<br>
+<br><br></p>
+<p>In a second experiment, the authors consider a set of linear functions with different gradients. In their example (see Page 4, upper part of the page), once every $C$ steps a gradient of -1 (moves into the wrong direction) occurs and at the next step a gradient of 2 occurs. Even though 2 is larger than 1 in terms of the abolute value, the larger gradient can not counteract the -1 gradient as the learning rate is scaled down in this later time step leading to x diverging.
+<br><br></p>
+<p>3 theorems formalize the intuition : 
+<br><br></p>
+<h4 id="Theorem-1">
+<a class="anchor" href="#Theorem-1" aria-hidden="true"><span class="octicon octicon-link"></span></a>Theorem 1<a class="anchor-link" href="#Theorem-1"> </a>
+</h4>
+<p><br><br></p>
+<p>There is an online convex optimization problem where for any initial step size α, ADAM
+has non-zero average regret. (ADAM does not converge) 
+This problem does not occur with SGD, as for a large amount of possible choices for α, the average regret for SGD converges to 0. This is mostly a problem at the end of training, where a lot of gradients are close to zero and the average of 2n order momentum is very various beacuse of the exponential moving average. In this case correct signals occur rarely, which may lead to the algorithm not being able to converge (refer to the example with the gradients of -1 and 2 earlier). Their results show that for any case where $\beta_{1} &lt; \sqrt{\beta_{2}}$ , ADAM does not converge regardless of the step size. Note the standard values are usually $\beta_{1}=0.9$ and $\beta_{2}=0.999$, which proves that $\beta_{1} &lt; \sqrt{\beta_{2}}$, because $0.9 &lt; 0.9995$.<br>
+<br><br></p>
+<h4 id="Theorem-2">
+<a class="anchor" href="#Theorem-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Theorem 2<a class="anchor-link" href="#Theorem-2"> </a>
+</h4>
+<p><br><br>
+Refers to the earlier point, that there is an online convex optimzation setting, where ADAM does not converge when $\beta_{1} &lt; \sqrt{\beta_{2}}$ for  $\beta_{1}$,$\beta_{2}$ $\in [0,1)$ 
+<br><br></p>
+<h4 id="Theorem-3">
+<a class="anchor" href="#Theorem-3" aria-hidden="true"><span class="octicon octicon-link"></span></a>Theorem 3<a class="anchor-link" href="#Theorem-3"> </a>
+</h4>
+<p><br><br>
+Just like theorem 2, but in a stochastic convex optimization setting  : There is a stochatic convex optimzation setting, where ADAM does not converge when $\beta_{1} &lt; \sqrt{\beta_{2}}$ for  $\beta_{1}$,$\beta_{2}$ $\in [0,1)$ 
+<br><br></p>
+<p>By formulating these 3 theorems, it is proven that the impact of extreme learning rates will lead to a lacking generalization ability and will not be able to solve the problem.</p>
+<h3 id="Adabound">
+<a class="anchor" href="#Adabound" aria-hidden="true"><span class="octicon octicon-link"></span></a>Adabound<a class="anchor-link" href="#Adabound"> </a>
+</h3>
+<p>As mentioned in the beginning of the paper, the goal should be to achieve SGD performance with ADAM training speed. 
+<img src="/DL_from_Foundations/images/copied_from_nb/images/ADABOUND_algo.png" alt="">
+<br><br></p>
+<p>The above algorithm is essentially ADAM with clipping in order to constrain the learning rate to be in $[\eta_{l},\eta_{u}]$. For ADAM $\eta_{l} = 0$ and $\eta_{u} = \infty$ and for SGD(optionally with Momentum) with a learning rate $\alpha$, $\eta_{l} = \eta_{u} = \alpha$. The bound are functions of step $t$, with the lower bound $\eta_{l}(t)$ is a non-decreasing function that starts from zero and converges to SGD's $\alpha$  and the upper bound $\eta_{u}(t)$ being a function that starts from $\infty$ and converges to $\alpha$ as well. 
+The functions are : 
+$\eta_{l}(t) = 0.1 - \frac{0.1}{(1-\beta_{2})t + 1}$<br>
+$\eta_{u}(t) = 0.1 + \frac{0.1}{(1-\beta_{2})t}$</p>
+<p><br><br></p>
+<p>We therefore reach the SGD state in the end as bound become increasingly restricted with higher step size $t$. The authors empasize that this method is better than using a mixed ADAM and SGD approach with a "hard switch" (Kesker &amp; Socher 2017) which also introduces a hard to tune hyperparameter. The result is proven for Adabound in theorem 4, which also shows that ADABOUND is upper bounded by $O(\sqrt{T})$ : 
+<br><br></p>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/theorem4.png" alt="">
+<br><br>
+The authors provide extensive and very understandable proofs in their appendix.</p>
+<h3 id="Implementation">
+<a class="anchor" href="#Implementation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Implementation<a class="anchor-link" href="#Implementation"> </a>
+</h3>
+<p><br><br>
+An implementation of ADABOUND and ADABOUNDW by the authors can be found <a href="https://github.com/Luolc/AdaBound/blob/master/adabound/adabound.py">here</a>. We can see that the implementation is very similar to the standard ADAM optimizer in the Pytorch source code. The difference is the if/else condition in the end which keeps track of the maximum 2nd moment running average, as well as the bounding at the end of the <code>step</code> function. ADABOUNDW also adds weight decay at the end.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Results">
+<a class="anchor" href="#Results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results<a class="anchor-link" href="#Results"> </a>
+</h2>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Cedric-Perauer/DL_from_Foundations"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/DL_from_Foundations/jupyter/2020/07/31/ADABOUND.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/DL_from_Foundations/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/DL_from_Foundations/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/fastai" title="fastai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/fastdotai" title="fastdotai"><svg class="svg-icon grey"><use xlink:href="/DL_from_Foundations/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
