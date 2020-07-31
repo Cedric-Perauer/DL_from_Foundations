@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      7 min read
     
 </span></p>
 
@@ -252,6 +252,20 @@ An implementation of ADABOUND and ADABOUNDW by the authors can be found <a href=
 <h2 id="Results">
 <a class="anchor" href="#Results" aria-hidden="true"><span class="octicon octicon-link"></span></a>Results<a class="anchor-link" href="#Results"> </a>
 </h2>
+<p><br><br>
+<img src="/DL_from_Foundations/images/copied_from_nb/images/Ada_exp.png" alt="">
+<br><br></p>
+<p>The authors compare ADABOUND and AMSBOUND to ADAM, AMSGRAD, ADAGRAD and SGD on the tasks above with the respective architectures. Hyperparameters are tuned for each optimizer seperately using a logarithmic grid which can be extrapolated if an extreme value is determined to perform the best.</p>
+<p><br><br>
+<img src="/DL_from_Foundations/images/copied_from_nb/images/ada_CNN.png" alt="">
+<br><br></p>
+<p>The above diagrams show the performance of ADABOUND/AMSBOUND when compared to traditional methods. With DenseNet-121 on CIFAR-10 ADABOUND is about 2% better than it's base methods during test. With ResNet, they even outperform SGD (with momentum) @ test time by 1%. Much more improvment in deep conv nets is oberved when compared to perceptrons.</p>
+<p><br><br>
+<img src="/DL_from_Foundations/images/copied_from_nb/images/ada_RNN.png" alt="">
+<br><br></p>
+<p>For RNNs ADAM does have the best initial progress but stagnates very quickly, with AMSBOUND/ADABOUND being smoother than SGD (with momentum). Compared to ADAM it outperforms it by 1.1% in the 1 layer LSTM case and 2.8% in the 3 Layer case. This further proves that increasingly more complex architectures benefit even more from AMSBOUND/ADABOUND. This is due to extreme learning rates being more likely to occur with complex models.</p>
+<p>The authors summarize that while AMSBOUND/ADABOUND perform well with complex architectures, there is still potential for shallower architectures. It is also unclear why SGD performs so well in most cases. Other ways for improvment should also be considered, the authors propose weight decay as a potential often (AMSBOUNDW).</p>
+
 </div>
 </div>
 </div>
