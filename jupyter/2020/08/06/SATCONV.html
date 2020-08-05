@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      1 min read
+      4 min read
     
 </span></p>
 
@@ -178,15 +178,59 @@ window.onload = wrap_img;
 <h3 id="Conv-Block-deficits">
 <a class="anchor" href="#Conv-Block-deficits" aria-hidden="true"><span class="octicon octicon-link"></span></a>Conv Block deficits<a class="anchor-link" href="#Conv-Block-deficits"> </a>
 </h3>
+<p>Capturing long range interactions is challenging for convolutions as they do not scale well with large receptives. Since attention has been used to tackle long range dependencies in sequence modeling, since architectures like SE Nets model attention on a chanel wise basis successfully. However in these cases attention was only an add-on to a traditional architecture style. In this paper the authors propose to use attention mechanisms as stand alone layers.</p>
 <h3 id="Self-Attention">
 <a class="anchor" href="#Self-Attention" aria-hidden="true"><span class="octicon octicon-link"></span></a>Self-Attention<a class="anchor-link" href="#Self-Attention"> </a>
 </h3>
+<p>Attention was originally introduced in order to allow for summarization from variable length source sentences. Attention focuses on the important parts of the input and thereby can serve as a primary representation learning mechanism and fully replace recurrence. The word self means that it just considers a single context (query,keys and values are extracted from the same image). The breakthrough in this paper is the use of self-attention layers instead of convolutional layers.</p>
+<p>In this work, already existing mechanisms are used which are not optimized for the image domain. Therefore it is permutation equivariant and has limited expression capability for vision tasks.
+<br><br></p>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/sat_conv.png" alt=""> 
+<br><br>
+The process is as follows : 
+1) given a pixel $x_{i,j} \in R^{d_{in}}$ in positions $ab \in N_{k}(i,j)$ a local kernel with kernel size $k$ is extracted. $x_{i,j}$ is the middle of the kernel, which is called <em>memory block</em>. Prior work only performed global attention, which can only be done with a downsized sample as it is very compute expensive. 
+<br><br></p>
+<p>2) Single headed attention is computed : 
+<br><br>
+$y_{i,j} = \sum_{ab \in N_{k}(i,j)}  softmax_{a,b}(q_{ij}^{T}k_{ab})v_{ab}$
+<br><br>
+where the ${queries}$ $q_{ij} = W_Q x_{ij}$<br>
+<br><br>
+${keys}$ $k_{ab} = W_K x_{ab}$
+<br><br></p>
+<p>and ${values}$ $v_{ab} = W_V x_{ab}$ 
+<br><br></p>
+<p>are linear transformations of the pixel in position and it's neighbors in the kernel. 
+<br><br>
+$\texttt{softmax}_{a b}$ is a softmax, which is applied to all logits computed in the neighborhood of $ij$. 
+$W_Q, W_K, W_V \in \mathbb{R}^{d_{out} \times d_{in}}$ are learned transforms. 
+<br><br></p>
+<p>Local self-attention is similar to convolution in the way that it aggregates spatial information in the neighborhoods, multi attention heads are used to learn unique representations of the input. This is done by partitioning pixel features into $N$ groups and then computing single-headed attention on each one seperately with the transforms $W_Q, W_K, W_V \in \mathbb{R}^{d_{out} \times d_{in}}$. The outputs of the heads are then concatenated. 
+<br><br>
+2D relative pose embeddings,relative attention is used : 
+<br><br></p>
+<p>1) relative attention computes relative distances of the pixel to each one in the neighborhood : row $(a-i)$ and column offset $(b-j)$<br>
+2) row and column offset are associated with an embedding and concatenated into a vector $r_{a-i,b-j}$</p>
+<p>3) Spatial-relative attention is then defined as : 
+<br><br></p>
+<p>$y_{ij} = \sum_{a,b\in N_{k}(i, j)] softmax_{ab}(q_{ij}^{T}k_{ab}+q_{ij}^{T}r_{a-i,b-j})v_{ab}$</p>
+<p><br><br>
+The logit measuring similarity between the query and an element results from the content of the element and the relative distance of the element from the query. By inlcuding this spatial information, self-attention also has translation equivariance, just like conv layers. Unlike conv layers, self-attentions parameter count is independent of its spatial extent. 
+The compute cost also grows slower : 
+For example, if $d_{in} = d_{out} = 128$, a convolution layer with $k = 3$ has the same computational cost as an attention layer with $k = 19$.</p>
+<p>Using this as their basis, a fully attentional architecture is created in two steps:</p>
 <h4 id="Replacing-Spatial-Convolutions">
 <a class="anchor" href="#Replacing-Spatial-Convolutions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Replacing Spatial Convolutions<a class="anchor-link" href="#Replacing-Spatial-Convolutions"> </a>
 </h4>
+<p>A spatial conv is defined to have spatial extent k &gt; 1, which also includes 1x1 convolutions. These can be viewed as fully connected layers. 
+Here the authors want to replace conv blocks in a straightforward way, specificially focusing on ResNet. Therefore the 3x3 convolution in Path B is swapped with a self-attention layer as defined above. All the other blocks are not changed, this might be supobtimal but promises potential improvements using architecture search.</p>
 <h4 id="Replacing-the-Convolutional-Stem-(intial-layers-of-the-CNN)">
 <a class="anchor" href="#Replacing-the-Convolutional-Stem-(intial-layers-of-the-CNN)" aria-hidden="true"><span class="octicon octicon-link"></span></a>Replacing the Convolutional Stem (intial layers of the CNN)<a class="anchor-link" href="#Replacing-the-Convolutional-Stem-(intial-layers-of-the-CNN)"> </a>
 </h4>
+<p>This part focuses on replacing the inital layers, as they are the most compute expensive due to the large input size of the image. In the OG ResNet the input is a 7x7 kernel with stride 2, followed by 3x3 max pooling with stride 2. At the beginning RGB pixels are individually uninformative and information is heavily spatially correlated through low level features such as edges. Edge detectors are difficult to learn for self-attention due to spatial correlation, convs learn these easily through distance based weight parameterization. The authors inject spatially-varying linear transforms into the pointwise 1x1 softmax convolution.</p>
+<p>$\tilde{v}_{a b} = \left(\sum_m  p(a, b, m) W_V^{m}\right) x_{a b}$</p>
+<p>The results is similar to convolutions, weights are learned based on a local neighborhood basis. So in total the stem consists of spatially aware value features, followed by max-pooling. A more detailed explanation of this can be found in the appendix of the paper (page 14/15).</p>
+
 </div>
 </div>
 </div>
