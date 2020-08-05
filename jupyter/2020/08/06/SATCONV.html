@@ -213,7 +213,7 @@ $W_Q, W_K, W_V \in \mathbb{R}^{d_{out} \times d_{in}}$ are learned transforms.
 2) row and column offset are associated with an embedding and concatenated into a vector $r_{a-i,b-j}$</p>
 <p>3) Spatial-relative attention is then defined as : 
 <br><br></p>
-<p>$y_{ij} = \sum_{a,b\in N_{k}(i, j)] softmax_{ab}(q_{ij}^{T}k_{ab}+q_{ij}^{T}r_{a-i,b-j})v_{ab}$</p>
+<p>$y_{ij} = \sum_{a,b\in N_{k}(i, j)} softmax_{ab}(q_{ij}^{T}k_{ab}+q_{ij}^{T}r_{a-i,b-j})v_{ab}$</p>
 <p><br><br>
 The logit measuring similarity between the query and an element results from the content of the element and the relative distance of the element from the query. By inlcuding this spatial information, self-attention also has translation equivariance, just like conv layers. Unlike conv layers, self-attentions parameter count is independent of its spatial extent. 
 The compute cost also grows slower : 
