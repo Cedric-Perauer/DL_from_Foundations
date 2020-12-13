@@ -7,32 +7,32 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="End to End Learning for Autonomous Driving" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello" />
-<meta property="og:description" content="Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello" />
+<meta name="description" content="End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba" />
+<meta property="og:description" content="End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba" />
 <link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html" />
 <meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html" />
 <meta property="og:site_name" content="fastpages" />
-<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/SATCONV.png" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/END_TO_END.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-11-25T00:00:00-06:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html"},"description":"Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello","@type":"BlogPosting","headline":"End to End Learning for Autonomous Driving","dateModified":"2020-11-25T00:00:00-06:00","datePublished":"2020-11-25T00:00:00-06:00","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/SATCONV.png","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html"},"description":"End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba","@type":"BlogPosting","headline":"End to End Learning for Autonomous Driving","dateModified":"2020-11-25T00:00:00-06:00","datePublished":"2020-11-25T00:00:00-06:00","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/END_TO_END.png","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/DL_from_Foundations/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://cedric-perauer.github.io/DL_from_Foundations/feed.xml" title="fastpages" /><link rel="shortcut icon" type="image/x-icon" href="/DL_from_Foundations/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>End to End Learning for Autonomous Driving | fastpages</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="End to End Learning for Autonomous Driving" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello" />
-<meta property="og:description" content="Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello" />
+<meta name="description" content="End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba" />
+<meta property="og:description" content="End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba" />
 <link rel="canonical" href="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html" />
 <meta property="og:url" content="https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html" />
 <meta property="og:site_name" content="fastpages" />
-<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/SATCONV.png" />
+<meta property="og:image" content="https://cedric-perauer.github.io/DL_from_Foundations/images/END_TO_END.png" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-11-25T00:00:00-06:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html"},"description":"Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello","@type":"BlogPosting","headline":"End to End Learning for Autonomous Driving","dateModified":"2020-11-25T00:00:00-06:00","datePublished":"2020-11-25T00:00:00-06:00","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/SATCONV.png","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html"},"description":"End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba","@type":"BlogPosting","headline":"End to End Learning for Autonomous Driving","dateModified":"2020-11-25T00:00:00-06:00","datePublished":"2020-11-25T00:00:00-06:00","image":"https://cedric-perauer.github.io/DL_from_Foundations/images/END_TO_END.png","url":"https://cedric-perauer.github.io/DL_from_Foundations/jupyter/2020/11/25/DRIVE.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -103,7 +103,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">End to End Learning for Autonomous Driving</h1><p class="page-description">Introducing Self-Attention as a stand-alone layer in Convolutional Architectures by Prajit Ramachandran,Niki Parmar,Ashish Vaswani,Jonathon Shlens,Anselm Levskaya,Irwan Bello</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-25T00:00:00-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">End to End Learning for Autonomous Driving</h1><p class="page-description">End to End Learning for Self-Driving Cars by Mariusz Bojarski, Davide Del Testa, Daniel Dworakowski, Bernhard Firner, Beat Flepp, Prasoon Goyal, Lawrence D. Jackel, Mathew Monfort, Urs Muller, Jiakai Zhang, Xin Zhang, Jake Zhao, Karol Zieba</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-11-25T00:00:00-06:00" itemprop="datePublished">
         Nov 25, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -167,11 +167,11 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://arxiv.org/pdf/1906.05909.pdf">Paper Link</a></p>
 <h2 id="What-is-the-goal-of-the-authors-?">
 <a class="anchor" href="#What-is-the-goal-of-the-authors-?" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is the goal of the authors ?<a class="anchor-link" href="#What-is-the-goal-of-the-authors-?"> </a>
 </h2>
-<p><a href="https://arxiv.org/pdf/1906.05909.pdf">Paper Link</a><br>
-Addressing current approaches in End-to-End learning and showing it's potentials/challenges and training methods. Currently, the state of the art is based on modular architectures, where single tasks are learned and analyzed. While some of these modules might be learned, the interconnection between modules (for example bounding boxes as Perception stack outputs) is highly abstracted and therefore very limited. This offers several advantages such as easier debugging and better interpretability. Due to the number of taks that have already been solved with end-to-end learning, (chess, GO, DOTA2, ATARI games,...) it seems reasonable to think that end-to-end will be crucial in the near future. Especially since humans are able to control car while they are tired and/or distracted.</p>
+<p>Addressing current approaches in End-to-End learning and showing it's potentials/challenges and training methods. Currently, the state of the art is based on modular architectures, where single tasks are learned and analyzed. While some of these modules might be learned, the interconnection between modules (for example bounding boxes as Perception stack outputs) is highly abstracted and therefore very limited. This offers several advantages such as easier debugging and better interpretability. Due to the number of taks that have already been solved with end-to-end learning, (chess, GO, DOTA2, ATARI games,...) it seems reasonable to think that end-to-end will be crucial in the near future. Especially since humans are able to control car while they are tired and/or distracted.</p>
 
 </div>
 </div>
