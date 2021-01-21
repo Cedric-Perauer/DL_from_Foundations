@@ -60,6 +60,10 @@ It can be calculated as follows :</p>
 <p><img src="/DL_from_Foundations/images/copied_from_nb/images/dark_csp.png" alt="" /></p>
 <h4 id="Neck">Neck<a class="anchor-link" href="#Neck"> </a></h4><p>PANet Neck of Yolov4 is made 40% more compute efficient by CSPizing it." It mainly intagrates the features from different feature pyramids, and then passes through two sets of reversed Darknet residual layer without shortcut connections."</p>
 <h4 id="SPP">SPP<a class="anchor-link" href="#SPP"> </a></h4><p>The SPP module is also kept inside of the CSP module analgous to the original approach.</p>
+<h3 id="Models">Models<a class="anchor-link" href="#Models"> </a></h3><p>The scaling approach allows the creation of a tiny model and different large models.</p>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/yolo-tiny.png" alt="" /></p>
+<p>For the large model, 3 different large models are created which are fully CSPized. YOLOv4-P5 can reach 60 FPS with the right width scaling factor. It outperforms EfficientDet-D5 slightly while being 1.9 times faster. The tiny version performs at speeds up to 290 FPS (Xavier AGX, FP16 in Tensorrt) and is more than real time capable.</p>
+<p><img src="/DL_from_Foundations/images/copied_from_nb/images/yolo-large.png" alt="" /></p>
 
 </div>
 </div>
