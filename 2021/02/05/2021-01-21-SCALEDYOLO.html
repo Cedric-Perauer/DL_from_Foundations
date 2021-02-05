@@ -16,18 +16,7 @@
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Goal-of-the-Authors">Goal of the Authors<a class="anchor-link" href="#Goal-of-the-Authors"> </a></h2><ul>
-<li>design an efficient model scaling technique, according to them : EfficientDet, SpineNet,RegNet 
-  scaling is all good work but they do not analyze the relation between parameters like model depth, model witdh,
-  input resolution, group width, bottleneck ratio</li>
-<li>the good performance of normal YOLOv4 is due to the CSP Darknet53 Backbone fulffilling optimal parameters as 
-found through architecture search (depth of 65, bottleneck ratio of 1 and width growth ratio of 2)   </li>
-<li>based on YOlOv4, they develop YOLOv4-CSP and based on that they scale to YOLO Scaled</li>
-<li>they aim to design a good scaling technique for both large and small models, analyze the relations between scaling 
-factors</li>
-<li>FPN is confirmed to be a once for all model element</li>
-<li>model with fast runtime (2 stage detectors are not part of this), anchor based approaches are not as nice as CenterNet but perform better </li>
-</ul>
+<h2 id="Goal-of-the-Authors">Goal of the Authors<a class="anchor-link" href="#Goal-of-the-Authors"> </a></h2><p>Design an efficient model scaling technique, according to them : EfficientDet, SpineNet,RegNet scaling is all good work but they do not analyze the relation between parameters like model depth, model witdh,input resolution, group width, bottleneck ratio. The good performance of normal YOLOv4 is due to the CSP Darknet53 Backbone fulffilling optimal parameters as found through architecture search (depth of 65, bottleneck ratio of 1 and width growth ratio of 2). Based on YOlOv4, they develop YOLOv4-CSP and based on that they scale to YOLO Scaled, they aim to design a good scaling technique for both large and small models, analyze the relations between scaling  factors. FPN is confirmed to be a once for all model element model with fast runtime (2 stage detectors are not part of this), anchor based approaches are not as nice as CenterNet but perform better.</p>
 
 </div>
 </div>
