@@ -11,5 +11,7 @@ https://Cedric-Perauer.github.io/DL_from_Foundations/
 
 _powered by [fastpages](https://github.com/fastai/fastpages)_
 
+Papers/ contains papers with highlighted text
+
 
 
